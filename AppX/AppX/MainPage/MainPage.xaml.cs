@@ -50,10 +50,10 @@ namespace AppX
             }
             else if (action == "Lokalizację")
             {
-                //var addLocVM = new AddLocalizationViewModel();
+                var addLocVM = new AddLocalizationViewModel();
                 var addLocPage = new AddLocalization();
 
-                //addLocPage.BindingContext = addLocVM;
+                addLocPage.BindingContext = addLocVM;
                 await Application.Current.MainPage.Navigation.PushAsync(addLocPage);
             }
             else if (action == "Osobę bliską")

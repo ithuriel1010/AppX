@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -11,15 +13,19 @@ namespace AppX.LocalizationFiles
     public class AddLocalizationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
+
+        bool IsBusy;
+        string address = "Microsoft Building 25 Redmond WA USA";
+        string geocodePosition;
+
+        public ICommand GetPositionCommand { get; }
+        public ICommand CancelCommand { get; }
+
 
         public AddLocalizationViewModel()
         {
-            SaveCommand = new Command(async () =>
-            {
+            GetPositionCommand = new Command(async () => await OnGetPosition());
 
-            });
 
             CancelCommand = new Command(async () =>
             {
@@ -28,10 +34,7 @@ namespace AppX.LocalizationFiles
             });
         }
 
-        //string address;
-        string placeLocalization;
-
-        /*public string Address
+        public string Address
         {
             get => address;
             set
@@ -41,19 +44,50 @@ namespace AppX.LocalizationFiles
 
                 PropertyChanged?.Invoke(this, args);
             }
-        }*/
+        }
 
-        public string PlaceLocalization
+        public string GeocodePosition
         {
-            get => placeLocalization;
+            get => geocodePosition;
             set
             {
-                placeLocalization = value;
-                var args = new PropertyChangedEventArgs(nameof(PlaceLocalization));
+                geocodePosition = value;
+                var args = new PropertyChangedEventArgs(nameof(GeocodePosition));
 
                 PropertyChanged?.Invoke(this, args);
             }
         }
 
+        async Task OnGetPosition()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            try
+            {
+
+                var locations = await Geocoding.GetLocationsAsync(Address);
+                Location location = locations.FirstOrDefault();
+                if (location == null)
+                {
+                    GeocodePosition = "Unable to detect locations";
+                }
+                else
+                {
+                    GeocodePosition =
+                        $"{nameof(location.Latitude)}: {location.Latitude}\n" +
+                        $"{nameof(location.Longitude)}: {location.Longitude}\n";
+                }
+            }
+            catch (Exception ex)
+            {
+                GeocodePosition = $"Unable to detect locations: {ex.Message}";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

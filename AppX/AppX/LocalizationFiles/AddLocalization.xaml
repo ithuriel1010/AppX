@@ -14,16 +14,7 @@
                     Margin="0,6,0,0"
                     FontAttributes="Bold"
                     Text="Geocoding:" />
-                <Label Text="Latitude:" />
-                <Entry Keyboard="Numeric" Text="{Binding Latitude}" />
-                <Label Text="Longitude:" />
-                <Entry Keyboard="Numeric" Text="{Binding Longitude}" />
-                <Button
-                    Command="{Binding GetAddressCommand}"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Detect Placemarks" />
-                <Label Text="{Binding GeocodeAddress}" />
-
+               
                 <Label
                     Margin="0,6,0,0"
                     FontAttributes="Bold"
