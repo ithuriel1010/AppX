@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppX.LocalizationFiles;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -46,6 +47,14 @@ namespace AppX
 
                 addContPage.BindingContext = addContVM;
                 await Application.Current.MainPage.Navigation.PushAsync(addContPage);
+            }
+            else if (action == "Lokalizację")
+            {
+                //var addLocVM = new AddLocalizationViewModel();
+                var addLocPage = new AddLocalization();
+
+                //addLocPage.BindingContext = addLocVM;
+                await Application.Current.MainPage.Navigation.PushAsync(addLocPage);
             }
             else if (action == "Osobę bliską")
             {
