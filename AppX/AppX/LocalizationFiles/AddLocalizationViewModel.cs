@@ -17,8 +17,8 @@ namespace AppX.LocalizationFiles
         public event PropertyChangedEventHandler PropertyChanged;
 
         bool IsBusy;
-        string address = "Microsoft Building 25 Redmond WA USA";
-        string geocodePosition;
+        //string address = "Microsoft Building 25 Redmond WA USA";
+        //string geocodePosition;
         string street;
         string houseNumber;
         string city;
@@ -72,7 +72,7 @@ namespace AppX.LocalizationFiles
             });
         }
 
-        public string Address
+        /*public string Address
         {
             get => address;
             set
@@ -82,7 +82,7 @@ namespace AppX.LocalizationFiles
 
                 PropertyChanged?.Invoke(this, args);
             }
-        }
+        }*/
 
         public string Street
         {
@@ -156,7 +156,7 @@ namespace AppX.LocalizationFiles
             }
         }
 
-        public string GeocodePosition
+        /*public string GeocodePosition
         {
             get => geocodePosition;
             set
@@ -166,7 +166,7 @@ namespace AppX.LocalizationFiles
 
                 PropertyChanged?.Invoke(this, args);
             }
-        }
+        }*/
 
         async Task OnGetPosition(string fullAddress)
         {
@@ -181,7 +181,7 @@ namespace AppX.LocalizationFiles
                 Location location = locations.FirstOrDefault();
                 if (location == null)
                 {
-                    GeocodePosition = "Unable to detect locations";
+                    //GeocodePosition = "Unable to detect locations";
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace AppX.LocalizationFiles
             }
             catch (Exception ex)
             {
-                GeocodePosition = $"Unable to detect locations: {ex.Message}";
+                //GeocodePosition = $"Unable to detect locations: {ex.Message}";
             }
             finally
             {
