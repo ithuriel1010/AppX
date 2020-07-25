@@ -81,11 +81,11 @@ namespace AppX
             }
             if (action == "Lokalizację")
             {
-                var localVM = new LocalizationViewModel(Lokalizacja);
-                var localPage = new Localization();
+                var seelocalVM = new SeeLocalizationsListViewModel();
+                var seelocalPage = new SeeLocalizationsList();
 
-                localPage.BindingContext = localVM;
-                await Application.Current.MainPage.Navigation.PushAsync(localPage);
+                seelocalPage.BindingContext = seelocalVM;
+                await Application.Current.MainPage.Navigation.PushAsync(seelocalPage);
             }
             if (action == "Osoby bliskie")
             {
