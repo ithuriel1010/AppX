@@ -6,15 +6,25 @@
              mc:Ignorable="d"
              x:Class="AppX.LocalizationFiles.SeeLocalizationsList">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Lokalizacje" FontSize="Title"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Lokalizacje" FontSize="Title" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 
             <CollectionView ItemsSource="{Binding localizationsList}"  EmptyView="No items to display"
+                            Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedLocalization}"
-                            SelectionChangedCommand="{Binding SelectedLoalizationChangedCommand}">
+                            SelectionChangedCommand="{Binding SelectedLocalizationChangedCommand}">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -42,6 +52,6 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

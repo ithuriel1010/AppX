@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AppX.DatabaseClasses
 {
-    class LocalizationsDB
+    public class LocalizationsDB
     {
         [PrimaryKey, AutoIncrement]
         public int Id
