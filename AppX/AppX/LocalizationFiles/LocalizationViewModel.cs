@@ -6,7 +6,7 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 
-namespace AppX
+namespace AppX.LocalizationFiles
 {
     public class LocalizationViewModel
     {

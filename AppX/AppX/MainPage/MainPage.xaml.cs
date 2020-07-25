@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppX.LocalizationFiles;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -47,6 +48,14 @@ namespace AppX
                 addContPage.BindingContext = addContVM;
                 await Application.Current.MainPage.Navigation.PushAsync(addContPage);
             }
+            else if (action == "Lokalizację")
+            {
+                var addLocVM = new AddLocalizationViewModel();
+                var addLocPage = new AddLocalization();
+
+                addLocPage.BindingContext = addLocVM;
+                await Application.Current.MainPage.Navigation.PushAsync(addLocPage);
+            }
             else if (action == "Osobę bliską")
             {
                 var addPerVM = new AddPersonViewModel();
@@ -72,11 +81,11 @@ namespace AppX
             }
             if (action == "Lokalizację")
             {
-                var localVM = new LocalizationViewModel(Lokalizacja);
-                var localPage = new Localization();
+                var seelocalVM = new SeeLocalizationsListViewModel();
+                var seelocalPage = new SeeLocalizationsList();
 
-                localPage.BindingContext = localVM;
-                await Application.Current.MainPage.Navigation.PushAsync(localPage);
+                seelocalPage.BindingContext = seelocalVM;
+                await Application.Current.MainPage.Navigation.PushAsync(seelocalPage);
             }
             if (action == "Osoby bliskie")
             {

@@ -16,6 +16,15 @@ namespace AppX
         public event PropertyChangedEventHandler PropertyChanged;
 
         ContactsDB contact = new ContactsDB();
+
+        string imie;
+        string nazwisko;
+        string telefon;
+        string email;
+        string zwiazek;
+
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
         public AddContactViewModel()
         {
             SaveCommand = new Command(async () =>
@@ -43,16 +52,6 @@ namespace AppX
             });
         }
         
-
-        string imie;
-        string nazwisko;
-        string telefon;
-        string email;
-        string zwiazek;
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-
         public string Imie
         {
             get => imie;

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AppX.LocalizationFiles.AddLocalization">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="12,0,12,12" Spacing="6">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+                <!--<Label
+                    Margin="0,6,0,0"
+                    FontAttributes="Bold"
+                    Text="Geocoding:" />               
+                <Label
+                    Margin="0,6,0,0"
+                    FontAttributes="Bold"
+                    Text="Reverse Geocoding:" />-->
+
+                <Label Text="Dodaj lokalizacje" FontSize="Title"
+                        VerticalOptions="CenterAndExpand" 
+                        HorizontalOptions="CenterAndExpand" />
+                
+                <Label Text="Ulica:" />
+                <Entry Text="{Binding Street}" Placeholder="Niepodległości"/>
+                <Label Text="Numer domu:"/>
+                <Entry Text="{Binding HouseNumber}" Placeholder="31"/>
+                <Label Text="Miasto:" />
+                <Entry Text="{Binding City}" Placeholder="Gdańsk"/>
+                <Label Text="Województwo:" />
+                <Entry Text="{Binding County}" Placeholder="Pomorskie"/>
+
+                <Label Text="Nazwa lokalizacji:" />
+                <Entry Text="{Binding Name}" Placeholder="Dom"/>
+
+                <Label Text="Wiadomość:" />
+                <Entry Text="{Binding Message}" Placeholder="Jesteś w domu"/>
+
+                <!--<Label Text="Address:" />
+                <Entry Text="{Binding Address}" />
+
+                <Button
+                    Command="{Binding GetPositionCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Detect Location" />-->
+
+                <Button
+                    Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Text="Zapisz lokalizacje" />
+
+                <!--<Label Text="{Binding GeocodePosition}" />-->
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

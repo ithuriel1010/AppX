@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AppX
+namespace AppX.LocalizationFiles
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Localization : ContentPage
