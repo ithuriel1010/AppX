@@ -40,8 +40,10 @@ namespace AppX.LocalizationFiles
         {
             SaveCommand = new Command(async () =>
             {
+                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + "Polska";
                 await OnGetPosition(fullAddress);
 
+                localization.Address = fullAddress;
                 localization.Lat = lat;
                 localization.Lon = lon;
                 localization.Name = Name;
@@ -49,7 +51,7 @@ namespace AppX.LocalizationFiles
 
                 using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                 {
-                    conn.CreateTable<ContactsDB>();
+                    conn.CreateTable<LocalizationsDB>();
                     conn.Insert(localization);
                 }
 

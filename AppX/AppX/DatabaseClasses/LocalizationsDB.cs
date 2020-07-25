@@ -13,6 +13,7 @@ namespace AppX.DatabaseClasses
             get;
             set;
         }
+        public string Address { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
         public string Name { get; set; }
