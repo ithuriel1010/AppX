@@ -21,7 +21,10 @@
                 HorizontalOptions="CenterAndExpand" />
 
             <CollectionView ItemsSource="{Binding personsList}"  EmptyView="No items to display"
-                            Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
+                            Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedPerson}"
+                            SelectionChangedCommand="{Binding SelectedPersonChangedCommand}">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
