@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppX.DatabaseClasses;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,15 +19,49 @@ namespace AppX.LocalizationFiles
         bool IsBusy;
         string address = "Microsoft Building 25 Redmond WA USA";
         string geocodePosition;
+        string street;
+        string houseNumber;
+        string city;
+        string county;
+        string fullAddress;
+        string name;
+        string message;
 
+        double lat;
+        double lon;
         public ICommand GetPositionCommand { get; }
         public ICommand CancelCommand { get; }
+        public Command SaveCommand { get; }
+
+        LocalizationsDB localization = new LocalizationsDB();
 
 
         public AddLocalizationViewModel()
         {
-            GetPositionCommand = new Command(async () => await OnGetPosition());
+            SaveCommand = new Command(async () =>
+            {
+                await OnGetPosition(fullAddress);
 
+                localization.Lat = lat;
+                localization.Lon = lon;
+                localization.Name = Name;
+                localization.Message = Message;
+
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<ContactsDB>();
+                    conn.Insert(localization);
+                }
+
+                await Application.Current.MainPage.Navigation.PopAsync();
+
+            });
+
+            GetPositionCommand = new Command(async () =>
+            {
+                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + "Polska";
+                await OnGetPosition(fullAddress);
+            });
 
             CancelCommand = new Command(async () =>
             {
@@ -46,6 +82,78 @@ namespace AppX.LocalizationFiles
             }
         }
 
+        public string Street
+        {
+            get => street;
+            set
+            {
+                street = value;
+                var args = new PropertyChangedEventArgs(nameof(Street));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
+        public string HouseNumber
+        {
+            get => houseNumber;
+            set
+            {
+                houseNumber = value;
+                var args = new PropertyChangedEventArgs(nameof(HouseNumber));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
+        public string City
+        {
+            get => city;
+            set
+            {
+                city = value;
+                var args = new PropertyChangedEventArgs(nameof(City));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
+        public string County
+        {
+            get => county;
+            set
+            {
+                county = value;
+                var args = new PropertyChangedEventArgs(nameof(County));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                var args = new PropertyChangedEventArgs(nameof(Name));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
+        public string Message
+        {
+            get => message;
+            set
+            {
+                message = value;
+                var args = new PropertyChangedEventArgs(nameof(Message));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
         public string GeocodePosition
         {
             get => geocodePosition;
@@ -58,7 +166,7 @@ namespace AppX.LocalizationFiles
             }
         }
 
-        async Task OnGetPosition()
+        async Task OnGetPosition(string fullAddress)
         {
             if (IsBusy)
                 return;
@@ -67,7 +175,7 @@ namespace AppX.LocalizationFiles
             try
             {
 
-                var locations = await Geocoding.GetLocationsAsync(Address);
+                var locations = await Geocoding.GetLocationsAsync(fullAddress);
                 Location location = locations.FirstOrDefault();
                 if (location == null)
                 {
@@ -75,9 +183,12 @@ namespace AppX.LocalizationFiles
                 }
                 else
                 {
-                    GeocodePosition =
+                    lat = location.Latitude;
+                    lon = location.Longitude;
+
+                    /*GeocodePosition =
                         $"{nameof(location.Latitude)}: {location.Latitude}\n" +
-                        $"{nameof(location.Longitude)}: {location.Longitude}\n";
+                        $"{nameof(location.Longitude)}: {location.Longitude}\n";*/
                 }
             }
             catch (Exception ex)
