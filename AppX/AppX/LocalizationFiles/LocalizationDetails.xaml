@@ -12,6 +12,10 @@
             <Label Text="{Binding address}"/>
             <Label Text="Wiadomość wyświetlana w okolicy lokalizacji:"/>
             <Label Text="{Binding message}"/>
+            <Label Text="Latitude:"/>
+            <Label Text="{Binding lat}"/>
+            <Label Text="Longitude:"/>
+            <Label Text="{Binding lon}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
