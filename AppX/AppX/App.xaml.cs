@@ -7,6 +7,7 @@ namespace AppX
     public partial class App : Application
     {
         public static string FilePath;
+        public bool patientInfo;
         public App()
         {
             InitializeComponent();
@@ -17,10 +18,26 @@ namespace AppX
         public App(string filePath)
         {
             InitializeComponent();
+            var addPatVM = new AddPatientInfoViewModel();
+            var addPatPage = new AddPatientInfo(this);
 
-            MainPage = new NavigationPage(new MainPage());
+            addPatPage.BindingContext = addPatVM;
+
+            if (!patientInfo)
+                MainPage = addPatPage;
+            else
+                SetHomePage();
+
+           
+            //MainPage = new NavigationPage(new MainPage());
             FilePath = filePath;
         }
+
+        public void SetHomePage()
+        {
+            MainPage = new NavigationPage(new MainPage());
+        }
+
 
         protected override void OnStart()
         {
