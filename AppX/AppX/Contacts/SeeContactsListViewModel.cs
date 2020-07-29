@@ -15,7 +15,9 @@ namespace AppX
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<ContactsDB> contactsList { get; set; }
+        public Command SelectedContactChangedCommand { get; }
 
+        ContactsDB selectedContact;
         public SeeContactsListViewModel()
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -41,10 +43,6 @@ namespace AppX
 
             });
         }
-
-        public Command SelectedContactChangedCommand { get; }
-
-        ContactsDB selectedContact;
 
         public ContactsDB SelectedContact
         {

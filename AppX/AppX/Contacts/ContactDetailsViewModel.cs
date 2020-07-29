@@ -25,8 +25,6 @@ namespace AppX
             telefon = contact.Telefon;
             email = contact.Email;
             zwiazek = contact.Zwiazek;
-
-
         }
     }
 }
