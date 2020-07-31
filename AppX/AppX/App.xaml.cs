@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppX.DatabaseClasses;
+using SQLite;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,8 +19,26 @@ namespace AppX
 
         public App(string filePath)
         {
+            FilePath = filePath;
+            PatientDB patient;
+
+            using (SQLiteConnection conn = new SQLiteConnection(FilePath))
+            {
+                conn.CreateTable<PatientDB>();
+                patient = conn.Table<PatientDB>().FirstOrDefault();
+            }
+
+            if(patient == null)
+            {
+                patientInfo = false;
+            }
+            else
+            {
+                patientInfo = patient.HaveData;
+            }
+
             InitializeComponent();
-            var addPatVM = new AddPatientInfoViewModel();
+            var addPatVM = new AddPatientInfoViewModel(this);
             var addPatPage = new AddPatientInfo(this);
 
             addPatPage.BindingContext = addPatVM;
@@ -30,7 +50,6 @@ namespace AppX
 
            
             //MainPage = new NavigationPage(new MainPage());
-            FilePath = filePath;
         }
 
         public void SetHomePage()

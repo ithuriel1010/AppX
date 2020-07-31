@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.Media;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace AppX
     public partial class AddPatientInfo : ContentPage
     {
         private App app;
+        public string photo;
+
 
         public AddPatientInfo()
         {
@@ -25,13 +28,46 @@ namespace AppX
             this.app = app;
         }
 
-        void Save(object sender, EventArgs e)
+        public void Save()
         {
-            app.patientInfo = true;
+            //app.patientInfo = true;
 
-            app.SetHomePage();
+            //app.SetHomePage();
 
             //await Application.Current.MainPage.Navigation.PopAsync();
+        }
+        public async Task<string> UploadPhoto()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+
+            }
+
+
+            var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
+                CompressionQuality = 40
+            });
+
+
+            if (file != null)
+            {
+                photo = file.Path;
+                //ikona.Source = photo;
+            }
+            else
+            {
+                photo = "smile";
+            }
+
+            //var bitmap = new Image { Source = photo };
+
+            //DisplayIcon.Source = bitmap.Source;
+
+            return photo;
         }
     }
 }
