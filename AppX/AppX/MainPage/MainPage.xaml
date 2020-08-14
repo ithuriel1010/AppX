@@ -21,50 +21,40 @@
     <ContentPage.BindingContext>
         <local:MainPageViewModel/>
     </ContentPage.BindingContext>
-    
-    <!--<Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height=".5*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Image Source="pizza" BackgroundColor="Violet"
-               Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Editor Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
-                Placeholder="Enter Note Here"
-                Text="{Binding TheNote}"/>
+            <Label Text="To jest twój profil" Grid.Row="0"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1"/>
+            <Label Text="{Binding fullName}" Grid.Row="2"/>
+            <Label Text="Wiek:" Grid.Row="3"/>
+            <Label Text="{Binding wiek}" Grid.Row="4"/>
+            <Label Text="Hobby:" Grid.Row="5"/>
+            <Label Text="{Binding hobby}" Grid.Row="6"/>
+            <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Source="{Binding zdjecie}"/>
 
-        <Button Grid.Row="2" Grid.Column="0" Text="Save"
-                Command="{Binding SaveCommand}"/>
-        <Button Grid.Row="2" Grid.Column="1" Text="Erase"
-                Command="{Binding EraseCommand}"/>
-        
-        <CollectionView x:Name="NotesList" ItemsSource="{Binding AllNotes}" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
-                        SelectionMode="Single"
-                        SelectedItem="{Binding SelectedNote}"
-                        SelectionChangedCommand="{Binding SelectedNotesChangedCommand}">
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
-                        <Frame>
-                            <Label Text="{Binding .}" FontSize="Title"/>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-        </CollectionView>
-
-    </Grid>-->
-
-    <Label Text="Main Page" FontSize="Title"/>
-
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
