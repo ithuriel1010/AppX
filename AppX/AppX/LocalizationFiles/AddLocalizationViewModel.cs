@@ -40,7 +40,7 @@ namespace AppX.LocalizationFiles
         {
             SaveCommand = new Command(async () =>
             {
-                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + "Polska";
+                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
                 await OnGetPosition(fullAddress);
 
                 localization.Address = fullAddress;
@@ -61,7 +61,7 @@ namespace AppX.LocalizationFiles
 
             GetPositionCommand = new Command(async () =>
             {
-                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + "Polska";
+                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
                 await OnGetPosition(fullAddress);
             });
 
