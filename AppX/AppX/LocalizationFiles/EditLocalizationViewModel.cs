@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace AppX.LocalizationFiles
 {
-    public class AddLocalizationViewModel : INotifyPropertyChanged
+    public class EditLocalizationViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,33 +33,45 @@ namespace AppX.LocalizationFiles
         public ICommand CancelCommand { get; }
         public Command SaveCommand { get; }
 
-        LocalizationsDB localization = new LocalizationsDB();
+        LocalizationsDB localization;
 
-
-        public AddLocalizationViewModel()
+        public EditLocalizationViewModel(LocalizationsDB localizationDetails)
         {
+            localization = localizationDetails;
+
+            //fullAddress = localization.Address;
+            Street = localization.Street;
+            HouseNumber = localization.HouseNumber;
+            City = localization.City;
+            County = localization.County;
+            //lat = localization.Lat;
+            //lon = localization.Lon;
+            Name = localization.Name;
+            Message = localization.Message;
+
             SaveCommand = new Command(async () =>
             {
                 fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
                 await OnGetPosition(fullAddress);
 
-                localization.Address = fullAddress;
                 localization.Street = Street;
                 localization.HouseNumber = HouseNumber;
                 localization.City = City;
                 localization.County = County;
+                localization.Address = fullAddress;
                 localization.Lat = lat;
                 localization.Lon = lon;
                 localization.Name = Name;
-                localization.Message = Message;
+                localization.Message = Message;               
+
 
                 using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                 {
                     conn.CreateTable<LocalizationsDB>();
-                    conn.Insert(localization);
+                    conn.Update(localization);
                 }
 
-                await Application.Current.MainPage.Navigation.PopAsync();
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
 
             });
 
@@ -206,5 +218,6 @@ namespace AppX.LocalizationFiles
                 IsBusy = false;
             }
         }
+
     }
 }
