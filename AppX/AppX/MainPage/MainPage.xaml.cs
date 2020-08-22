@@ -1,11 +1,15 @@
-﻿using AppX.LocalizationFiles;
+﻿using AppX.DatabaseClasses;
+using AppX.LocalizationFiles;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -20,14 +24,32 @@ namespace AppX
         public string Acc { get; set; }
         SensorSpeed speed = SensorSpeed.UI;
 
+        double longitude;
+        double latitude;
+
+        List<LocalizationsDB> localizationsList;
+
         public MainPage()
         {
             InitializeComponent();
-            GetLocationAsync();
+
+            System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
+            timer.AutoReset = true;
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(MyMethod);
+            timer.Start();
+
+            //GetLocationAsync();
             //AccelerometerTest at = new AccelerometerTest(Acc);
             //at.ToggleAccelerometer();
             //var lok = new Label { Text = Lokalizacja, TextDecorations = TextDecorations.Underline};
 
+        }
+
+        public void MyMethod(object sender, ElapsedEventArgs e)
+        {
+            GetLocationAsync();
+            CheckDistanceAndSendAlert();
+            //LocalizationLabel.Text = Lokalizacja;
         }
 
         protected override void OnAppearing()
@@ -115,12 +137,17 @@ namespace AppX
 
                 if (location != null)
                 {
-                    Lokalizacja = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}";
-                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                    latitude = location.Latitude;
+                    longitude = location.Longitude;
+
+                    //Lokalizacja = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}";
+                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
                 }
                 else
                 {
-                    Lokalizacja = "Lokalizacja=null";
+                    latitude = 0;
+                    longitude = 0;
+                    //Lokalizacja = "Lokalizacja=null";
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -140,6 +167,34 @@ namespace AppX
                 Lokalizacja = "Unable to get location";
             }
 
+            
+        }
+
+        public async void CheckDistanceAndSendAlert()
+        {
+            using (SQLiteConnection loc = new SQLiteConnection(App.FilePath))
+            {
+                loc.CreateTable<LocalizationsDB>();
+                var localizations = loc.Table<LocalizationsDB>().ToList();
+
+                localizationsList = new List<LocalizationsDB>(localizations);
+            }
+
+            foreach (var oneLocalization in localizationsList)
+            {
+                Location other = new Location(oneLocalization.Lat, oneLocalization.Lon);
+                Location here = new Location(latitude, longitude);
+                double kilometers = Location.CalculateDistance(other, here, DistanceUnits.Kilometers);
+
+                if (kilometers <= 0.05 || true)
+                {
+                    Device.BeginInvokeOnMainThread(async () => {
+                        await DisplayAlert(oneLocalization.Name, kilometers.ToString(), "OK");
+                    });
+                    //await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
+                    break;
+                }
+            }
         }
     }
 
