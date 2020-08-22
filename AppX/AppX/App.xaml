@@ -6,6 +6,22 @@
              mc:Ignorable="d"
              x:Class="AppX.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="TitleLabel">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style TargetType="Label" x:Key="DataLabel">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="Button" x:Key="CallButton">
+                <Setter Property="BackgroundColor" Value="Green"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>

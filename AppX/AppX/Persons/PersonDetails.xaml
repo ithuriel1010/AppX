@@ -5,18 +5,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="AppX.Persons.PersonDetails">
+
+    <NavigationPage.TitleView>
+        <AbsoluteLayout VerticalOptions="CenterAndExpand">
+            <Button ImageSource="edit.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Command="{Binding EditCommand}"
+                    HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
+    </AbsoluteLayout>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Content>
         <StackLayout>
             
-            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0"/>
-            <Label Text="Imię i nazwisko:" Grid.Row="1"/>
-            <Label Text="{Binding fullName}" Grid.Row="2"/>
-            <Label Text="Telefon:" Grid.Row="3"/>
-            <Label Text="{Binding telefon}" Grid.Row="4"/>
-            <Label Text="Email:" Grid.Row="5"/>
-            <Label Text="{Binding email}" Grid.Row="6"/>
+            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource TitleLabel}"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource TitleLabel}"/>
+            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataLabel}"/>
+            <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource TitleLabel}"/>
+            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataLabel}"/>
+            <Label Text="Email:" Grid.Row="5" Style="{StaticResource TitleLabel}"/>
+            <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataLabel}"/>
 
-            <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}"/>
+            <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

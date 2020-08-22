@@ -13,6 +13,10 @@ namespace AppX.DatabaseClasses
             get;
             set;
         }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
+        public string City { get; set; }
+        public string County { get; set; }
         public string Address { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
