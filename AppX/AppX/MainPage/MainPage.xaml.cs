@@ -26,6 +26,8 @@ namespace AppX
 
         double longitude;
         double latitude;
+        int minutesAway = 0;
+
 
         List<LocalizationsDB> localizationsList;
 
@@ -180,19 +182,40 @@ namespace AppX
                 localizationsList = new List<LocalizationsDB>(localizations);
             }
 
+            int locationCount = localizationsList.Count;
+            int farLocations = 0;
+
             foreach (var oneLocalization in localizationsList)
             {
                 Location other = new Location(oneLocalization.Lat, oneLocalization.Lon);
                 Location here = new Location(latitude, longitude);
                 double kilometers = Location.CalculateDistance(other, here, DistanceUnits.Kilometers);
 
-                if (kilometers <= 0.05 || true)
+                if (kilometers <= 0.05)
                 {
                     Device.BeginInvokeOnMainThread(async () => {
-                        await DisplayAlert(oneLocalization.Name, kilometers.ToString(), "OK");
+                        await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
                     });
                     //await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
                     break;
+                }
+                else if (kilometers >= 3)
+                {
+                    farLocations++;
+
+                    if(farLocations==locationCount)
+                    {
+                        minutesAway++;
+
+                        if(minutesAway>=10)
+                        {
+                            Device.BeginInvokeOnMainThread(async () => {
+                                await DisplayAlert("UWAGA", "Jesteś daleko poza znanymi lokalizacjami!", "OK");
+                            });
+
+                            minutesAway = 0;
+                        }
+                    }
                 }
             }
         }
