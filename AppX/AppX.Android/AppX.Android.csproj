@@ -39,7 +39,7 @@
     <MandroidI18n />
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\Users\Ola\xamarinapp.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>xamarinapp</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>xamarinapp</AndroidSigningKeyAlias>
