@@ -37,9 +37,9 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <MandroidI18n />
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidKeyStore>true</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\Users\Ola\xamarinapp.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>xamarinapp</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>xamarinapp</AndroidSigningKeyAlias>

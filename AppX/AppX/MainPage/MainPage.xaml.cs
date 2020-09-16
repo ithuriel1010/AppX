@@ -1,4 +1,5 @@
-﻿using AppX.DatabaseClasses;
+﻿using Android.Icu.Text;
+using AppX.DatabaseClasses;
 using AppX.LocalizationFiles;
 using SQLite;
 using System;
@@ -28,6 +29,8 @@ namespace AppX
         double latitude;
         int minutesAway = 0;
 
+        bool noAnwser = false;
+        private int _duration = 0;
 
         List<LocalizationsDB> localizationsList;
 
@@ -40,10 +43,100 @@ namespace AppX
             timer.Elapsed += new System.Timers.ElapsedEventHandler(MyMethod);
             timer.Start();
 
+            if (Accelerometer.IsMonitoring)
+                return;
+
+            Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
+            Accelerometer.Start(SensorSpeed.UI);
+            
+
+            /*if (Gyroscope.IsMonitoring)
+                return;
+
+            Gyroscope.ReadingChanged += Gyroscope_ReadingChanged;
+            Gyroscope.Start(SensorSpeed.UI);*/
+
             //GetLocationAsync();
             //AccelerometerTest at = new AccelerometerTest(Acc);
             //at.ToggleAccelerometer();
             //var lok = new Label { Text = Lokalizacja, TextDecorations = TextDecorations.Underline};
+
+        }
+
+        void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
+        {
+            var data = e.Reading;
+            //XA.Text = "X:" + data.Acceleration.X.ToString();
+            //YA.Text = "Y:" + data.Acceleration.Y.ToString();
+            //ZA.Text = "Z:" + data.Acceleration.Z.ToString();
+
+            double loX = data.Acceleration.X;
+            double loY = data.Acceleration.Y;
+            double loZ = data.Acceleration.Z;
+
+            double loAccelerationReader = Math.Sqrt(Math.Pow(loX, 2)
+                    + Math.Pow(loY, 2)
+                    + Math.Pow(loZ, 2));
+
+            DecimalFormat precision = new DecimalFormat("0.00");
+            double ldAccRound = double.Parse(precision.Format(loAccelerationReader));
+
+            if (ldAccRound > 0.45d && ldAccRound < 0.5d)
+            {
+                Accelerometer.Stop();
+                DisplayFallDetection();
+                noAnwser = true;
+                StartTimer();
+
+            }
+
+            // Process Acceleration X, Y, and Z
+        }
+        public async void StartTimer()
+        {
+            _duration = 0;
+
+            // tick every second while game is in progress
+            while (noAnwser)
+            {
+                await Task.Delay(1000);
+                _duration++;
+
+                if(_duration>=60)
+                {
+                    await DisplayAlert("UWAGA", "Wykryto Upadek!", "OK");
+                    _duration = 0;
+
+                }
+
+            }
+        }
+
+        /*void Gyroscope_ReadingChanged(object sender, GyroscopeChangedEventArgs e)
+        {
+            var data = e.Reading;
+            XG.Text = "X:" + data.AngularVelocity.X.ToString();
+            YG.Text = "Y:" + data.AngularVelocity.Y.ToString();
+            ZG.Text = "Z:" + data.AngularVelocity.Z.ToString();
+        }*/
+
+        public async void DisplayFallDetection()
+        {
+            var answer = await DisplayActionSheet("WYKRYTO UPADEK!!!", "Nie", "Tak", "Czy wszystko w porządku?");
+
+            if (answer == "Tak")
+            {
+                //Accelerometer.Start(SensorSpeed.UI);
+            }
+            else if (answer=="Nie") 
+            {
+                await DisplayAlert("UWAGA", "Wykryto Upadek!", "OK");
+                //Accelerometer.Start(SensorSpeed.UI);
+
+            }
+
+            noAnwser = false;
+            Accelerometer.Start(SensorSpeed.UI);
 
         }
 
