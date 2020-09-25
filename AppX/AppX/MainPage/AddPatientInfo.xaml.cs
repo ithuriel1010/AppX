@@ -36,6 +36,11 @@ namespace AppX
 
             //await Application.Current.MainPage.Navigation.PopAsync();
         }
+
+        public async void ClickAction(object sender, EventArgs e)
+        {
+            
+        }
         public async Task<string> UploadPhoto()
         {
             await CrossMedia.Current.Initialize();
@@ -69,5 +74,11 @@ namespace AppX
 
             return photo;
         }
+    }
+
+    public class NotificationEventArgs : EventArgs
+    {
+        public string Title { get; set; }
+        public string Message { get; set; }
     }
 }

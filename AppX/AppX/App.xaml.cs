@@ -14,6 +14,9 @@ namespace AppX
         {
             InitializeComponent();
 
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
+            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.OrangeRed;
+            Device.SetFlags(new string[] { "Brush_Experimental" });
             MainPage = new NavigationPage(new MainPage());
         }
 
@@ -38,13 +41,19 @@ namespace AppX
             }
 
             InitializeComponent();
+            Device.SetFlags(new string[] { "Brush_Experimental" });
+
             var addPatVM = new AddPatientInfoViewModel(this);
             var addPatPage = new AddPatientInfo(this);
 
             addPatPage.BindingContext = addPatVM;
 
             if (!patientInfo)
-                MainPage = addPatPage;
+                MainPage = new NavigationPage(addPatPage)
+                {
+                    BarBackgroundColor = Color.MistyRose,
+                    BarTextColor = Color.White
+                };
             else
                 SetHomePage();
 

@@ -3,25 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
              mc:Ignorable="d"
              x:Class="AppX.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Style TargetType="Label" x:Key="TitleLabel">
+            <Style TargetType="Label" x:Key="ScreenTitleLabel">
                 <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
-            <Style TargetType="Label" x:Key="DataLabel">
+            <Style TargetType="Label" x:Key="FieldTitleLabel">
                 <Setter Property="TextColor" Value="Black"/>
-                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="Entry" x:Key="EntryField">
+                <Setter Property="TextColor" Value="DimGray"/>
+                <Setter Property="FontSize" Value="18"/>
             </Style>
             <Style TargetType="Button" x:Key="CallButton">
                 <Setter Property="BackgroundColor" Value="Green"/>
                 <Setter Property="BorderColor" Value="Black"/>
                 <Setter Property="TextColor" Value="Black"/>
             </Style>
-            
         </ResourceDictionary>
 
-    </Application.Resources>
+    </Application.Resources>   
+    
 </Application>

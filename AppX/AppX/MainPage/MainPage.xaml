@@ -24,7 +24,16 @@
 
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="MistyRose"
+                                      Offset="0.1"/>
+                    <GradientStop Color="LightCyan"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid>
+                <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -54,7 +63,8 @@
             <Label Text="{Binding hobby}" Grid.Row="6"/>
             <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
                                    Source="{Binding zdjecie}"/>
-
+                
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
