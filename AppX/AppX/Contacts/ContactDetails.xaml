@@ -7,6 +7,14 @@
              x:Class="AppX.ContactDetails">
     <ContentPage.Content>
         <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="MistyRose"
+                                      Offset="0.1"/>
+                    <GradientStop Color="LightCyan"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -15,13 +23,13 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0"/>
-            <Label Text="Imię i nazwisko:" Grid.Row="1"/>
-            <Label Text="{Binding imieNazwisko}" Grid.Row="2"/>
-            <Label Text="Telefon:" Grid.Row="3"/>
-            <Label Text="{Binding telefon}" Grid.Row="4"/>
-            <Label Text="Email:" Grid.Row="5"/>
-            <Label Text="{Binding email}" Grid.Row="6"/>
+            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource ScreenTitleLabel}"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding imieNazwisko}" Grid.Row="2" Style="{StaticResource DataField}"/>
+            <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataField}"/>
+            <Label Text="Email:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataField}"/>
 
             <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}"/>
 

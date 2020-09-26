@@ -7,7 +7,16 @@
              x:Class="AppX.AddContact">
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="MistyRose"
+                                      Offset="0.1"/>
+                        <GradientStop Color="LightCyan"
+                                      Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -25,22 +34,22 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Text="Tworzenie kontaktu awaryjnego" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="Title"/>
+            <Label Text="Tworzenie kontaktu awaryjnego" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="Title" Style="{StaticResource ScreenTitleLabel}"/>
             
-            <Label Text="Imię:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="Medium"/>
-            <Entry Placeholder="Wpisz imię" Text="{Binding Imie}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2"/>
-            
-            <Label Text="Nazwisko:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" FontSize="Medium"/>
-            <Entry Placeholder="Wpisz nazwisko" Text="{Binding Nazwisko}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4"/>
+            <Label Text="Imię:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>
+            <Entry Placeholder="Wpisz imię" Text="{Binding Imie}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource EntryField}"/>
 
-            <Label Text="Telefon:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" FontSize="Medium"/>
-            <Entry Placeholder="Wpisz nr telefonu" Text="{Binding Telefon}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6"/>
+            <Label Text="Nazwisko:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>
+            <Entry Placeholder="Wpisz nazwisko" Text="{Binding Nazwisko}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Style="{StaticResource EntryField}"/>
 
-            <Label Text="E-mail:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" FontSize="Medium"/>
-            <Entry Placeholder="Wpisz adres E-mail" Text="{Binding Email}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8"/>
+            <Label Text="Telefon:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" FontSize="Medium" Style="{StaticResource FieldTitleLabel}" />
+            <Entry Placeholder="Wpisz nr telefonu" Text="{Binding Telefon}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Style="{StaticResource EntryField}"/>
 
-            <Label Text="Związek:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" FontSize="Medium"/>
-            <Entry Placeholder="Wpisz związek z kontaktem" Text="{Binding Zwiazek}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10"/>
+            <Label Text="E-mail:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>
+            <Entry Placeholder="Wpisz adres E-mail" Text="{Binding Email}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Style="{StaticResource EntryField}"/>
+
+            <Label Text="Związek:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>
+            <Entry Placeholder="Wpisz związek z kontaktem" Text="{Binding Zwiazek}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Style="{StaticResource EntryField}"/>
 
             <Button Text="Zapisz kontakt" Grid.Column="0" Grid.Row="11" Command="{Binding SaveCommand}"/>
             <Button Text="Cofnij" Grid.Column="1" Grid.Row="11" Command="{Binding CancelCommand}"/>
@@ -48,5 +57,6 @@
             
 
         </Grid>
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

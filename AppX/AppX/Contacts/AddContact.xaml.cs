@@ -13,7 +13,7 @@ namespace AppX
     public partial class AddContact : ContentPage
     {
         public AddContact()
-        {
+        {            
             InitializeComponent();
         }
     }

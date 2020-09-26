@@ -14,8 +14,7 @@ namespace AppX
         {
             InitializeComponent();
 
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.Black;
-            ((NavigationPage)Application.Current.MainPage).BarTextColor = Color.OrangeRed;
+            
             Device.SetFlags(new string[] { "Brush_Experimental" });
             MainPage = new NavigationPage(new MainPage());
         }
@@ -63,7 +62,12 @@ namespace AppX
 
         public void SetHomePage()
         {
-            MainPage = new NavigationPage(new MainPage());
+            var mainPage = new MainPage();
+            MainPage = new NavigationPage(mainPage)
+            {
+                BarBackgroundColor = Color.MistyRose,
+                BarTextColor = Color.White
+            };
         }
 
 

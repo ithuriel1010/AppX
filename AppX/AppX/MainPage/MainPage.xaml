@@ -51,18 +51,18 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <!--<ColumnDefinition Width="*"/>-->
             </Grid.ColumnDefinitions>
 
-            <Label Text="To jest twój profil" Grid.Row="0"/>
-            <Label Text="Imię i nazwisko:" Grid.Row="1"/>
-            <Label Text="{Binding fullName}" Grid.Row="2"/>
-            <Label Text="Wiek:" Grid.Row="3"/>
-            <Label Text="{Binding wiek}" Grid.Row="4"/>
-            <Label Text="Hobby:" Grid.Row="5"/>
-            <Label Text="{Binding hobby}" Grid.Row="6"/>
-            <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Source="{Binding zdjecie}"/>
+            <Label Text="To jest twój profil" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataField }"/>
+            <Label Text="Wiek:" Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding wiek}" Grid.Row="4" Style="{StaticResource DataField }"/>
+            <Label Text="Hobby:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding hobby}" Grid.Row="6" Style="{StaticResource DataField }"/>
+            <!--<Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Source="{Binding zdjecie}"/>-->
                 
             </Grid>
         </Grid>

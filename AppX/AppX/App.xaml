@@ -8,6 +8,11 @@
              x:Class="AppX.App">
     <Application.Resources>
         <ResourceDictionary>
+            <Color x:Key="Primary">#484559</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
             <Style TargetType="Label" x:Key="ScreenTitleLabel">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="32"/>
@@ -16,6 +21,10 @@
             <Style TargetType="Label" x:Key="FieldTitleLabel">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="Label" x:Key="DataField">
+                <Setter Property="TextColor" Value="DimGray"/>
+                <Setter Property="FontSize" Value="18"/>
             </Style>
             <Style TargetType="Entry" x:Key="EntryField">
                 <Setter Property="TextColor" Value="DimGray"/>
