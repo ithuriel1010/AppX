@@ -22,7 +22,7 @@ namespace AppX
             this.number = number;
             this.email = email;
             Send(message, number);
-            Email(message, email);
+            //Email(message, email);
         }
 
         public void Send(String message, String number)

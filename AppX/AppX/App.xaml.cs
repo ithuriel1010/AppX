@@ -57,6 +57,11 @@ namespace AppX
             MainPage = new NavigationPage(new MainPage());
         }
 
+        public static async void SetPage()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new AreYouOk());
+        }
+
 
         protected override void OnStart()
         {

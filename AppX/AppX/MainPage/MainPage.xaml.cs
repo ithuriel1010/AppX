@@ -63,6 +63,11 @@ namespace AppX
 
         }
 
+        private void SendNotification(string title, string message, string action)
+        {
+            DependencyService.Get<INotification>().CreateNotification(title, message, action);
+        }
+
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
@@ -81,7 +86,7 @@ namespace AppX
             DecimalFormat precision = new DecimalFormat("0.00");
             double ldAccRound = double.Parse(precision.Format(loAccelerationReader));
 
-            if (ldAccRound > 0.45d && ldAccRound < 0.5d)
+            if (ldAccRound > 0.45d) // && ldAccRound < 0.5d)
             {
                 Accelerometer.Stop();
                 DisplayFallDetection();
@@ -102,9 +107,9 @@ namespace AppX
                 await Task.Delay(1000);
                 _duration++;
 
-                if(_duration>=60)
+                if(_duration>=60 && noAnwser)
                 {
-                    await DisplayAlert("UWAGA", "Wykryto Upadek!", "OK");
+                    SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
                     _duration = 0;
 
                 }
@@ -120,23 +125,18 @@ namespace AppX
             ZG.Text = "Z:" + data.AngularVelocity.Z.ToString();
         }*/
 
-        public async void DisplayFallDetection()
+        public async void ClickedNotification()
         {
-            var answer = await DisplayActionSheet("WYKRYTO UPADEK!!!", "Nie", "Tak", "Czy wszystko w porządku?");
-
-            if (answer == "Tak")
-            {
-                //Accelerometer.Start(SensorSpeed.UI);
-            }
-            else if (answer=="Nie") 
-            {
-                await DisplayAlert("UWAGA", "Wykryto Upadek!", "OK");
-                //Accelerometer.Start(SensorSpeed.UI);
-
-            }
-
             noAnwser = false;
-            Accelerometer.Start(SensorSpeed.UI);
+
+            //Accelerometer.Start(SensorSpeed.UI);
+        }
+
+        public void DisplayFallDetection()
+        {
+            SendNotification("Uwaga! Wykryto Upadek!", "Wszystko w porządku?", "FallAlert");
+
+            //Accelerometer.Start(SensorSpeed.UI);
 
         }
 
@@ -144,7 +144,6 @@ namespace AppX
         {
             GetLocationAsync();
             CheckDistanceAndSendAlert();
-            //LocalizationLabel.Text = Lokalizacja;
         }
 
         protected override void OnAppearing()
@@ -286,9 +285,14 @@ namespace AppX
 
                 if (kilometers <= 0.05)
                 {
-                    Device.BeginInvokeOnMainThread(async () => {
+
+                    SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
+
+                    /*Device.BeginInvokeOnMainThread(async () => {
                         await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
-                    });
+                    });*/
+
+
                     //await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
                     break;
                 }
@@ -302,9 +306,11 @@ namespace AppX
 
                         if(minutesAway>=10)
                         {
-                            Device.BeginInvokeOnMainThread(async () => {
+                            SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
+
+                            /*Device.BeginInvokeOnMainThread(async () => {
                                 await DisplayAlert("UWAGA", "Jesteś daleko poza znanymi lokalizacjami!", "OK");
-                            });
+                            });*/
 
                             minutesAway = 0;
                         }
