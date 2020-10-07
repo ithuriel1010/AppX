@@ -19,8 +19,8 @@ namespace AppX
 
         protected override void OnAppearing()
         {
-            MainPage mp = new MainPage();
-            mp.ClickedNotification();
+            MainPage.noAnwser = false;
+            //mp.ClickedNotification();
         }
 
         public async void EverythingOk(object sender, EventArgs args)

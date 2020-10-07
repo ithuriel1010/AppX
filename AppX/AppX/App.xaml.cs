@@ -10,11 +10,13 @@ namespace AppX
     {
         public static string FilePath;
         public bool patientInfo;
+        private MainPage _mainPage;
+
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
+            _mainPage = new MainPage();
+            MainPage = new NavigationPage(_mainPage);
         }
 
         public App(string filePath)
@@ -54,7 +56,8 @@ namespace AppX
 
         public void SetHomePage()
         {
-            MainPage = new NavigationPage(new MainPage());
+            _mainPage = new MainPage();
+            MainPage = new NavigationPage(_mainPage);
         }
 
         public static async void SetPage()

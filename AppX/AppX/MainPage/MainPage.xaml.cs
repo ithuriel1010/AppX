@@ -29,7 +29,7 @@ namespace AppX
         double latitude;
         int minutesAway = 0;
 
-        bool noAnwser = false;
+        public static bool noAnwser = false;
         private int _duration = 0;
 
         List<LocalizationsDB> localizationsList;
@@ -85,14 +85,13 @@ namespace AppX
 
             DecimalFormat precision = new DecimalFormat("0.00");
             double ldAccRound = double.Parse(precision.Format(loAccelerationReader));
-
-            if (ldAccRound > 0.45d) // && ldAccRound < 0.5d)
+            Console.WriteLine(ldAccRound);
+            if (ldAccRound > 0.45d && ldAccRound < 0.5d)
             {
                 Accelerometer.Stop();
                 DisplayFallDetection();
                 noAnwser = true;
                 StartTimer();
-
             }
 
             // Process Acceleration X, Y, and Z
@@ -107,7 +106,14 @@ namespace AppX
                 await Task.Delay(1000);
                 _duration++;
 
-                if(_duration>=60 && noAnwser)
+                if (Accelerometer.IsMonitoring == false)
+                {
+                    Accelerometer.Start(speed);
+
+                }
+
+
+                if (_duration>=60 && noAnwser)
                 {
                     SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
                     _duration = 0;
