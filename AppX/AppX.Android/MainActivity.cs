@@ -38,8 +38,8 @@ namespace AppX.Droid
             }
             else if (intent.Action == "FallAlert") //&& intent.HasExtra("MessageFromSushiHangover"))
             {
-                /*MainPage mp = new MainPage();
-                mp.ClickedNotification();*/
+                //MainPage mp = new MainPage();
+                //mp.ClickedNotification();
                 App.SetPage();
             }
         }
