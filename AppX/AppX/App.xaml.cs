@@ -10,13 +10,14 @@ namespace AppX
     {
         public static string FilePath;
         public bool patientInfo;
+        private MainPage _mainPage;
+
         public App()
         {
             InitializeComponent();
-
+            _mainPage = new MainPage();
             
             Device.SetFlags(new string[] { "Brush_Experimental" });
-            MainPage = new NavigationPage(new MainPage());
         }
 
         public App(string filePath)

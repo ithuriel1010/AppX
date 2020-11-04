@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppX.AreYouOk">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Czy wszystko w porządku?" Grid.Row="0" Grid.ColumnSpan="2"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button Text="Tak" Clicked="EverythingOk" Grid.Column="0" Grid.Row="1"/>
+            <Button Text="Nie" Clicked="NotFine" Grid.Column="1" Grid.Row="1"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

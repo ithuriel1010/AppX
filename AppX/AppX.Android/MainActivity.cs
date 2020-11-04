@@ -12,12 +12,40 @@ using Android.Telephony;
 using Android;
 using System.Collections.Generic;
 using System.IO;
+using Android.Content;
+using Android.Content.Res;
 
 namespace AppX.Droid
 {
-    [Activity(Label = "AppX", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "AppX", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            NotificationClickedOn(intent);
+        }
+        void NotificationClickedOn(Intent intent)
+        {
+            if (intent.Action == "TestMessage") //&& intent.HasExtra("MessageFromSushiHangover"))
+            {
+                /// Do something now that you know the user clicked on the notification...
+
+                var notificationMessage = intent.Extras.GetString("message");
+                var winnerToast = Toast.MakeText(this, $"{notificationMessage}.\n\n🍣 Please send 2 BitCoins to SushiHangover to process your winning ticket! 🍣", ToastLength.Long);
+                winnerToast.SetGravity(Android.Views.GravityFlags.Center, 0, 0);
+                winnerToast.Show();
+            }
+            else if (intent.Action == "FallAlert") //&& intent.HasExtra("MessageFromSushiHangover"))
+            {
+                /*MainPage mp = new MainPage();
+                mp.ClickedNotification();*/
+                App.SetPage();
+            }
+        }
+
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
