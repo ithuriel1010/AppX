@@ -9,9 +9,9 @@
         <Grid>
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="MistyRose"
+                    <GradientStop Color="{StaticResource Primary}"
                                       Offset="0.1"/>
-                    <GradientStop Color="LightCyan"
+                    <GradientStop Color="{StaticResource Secondary}"
                                       Offset="1.0"/>
                 </LinearGradientBrush>
             </Grid.Background>

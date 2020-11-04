@@ -9,12 +9,12 @@
         <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
                 <StackLayout.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="MistyRose"
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="{StaticResource Primary}"
                                       Offset="0.1"/>
-                        <GradientStop Color="LightCyan"
+                            <GradientStop Color="{StaticResource Secondary}"
                                       Offset="1.0"/>
-                    </LinearGradientBrush>
+                        </LinearGradientBrush>
                 </StackLayout.Background>
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
 

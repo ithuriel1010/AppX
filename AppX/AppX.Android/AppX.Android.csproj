@@ -141,9 +141,6 @@
     <AndroidResource Include="Resources\drawable\sandwich.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\add.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\alert.png" />
   </ItemGroup>
   <ItemGroup>

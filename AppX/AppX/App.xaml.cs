@@ -47,11 +47,14 @@ namespace AppX
 
             addPatPage.BindingContext = addPatVM;
 
+            var Color1 = Application.Current.Resources["Primary"];
+            Color PrimaryColor = (Color)Color1;
+
             if (!patientInfo)
                 MainPage = new NavigationPage(addPatPage)
                 {
-                    BarBackgroundColor = Color.MistyRose,
-                    BarTextColor = Color.White
+                    BarBackgroundColor = PrimaryColor,
+                    BarTextColor = Color.Black
                 };
             else
                 SetHomePage();
@@ -62,11 +65,13 @@ namespace AppX
 
         public void SetHomePage()
         {
+            var Color1 = Application.Current.Resources["Primary"];
+            Color PrimaryColor = (Color)Color1;
             var mainPage = new MainPage();
             MainPage = new NavigationPage(mainPage)
             {
-                BarBackgroundColor = Color.MistyRose,
-                BarTextColor = Color.White
+                BarBackgroundColor = PrimaryColor,
+                BarTextColor = Color.Black
             };
         }
 

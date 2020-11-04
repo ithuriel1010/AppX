@@ -15,14 +15,22 @@
     
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                    <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </StackLayout.Background>
             
-            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource TitleLabel}"/>
-            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource TitleLabel}"/>
-            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataLabel}"/>
-            <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource TitleLabel}"/>
-            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataLabel}"/>
-            <Label Text="Email:" Grid.Row="5" Style="{StaticResource TitleLabel}"/>
-            <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataLabel}"/>
+            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataField}"/>
+            <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataField}"/>
+            <Label Text="Email:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataField}"/>
 
             <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
         </StackLayout>

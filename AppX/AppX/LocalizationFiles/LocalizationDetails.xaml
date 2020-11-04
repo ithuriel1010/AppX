@@ -15,15 +15,23 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding name, StringFormat='To jest twoja lokalizacja: {0:F0}'}" />
-            <Label Text="Adres:"/>
-            <Label Text="{Binding address}"/>
-            <Label Text="Wiadomość wyświetlana w okolicy lokalizacji:"/>
-            <Label Text="{Binding message}"/>
-            <Label Text="Latitude:"/>
-            <Label Text="{Binding lat}"/>
-            <Label Text="Longitude:"/>
-            <Label Text="{Binding lon}"/>
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                    <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </StackLayout.Background>
+            <Label Text="{Binding name, StringFormat='To jest twoja lokalizacja: {0:F0}'}" Style="{StaticResource ScreenTitleLabel}"/>
+            <Label Text="Adres:"  Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding address}"  Style="{StaticResource DataField}"/>
+            <Label Text="Wiadomość wyświetlana w okolicy lokalizacji:"  Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding message}" Style="{StaticResource DataField}"/>
+            <Label Text="Latitude:"  Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding lat}" Style="{StaticResource DataField}"/>
+            <Label Text="Longitude:"  Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding lon}" Style="{StaticResource DataField}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

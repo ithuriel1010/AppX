@@ -8,10 +8,11 @@
              x:Class="AppX.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#484559</Color>
+            <Color x:Key="Primary">#8bc6ec</Color>
+            <Color x:Key="Secondary">#9599e2</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="BarTextColor" Value="White" />
+                <Setter Property="BarTextColor" Value="Black" />
             </Style>
             <Style TargetType="Label" x:Key="ScreenTitleLabel">
                 <Setter Property="TextColor" Value="Black"/>

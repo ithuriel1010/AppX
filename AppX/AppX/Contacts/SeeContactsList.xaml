@@ -7,6 +7,14 @@
              x:Class="AppX.SeeContactsList">
     <ContentPage.Content>
         <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                    <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
@@ -15,8 +23,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
-            <Label Text="Kontakty Awaryjne" FontSize="Title" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+
+            <Label Text="Kontakty Awaryjne" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 

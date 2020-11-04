@@ -8,6 +8,14 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
+                <StackLayout.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                        <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                    </LinearGradientBrush>
+                </StackLayout.Background>
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
 
                 <!--<Label
@@ -19,24 +27,24 @@
                     FontAttributes="Bold"
                     Text="Reverse Geocoding:" />-->
 
-                <Label Text="Edytuj lokalizacje" FontSize="Title"
+                <Label Text="Edytuj lokalizacje" Style="{StaticResource ScreenTitleLabel}"
                         VerticalOptions="CenterAndExpand" 
                         HorizontalOptions="CenterAndExpand" />
 
-                <Label Text="Ulica:" />
-                <Entry Text="{Binding Street}" Placeholder="Niepodległości"/>
-                <Label Text="Numer domu:"/>
-                <Entry Text="{Binding HouseNumber}" Placeholder="31"/>
-                <Label Text="Miasto:" />
-                <Entry Text="{Binding City}" Placeholder="Gdańsk"/>
-                <Label Text="Województwo:" />
-                <Entry Text="{Binding County}" Placeholder="Pomorskie"/>
+                <Label Text="Ulica:"  Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding Street}" Placeholder="Niepodległości" Style="{StaticResource EntryField}"/>
+                <Label Text="Numer domu:" Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding HouseNumber}" Placeholder="31" Style="{StaticResource EntryField}"/>
+                <Label Text="Miasto:" Style="{StaticResource FieldTitleLabel}" />
+                <Entry Text="{Binding City}" Placeholder="Gdańsk" Style="{StaticResource EntryField}"/>
+                <Label Text="Województwo:"  Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding County}" Placeholder="Pomorskie" Style="{StaticResource EntryField}"/>
 
-                <Label Text="Nazwa lokalizacji:" />
-                <Entry Text="{Binding Name}" Placeholder="Dom"/>
+                <Label Text="Nazwa lokalizacji:" Style="{StaticResource FieldTitleLabel}" />
+                <Entry Text="{Binding Name}" Placeholder="Dom" Style="{StaticResource EntryField}"/>
 
-                <Label Text="Wiadomość:" />
-                <Entry Text="{Binding Message}" Placeholder="Jesteś w domu"/>
+                <Label Text="Wiadomość:"  Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding Message}" Placeholder="Jesteś w domu" Style="{StaticResource EntryField}"/>
 
                 <!--<Label Text="Address:" />
                 <Entry Text="{Binding Address}" />

@@ -7,6 +7,14 @@
              x:Class="AppX.LocalizationFiles.Localization">
     <ContentPage.Content>
         <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                    <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
