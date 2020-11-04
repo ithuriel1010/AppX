@@ -8,7 +8,7 @@
 
     <NavigationPage.TitleView>
         <AbsoluteLayout VerticalOptions="CenterAndExpand">
-            <Button Image="add2.png" Clicked="ClickAction" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40"
+            <Button Image="add2.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Command="{Binding PhotoCommand}"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
         </AbsoluteLayout>
     </NavigationPage.TitleView>
@@ -64,9 +64,9 @@
                     <Label Text="Hobby:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Style="{StaticResource FieldTitleLabel}"/>
                     <Entry Placeholder="Wpisz swoje hobby" Text="{Binding Hobby}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10"/>
 
-                    <Button Text="Zapisz" Grid.Column="0" Grid.Row="11" Command="{Binding SaveCommand}"/>
-                    <Button Text="Cofnij" Grid.Column="1" Grid.Row="11" Command="{Binding CancelCommand}"/>
-                    <Button Text="Dodaj zdjęcie" Grid.Column="0" Grid.Row="12" Command="{Binding PhotoCommand}"/>
+                    <Button Text="Zapisz" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Command="{Binding SaveCommand}" Style="{StaticResource SaveButton}"/>
+                    <!--<Button Text="Cofnij" Grid.Column="1" Grid.Row="11" Command="{Binding CancelCommand}"/>-->
+                    <!--<Button Text="Dodaj zdjęcie" Grid.Column="0" Grid.Row="12" Command="{Binding PhotoCommand}"/>-->
                     <!--<Image x:Name="DisplayIcon" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Grid.RowSpan="3"/>-->
                     <!--<Image x:Name="ikona" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Grid.RowSpan="3" />-->
 

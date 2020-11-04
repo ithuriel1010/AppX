@@ -14,25 +14,47 @@
     </NavigationPage.TitleView>
     
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout.Background>
+        <Grid Padding="13,0,0,13">
+            <Grid.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="{StaticResource Primary}"
                                       Offset="0.1"/>
                     <GradientStop Color="{StaticResource Secondary}"
                                       Offset="1.0"/>
                 </LinearGradientBrush>
-            </StackLayout.Background>
-            
-            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataField}"/>
-            <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataField}"/>
-            <Label Text="Email:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataField}"/>
+            </Grid.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
 
-            <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
-        </StackLayout>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding zwiazek, StringFormat='To jest {0:F0}'}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
+                <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+                <Label Text="{Binding imie}" Grid.Row="2" Style="{StaticResource DataField }"/>
+                <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+                <Label Text="{Binding nazwisko}" Grid.Row="4" Style="{StaticResource DataField }"/>
+                <Label Text="Telefon:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding telefon}" Grid.Row="6" Style="{StaticResource DataField}"/>
+            <Label Text="Email:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding email}" Grid.Row="8" Style="{StaticResource DataField}"/>
+                
+            <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
+                                   Source="{Binding zdjecie}"/>
+
+            <Button Text="Zadzwoń" Grid.Row="9" Grid.Column="1" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

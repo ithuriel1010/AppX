@@ -36,6 +36,16 @@
                 <Setter Property="BorderColor" Value="Black"/>
                 <Setter Property="TextColor" Value="Black"/>
             </Style>
+            <Style TargetType="Button" x:Key="SaveButton">
+                <Setter Property="BackgroundColor" Value="#868ade"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+            <Style TargetType="Button" x:Key="CancelButton">
+                <Setter Property="BackgroundColor" Value="#a5a7d2"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>   

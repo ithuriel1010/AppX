@@ -10,8 +10,8 @@ namespace AppX.Persons
     {
         public PersonsDB person;
 
-        public string imie;
-        public string nazwisko;
+        public string imie { get; set; }
+        public string nazwisko { get; set; }
         public string fullName { get; set; }
         public string telefon { get; set; }
         public DateTime dataUrodzenia { get; set; }
