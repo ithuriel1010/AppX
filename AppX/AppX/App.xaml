@@ -24,7 +24,7 @@
                 <Setter Property="FontSize" Value="20"/>
             </Style>
             <Style TargetType="Label" x:Key="DataField">
-                <Setter Property="TextColor" Value="DimGray"/>
+                <Setter Property="TextColor" Value="DarkSlateGray"/>
                 <Setter Property="FontSize" Value="18"/>
             </Style>
             <Style TargetType="Entry" x:Key="EntryField">
