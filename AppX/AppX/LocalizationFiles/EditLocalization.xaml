@@ -32,19 +32,19 @@
                         HorizontalOptions="CenterAndExpand" />
 
                 <Label Text="Ulica:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding Street}" Placeholder="Niepodległości" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Street}" TextColor="{Binding StreetTextColor}" Placeholder="Niepodległości" Style="{StaticResource EntryField}"/>
                 <Label Text="Numer domu:" Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding HouseNumber}" Placeholder="31" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding HouseNumber}" TextColor="{Binding HouseNumberTextColor}" Placeholder="31" Style="{StaticResource EntryField}"/>
                 <Label Text="Miasto:" Style="{StaticResource FieldTitleLabel}" />
-                <Entry Text="{Binding City}" Placeholder="Gdańsk" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding City}" TextColor="{Binding CityTextColor}" Placeholder="Gdańsk" Style="{StaticResource EntryField}"/>
                 <Label Text="Województwo:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding County}" Placeholder="Pomorskie" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding County}" TextColor="{Binding CountyTextColor}" Placeholder="Pomorskie" Style="{StaticResource EntryField}"/>
 
                 <Label Text="Nazwa lokalizacji:" Style="{StaticResource FieldTitleLabel}" />
-                <Entry Text="{Binding Name}" Placeholder="Dom" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Name}" TextColor="{Binding NameTextColor}" Placeholder="Dom" Style="{StaticResource EntryField}"/>
 
                 <Label Text="Wiadomość:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding Message}" Placeholder="Jesteś w domu" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Message}" TextColor="{Binding MessageTextColor}" Placeholder="Jesteś w domu" Style="{StaticResource EntryField}"/>
 
                 <!--<Label Text="Address:" />
                 <Entry Text="{Binding Address}" />
@@ -58,6 +58,7 @@
                     Command="{Binding SaveCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Zapisz lokalizacje" />
+                <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 
                 <!--<Label Text="{Binding GeocodePosition}" />-->
             </StackLayout>

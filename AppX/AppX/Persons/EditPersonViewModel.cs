@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SQLite;
+using AppX.Utils;
 
 namespace AppX.Persons
 {
@@ -19,6 +20,61 @@ namespace AppX.Persons
         private AddPerson p = new AddPerson();
         private EditPerson e = new EditPerson();
 
+        private string errorMessage { get; set; }
+        private bool correctName { get; set; }
+        private bool correctLastName { get; set; }
+        private bool correctPhone { get; set; }
+        private bool correctRelationship { get; set; }
+
+        private Color nameTextColor = Color.Red;
+        private Color lastNameTextColor = Color.Red;
+        private Color phoneTextColor = Color.Red;
+        private Color relationshipTextColor = Color.Red;
+
+        public Color NameTextColor
+        {
+            get => nameTextColor;
+            set
+            {
+                nameTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color LastNameTextColor
+        {
+            get => lastNameTextColor;
+            set
+            {
+                lastNameTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(LastNameTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color PhoneTextColor
+        {
+            get => phoneTextColor;
+            set
+            {
+                phoneTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(PhoneTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color RelationshipTextColor
+        {
+            get => relationshipTextColor;
+            set
+            {
+                relationshipTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(RelationshipTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
         public EditPersonViewModel(PersonsDB personDetails)
         {
             person = personDetails;
@@ -31,23 +87,30 @@ namespace AppX.Persons
 
             SaveCommand = new Command(async () =>
             {
-                person.Imie = Imie;
-                person.Nazwisko = Nazwisko;
-                person.Telefon = Telefon;
-                person.DataUrodzenia = DataUrodzenia;
-                person.Zwiazek = Zwiazek;
-                person.Zdjecie = photo;
-
-                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                if (correctName && correctLastName && correctPhone && correctRelationship)
                 {
-                    conn.CreateTable<PersonsDB>();
-                    conn.Update(person);
+                    person.Imie = Imie;
+                    person.Nazwisko = Nazwisko;
+                    person.Telefon = Telefon;
+                    person.DataUrodzenia = DataUrodzenia;
+                    person.Zwiazek = Zwiazek;
+                    person.Zdjecie = photo;
+
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<PersonsDB>();
+                        conn.Update(person);
+                    }
+
+                    //e.OnRootPageButtonClicked();
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                    //await Application.Current.MainPage.Navigation.PopAsync();
+
                 }
-
-                //e.OnRootPageButtonClicked();
-                await Application.Current.MainPage.Navigation.PopToRootAsync();
-                //await Application.Current.MainPage.Navigation.PopAsync();
-
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }                
             });
 
             PhotoCommand = new Command(async () =>
@@ -93,7 +156,10 @@ namespace AppX.Persons
                 var args = new PropertyChangedEventArgs(nameof(Imie));
 
                 PropertyChanged?.Invoke(this, args);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
+
         }
         public string Nazwisko
         {
@@ -104,6 +170,8 @@ namespace AppX.Persons
                 var args = new PropertyChangedEventArgs(nameof(Nazwisko));
 
                 PropertyChanged?.Invoke(this, args);
+                (LastNameTextColor, correctLastName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
         public string Telefon
@@ -115,6 +183,8 @@ namespace AppX.Persons
                 var args = new PropertyChangedEventArgs(nameof(Telefon));
 
                 PropertyChanged?.Invoke(this, args);
+                (PhoneTextColor, correctPhone) = RegexUtill.Check(RegexUtill.PhoneNumber(), value);
+
             }
         }
         public DateTime DataUrodzenia
@@ -135,6 +205,19 @@ namespace AppX.Persons
             {
                 zwiazek = value;
                 var args = new PropertyChangedEventArgs(nameof(Zwiazek));
+
+                PropertyChanged?.Invoke(this, args);
+                (RelationshipTextColor, correctRelationship) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
+            }
+        }
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                var args = new PropertyChangedEventArgs(nameof(ErrorMessage));
 
                 PropertyChanged?.Invoke(this, args);
             }

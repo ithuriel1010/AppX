@@ -159,16 +159,18 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
                 //NameTextColor = RegexUtill.MinLength(4).IsMatch(value) ? Color.Black : Color.Red;
 
-                if(RegexUtill.MinLength(3).IsMatch(value))
-                {
-                    NameTextColor = Color.Black;
-                    correctName = true;
-                }
-                else
-                {
-                    NameTextColor = Color.Red;
-                    correctName = false;
-                }
+                //if(RegexUtill.MinLength(3).IsMatch(value))
+                //{
+                //    NameTextColor = Color.Black;
+                //    correctName = true;
+                //}
+                //else
+                //{
+                //    NameTextColor = Color.Red;
+                //    correctName = false;
+                //}
+
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
             }
         }
         public string Nazwisko
@@ -181,16 +183,8 @@ namespace AppX
 
                 PropertyChanged?.Invoke(this, args);
 
-                if (RegexUtill.MinLength(3).IsMatch(value))
-                {
-                    LastNameTextColor = Color.Black;
-                    correctLastName = true;
-                }
-                else
-                {
-                    LastNameTextColor = Color.Red;
-                    correctLastName = false;
-                }
+                (LastNameTextColor, correctLastName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
         public string Telefon
@@ -203,16 +197,8 @@ namespace AppX
 
                 PropertyChanged?.Invoke(this, args);
 
-                if (RegexUtill.PhoneNumber().IsMatch(value))
-                {
-                    PhoneTextColor = Color.Black;
-                    correctPhone = true;
-                }
-                else
-                {
-                    PhoneTextColor = Color.Red;
-                    correctPhone = false;
-                }
+                (PhoneTextColor, correctPhone) = RegexUtill.Check(RegexUtill.PhoneNumber(), value);
+
             }
         }
         public DateTime DataUrodzenia
@@ -236,16 +222,8 @@ namespace AppX
 
                 PropertyChanged?.Invoke(this, args);
 
-                if (RegexUtill.MinLength(3).IsMatch(value))
-                {
-                    RelationshipTextColor = Color.Black;
-                    correctRelationship = true;
-                }
-                else
-                {
-                    RelationshipTextColor = Color.Red;
-                    correctRelationship = false;
-                }
+                (RelationshipTextColor, correctRelationship) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
         public string ErrorMessage

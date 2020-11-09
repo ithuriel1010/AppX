@@ -1,4 +1,5 @@
 ﻿using AppX.DatabaseClasses;
+using AppX.Utils;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,88 @@ namespace AppX.LocalizationFiles
         string name;
         string message;
 
+        private string errorMessage { get; set; }
+        private bool correctStreet { get; set; }
+        private bool correctHouseNumber { get; set; }
+        private bool correctCity { get; set; }
+        private bool correctCounty { get; set; }
+        private bool correctMessage { get; set; }
+        private bool correctName { get; set; }
+
+        private Color nameTextColor = Color.Red;
+        private Color messageTextColor = Color.Red;
+        private Color streetTextColor = Color.Red;
+        private Color houseNumberTextColor = Color.Red;
+        private Color cityTextColor = Color.Red;
+        private Color countyTextColor = Color.Red;
+
+        public Color NameTextColor
+        {
+            get => nameTextColor;
+            set
+            {
+                nameTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color MessageTextColor
+        {
+            get => messageTextColor;
+            set
+            {
+                messageTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(MessageTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color StreetTextColor
+        {
+            get => streetTextColor;
+            set
+            {
+                streetTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(StreetTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color HouseNumberTextColor
+        {
+            get => houseNumberTextColor;
+            set
+            {
+                houseNumberTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(HouseNumberTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color CityTextColor
+        {
+            get => cityTextColor;
+            set
+            {
+                cityTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(CityTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color CountyTextColor
+        {
+            get => countyTextColor;
+            set
+            {
+                countyTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(CountyTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
         double lat;
         double lon;
         public ICommand GetPositionCommand { get; }
@@ -40,26 +123,33 @@ namespace AppX.LocalizationFiles
         {
             SaveCommand = new Command(async () =>
             {
-                fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
-                await OnGetPosition(fullAddress);
-
-                localization.Address = fullAddress;
-                localization.Street = Street;
-                localization.HouseNumber = HouseNumber;
-                localization.City = City;
-                localization.County = County;
-                localization.Lat = lat;
-                localization.Lon = lon;
-                localization.Name = Name;
-                localization.Message = Message;
-
-                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                if(correctName && correctMessage && correctStreet && correctHouseNumber && correctCity && correctCounty)
                 {
-                    conn.CreateTable<LocalizationsDB>();
-                    conn.Insert(localization);
-                }
+                    fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
+                    await OnGetPosition(fullAddress);
 
-                await Application.Current.MainPage.Navigation.PopAsync();
+                    localization.Address = fullAddress;
+                    localization.Street = Street;
+                    localization.HouseNumber = HouseNumber;
+                    localization.City = City;
+                    localization.County = County;
+                    localization.Lat = lat;
+                    localization.Lon = lon;
+                    localization.Name = Name;
+                    localization.Message = Message;
+
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<LocalizationsDB>();
+                        conn.Insert(localization);
+                    }
+
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }
 
             });
 
@@ -97,6 +187,8 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(Street));
 
                 PropertyChanged?.Invoke(this, args);
+                (StreetTextColor, correctStreet) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
 
@@ -109,6 +201,8 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(HouseNumber));
 
                 PropertyChanged?.Invoke(this, args);
+                (HouseNumberTextColor, correctHouseNumber) = RegexUtill.Check(RegexUtill.MinLengthNumbers(1), value);
+
             }
         }
 
@@ -121,6 +215,8 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(City));
 
                 PropertyChanged?.Invoke(this, args);
+                (CityTextColor, correctCity) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
 
@@ -133,6 +229,8 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(County));
 
                 PropertyChanged?.Invoke(this, args);
+                (CountyTextColor, correctCounty) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
 
@@ -145,6 +243,7 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(Name));
 
                 PropertyChanged?.Invoke(this, args);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
             }
         }
 
@@ -157,6 +256,8 @@ namespace AppX.LocalizationFiles
                 var args = new PropertyChangedEventArgs(nameof(Message));
 
                 PropertyChanged?.Invoke(this, args);
+                (MessageTextColor, correctMessage) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
             }
         }
 
@@ -204,6 +305,18 @@ namespace AppX.LocalizationFiles
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                var args = new PropertyChangedEventArgs(nameof(ErrorMessage));
+
+                PropertyChanged?.Invoke(this, args);
             }
         }
     }
