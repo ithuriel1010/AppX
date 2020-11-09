@@ -8,33 +8,111 @@ using Xamarin.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SQLite;
+using AppX.Utils;
+using ReactiveUI;
+using ReactiveUI.Validation.Abstractions;
+using ReactiveUI.Validation.Contexts;
+using ReactiveUI.Validation.Extensions;
+using Android.Media;
 
 namespace AppX
 {
-    public class AddPersonViewModel : INotifyPropertyChanged
+    public class AddPersonViewModel : ReactiveObject, INotifyPropertyChanged, IValidatableViewModel
     {
+        public ValidationContext ValidationContext { get; } = new ValidationContext();
+
         public event PropertyChangedEventHandler PropertyChanged;
         PersonsDB person = new PersonsDB();
         public string photo = "smile";
         private AddPerson p = new AddPerson();
+        private string errorMessage { get; set; }
+        private bool correctName { get; set; }
+        private bool correctLastName { get; set; }
+        private bool correctPhone { get; set; }
+        private bool correctRelationship { get; set; }
+
+        private Color nameTextColor = Color.Red;
+        private Color lastNameTextColor = Color.Red;
+        private Color phoneTextColor = Color.Red;
+        private Color relationshipTextColor = Color.Red;
+
+        public Color NameTextColor
+        {
+            get => nameTextColor;
+            set
+            {
+                nameTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color LastNameTextColor
+        {
+            get => lastNameTextColor;
+            set
+            {
+                lastNameTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(LastNameTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color PhoneTextColor
+        {
+            get => phoneTextColor;
+            set
+            {
+                phoneTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(PhoneTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+        public Color RelationshipTextColor
+        {
+            get => relationshipTextColor;
+            set
+            {
+                relationshipTextColor = value;
+                var args = new PropertyChangedEventArgs(nameof(RelationshipTextColor));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
+
         public AddPersonViewModel()
         {
+            //this.ValidationRule(vm => vm.DataUrodzenia,
+            //                    value => value > new DateTime(2020, 1, 1) && value < new DateTime(2020, 1, 31),
+            //                    "Niepoprawna data");
+
+            //var isValid = this.IsValid();
+
             SaveCommand = new Command(async () =>
             {
-                person.Imie = Imie;
-                person.Nazwisko = Nazwisko;
-                person.Telefon = Telefon;
-                person.DataUrodzenia = DataUrodzenia;
-                person.Zwiazek = Zwiazek;
-                person.Zdjecie = photo;                
-
-                using(SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                if(correctName && correctLastName && correctPhone && correctRelationship)
                 {
-                    conn.CreateTable<PersonsDB>();
-                    conn.Insert(person);
-                }
+                    ErrorMessage = "";
+                    person.Imie = Imie;
+                    person.Nazwisko = Nazwisko;
+                    person.Telefon = Telefon;
+                    person.DataUrodzenia = DataUrodzenia;
+                    person.Zwiazek = Zwiazek;
+                    person.Zdjecie = photo;
 
-                await Application.Current.MainPage.Navigation.PopAsync();
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<PersonsDB>();
+                        conn.Insert(person);
+                    }
+
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }   
 
             });
 
@@ -70,8 +148,6 @@ namespace AppX
         public Command PhotoCommand { get; }
         public Command ShowPhoto { get; }
 
-
-
         public string Imie
         {
             get => imie;
@@ -81,6 +157,18 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(Imie));
 
                 PropertyChanged?.Invoke(this, args);
+                //NameTextColor = RegexUtill.MinLength(4).IsMatch(value) ? Color.Black : Color.Red;
+
+                if(RegexUtill.MinLength(3).IsMatch(value))
+                {
+                    NameTextColor = Color.Black;
+                    correctName = true;
+                }
+                else
+                {
+                    NameTextColor = Color.Red;
+                    correctName = false;
+                }
             }
         }
         public string Nazwisko
@@ -92,6 +180,17 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(Nazwisko));
 
                 PropertyChanged?.Invoke(this, args);
+
+                if (RegexUtill.MinLength(3).IsMatch(value))
+                {
+                    LastNameTextColor = Color.Black;
+                    correctLastName = true;
+                }
+                else
+                {
+                    LastNameTextColor = Color.Red;
+                    correctLastName = false;
+                }
             }
         }
         public string Telefon
@@ -103,6 +202,17 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(Telefon));
 
                 PropertyChanged?.Invoke(this, args);
+
+                if (RegexUtill.PhoneNumber().IsMatch(value))
+                {
+                    PhoneTextColor = Color.Black;
+                    correctPhone = true;
+                }
+                else
+                {
+                    PhoneTextColor = Color.Red;
+                    correctPhone = false;
+                }
             }
         }
         public DateTime DataUrodzenia
@@ -125,10 +235,32 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(Zwiazek));
 
                 PropertyChanged?.Invoke(this, args);
+
+                if (RegexUtill.MinLength(3).IsMatch(value))
+                {
+                    RelationshipTextColor = Color.Black;
+                    correctRelationship = true;
+                }
+                else
+                {
+                    RelationshipTextColor = Color.Red;
+                    correctRelationship = false;
+                }
+            }
+        }
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                var args = new PropertyChangedEventArgs(nameof(ErrorMessage));
+
+                PropertyChanged?.Invoke(this, args);
             }
         }
 
-        
+
     }
 }
 

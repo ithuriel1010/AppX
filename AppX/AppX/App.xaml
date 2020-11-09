@@ -27,6 +27,10 @@
                 <Setter Property="TextColor" Value="DarkSlateGray"/>
                 <Setter Property="FontSize" Value="18"/>
             </Style>
+            <Style TargetType="Label" x:Key="ErrorMessage">
+                <Setter Property="TextColor" Value="Red"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
             <Style TargetType="Entry" x:Key="EntryField">
                 <Setter Property="TextColor" Value="DimGray"/>
                 <Setter Property="FontSize" Value="18"/>
