@@ -5,6 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="AppX.LocalizationFiles.EditLocalization">
+    
+    <NavigationPage.TitleView>
+        <AbsoluteLayout VerticalOptions="CenterAndExpand">
+            <Button Image="trash.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Command="{Binding DeleteCommand}"
+                    HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>            
+        </AbsoluteLayout>
+    </NavigationPage.TitleView>
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
@@ -54,10 +62,9 @@
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Detect Location" />-->
 
-                <Button
-                    Command="{Binding SaveCommand}"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Zapisz lokalizacje" />
+                <Button Command="{Binding SaveCommand}" IsEnabled="{Binding IsNotBusy}" Text="Zapisz lokalizacje" Style="{StaticResource SaveButton}"/>
+                <Button Command="{Binding CancelCommand}" Text="Cofnij" Style="{StaticResource CancelButton}"/>
+
                 <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 
                 <!--<Label Text="{Binding GeocodePosition}" />-->

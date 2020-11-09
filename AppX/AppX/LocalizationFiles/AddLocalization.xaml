@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="AppX.LocalizationFiles.AddLocalization">
-    <ContentPage.Content>
+    
+<ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
                 <StackLayout.Background>
@@ -52,10 +53,8 @@
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Detect Location" />-->
 
-                <Button
-                    Command="{Binding SaveCommand}"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Zapisz lokalizacje" />
+                <Button Command="{Binding SaveCommand}" IsEnabled="{Binding IsNotBusy}" Text="Zapisz lokalizacje" Style="{StaticResource SaveButton}"/>
+                <Button Command="{Binding CancelCommand}" Text="Cofnij" Style="{StaticResource CancelButton}"/>
                 <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 
                 <!--<Label Text="{Binding GeocodePosition}" />-->

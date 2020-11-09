@@ -16,8 +16,17 @@ namespace AppX
         public string email { get; set; }
         public string zwiazek { get; set; }
         public Command QuickCall  { get; }
+        public Command EditCommand { get; }
+        private ContactDetails c = new ContactDetails();
+
         public ContactDetailsViewModel(ContactsDB contact)
         {
+            EditCommand = new Command(async () =>
+            {
+                c.Edit(contact);
+
+            });
+
             this.contact = contact;
             imie = contact.Imie;
             nazwisko = contact.Nazwisko;

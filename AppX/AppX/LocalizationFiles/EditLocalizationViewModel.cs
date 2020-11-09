@@ -115,6 +115,7 @@ namespace AppX.LocalizationFiles
         public ICommand GetPositionCommand { get; }
         public ICommand CancelCommand { get; }
         public Command SaveCommand { get; }
+        public Command DeleteCommand { get; }
 
         LocalizationsDB localization;
 
@@ -175,6 +176,18 @@ namespace AppX.LocalizationFiles
             CancelCommand = new Command(async () =>
             {
                 await Application.Current.MainPage.Navigation.PopAsync();
+
+            });
+
+            DeleteCommand = new Command(async () =>
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<LocalizationsDB>();
+                    conn.Delete(localization);
+                }
+
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
 
             });
         }

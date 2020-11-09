@@ -12,11 +12,11 @@ using AppX.Utils;
 
 namespace AppX
 {
-    public class AddContactViewModel : INotifyPropertyChanged
+    public class EditContactViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        ContactsDB contact = new ContactsDB();
+        ContactsDB contact;
 
         string imie;
         string nazwisko;
@@ -95,39 +95,60 @@ namespace AppX
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public AddContactViewModel()
+        public Command DeleteCommand { get; }
+        public EditContactViewModel(ContactsDB contact1)
         {
+            contact = contact1;
+            Imie = contact.Imie;
+            Nazwisko = contact.Nazwisko;
+            Telefon = contact.Telefon;
+            Email = contact.Email;
+            Zwiazek = contact.Zwiazek;
+
             SaveCommand = new Command(async () =>
-             {
-                 if(correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
-                 {
-                     contact.Imie = Imie;
-                     contact.Nazwisko = Nazwisko;
-                     contact.Telefon = Telefon;
-                     contact.Email = Email;
-                     contact.Zwiazek = Zwiazek;
+            {
+                if (correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
+                {
+                    contact.Imie = Imie;
+                    contact.Nazwisko = Nazwisko;
+                    contact.Telefon = Telefon;
+                    contact.Email = Email;
+                    contact.Zwiazek = Zwiazek;
 
-                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                     {
-                         conn.CreateTable<ContactsDB>();
-                         conn.Insert(contact);
-                     }
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<ContactsDB>();
+                        conn.Update(contact);
+                    }
 
-                     await Application.Current.MainPage.Navigation.PopAsync();
-                 }
-                 else
-                 {
-                     ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                 }
-             });
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }
+            });
 
             CancelCommand = new Command(async () =>
             {
                 await Application.Current.MainPage.Navigation.PopAsync();
 
             });
+
+            DeleteCommand = new Command(async () =>
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<ContactsDB>();
+                    conn.Delete(contact);
+                }
+
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+
+            });
+
         }
-        
+
         public string Imie
         {
             get => imie;

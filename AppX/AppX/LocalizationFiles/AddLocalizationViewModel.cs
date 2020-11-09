@@ -115,6 +115,7 @@ namespace AppX.LocalizationFiles
         public ICommand GetPositionCommand { get; }
         public ICommand CancelCommand { get; }
         public Command SaveCommand { get; }
+        public Command DeleteCommand { get; }
 
         LocalizationsDB localization = new LocalizationsDB();
 

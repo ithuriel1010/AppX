@@ -51,8 +51,8 @@
             <Label Text="Związek:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>
                 <Entry Placeholder="Wpisz związek z kontaktem" Text="{Binding Zwiazek}" TextColor="{Binding RelationshipTextColor}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Style="{StaticResource EntryField}"/>
 
-            <Button Text="Zapisz kontakt" Grid.Column="0" Grid.Row="11" Command="{Binding SaveCommand}"/>
-            <Button Text="Cofnij" Grid.Column="1" Grid.Row="11" Command="{Binding CancelCommand}"/>
+            <Button Text="Zapisz kontakt" Grid.Column="0" Grid.Row="11" Command="{Binding SaveCommand}" Style="{StaticResource SaveButton}"/>
+                <Button Text="Cofnij" Grid.Column="1" Grid.Row="11" Command="{Binding CancelCommand}" Style="{StaticResource CancelButton}"/>
                 <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 
             </Grid>

@@ -128,6 +128,17 @@ namespace AppX.Persons
                 await Application.Current.MainPage.Navigation.PopAsync();
 
             });
+
+            DeleteCommand = new Command(async () =>
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<PersonsDB>();
+                    conn.Delete(person);
+                }
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+
+            });
         }
 
         string imie;
@@ -144,6 +155,7 @@ namespace AppX.Persons
         public Command CancelCommand { get; }
         public Command PhotoCommand { get; }
         public Command ShowPhoto { get; }
+        public Command DeleteCommand { get; }
 
 
 
