@@ -22,6 +22,7 @@ namespace AppX
         public string hobby { get; set; }
         public string zdjecie { get; set; }
         public int wiek { get; set; }
+        public string date { get; set; }
         public MainPageViewModel()
         {
             using (SQLiteConnection pat = new SQLiteConnection(App.FilePath))
@@ -38,7 +39,7 @@ namespace AppX
             hobby = patient.Hobby;
             zdjecie = patient.Zdjecie;
             wiek = DateTime.Now.Year - patient.DataUrodzenia.Year;
-
+            date = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
         }
 
     }

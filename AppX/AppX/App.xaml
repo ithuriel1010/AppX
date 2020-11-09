@@ -31,6 +31,16 @@
                 <Setter Property="TextColor" Value="Red"/>
                 <Setter Property="FontSize" Value="18"/>
             </Style>
+            <Style TargetType="Label" x:Key="DateInfo">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style TargetType="Label" x:Key="Separator">
+                <Setter Property="BackgroundColor" Value="#a495e2"/>
+            </Style>
             <Style TargetType="Entry" x:Key="EntryField">
                 <Setter Property="TextColor" Value="DimGray"/>
                 <Setter Property="FontSize" Value="18"/>
