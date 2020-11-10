@@ -13,7 +13,7 @@
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
             <Button Image="view.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Clicked="SeeClicked"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
-            <Button Image="note.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.75,0,40,40" Clicked="AddNote"
+            <Button Image="settings.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.75,0,40,40" Clicked="SettingsPage"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
         </AbsoluteLayout>        
     </NavigationPage.TitleView>

@@ -60,6 +60,11 @@
                 <Setter Property="BorderColor" Value="Black"/>
                 <Setter Property="TextColor" Value="Black"/>
             </Style>
+            <Style TargetType="Button" x:Key="ChangeButton">
+                <Setter Property="BackgroundColor" Value="#86a0de"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>   

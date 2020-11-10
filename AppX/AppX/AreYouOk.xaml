@@ -19,8 +19,8 @@
             <Label Text="Czy wszystko w porządku?" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button Text="Tak" Clicked="EverythingOk" Grid.Column="0" Grid.Row="1"/>
-            <Button Text="Nie" Clicked="NotFine" Grid.Column="1" Grid.Row="1"/>
+            <Button Text="Tak" Clicked="EverythingOk" Grid.Column="0" Grid.Row="1" Style="{StaticResource SaveButton}"/>
+            <Button Text="Nie" Clicked="NotFine" Grid.Column="1" Grid.Row="1" Style="{StaticResource CancelButton}"/>
 
         </Grid>
     </ContentPage.Content>

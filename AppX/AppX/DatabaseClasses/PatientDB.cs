@@ -24,5 +24,7 @@ namespace AppX.DatabaseClasses
         public string Hobby { get; set; }
         public string Zdjecie { get; set; }
         public int Wiek { get; set; }
+        public int LocalizationMinutes { get; set; }
+        public int FallSeconds { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 
     <NavigationPage.TitleView>
         <AbsoluteLayout VerticalOptions="CenterAndExpand">
-            <Button Image="add2.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Command="{Binding PhotoCommand}"
+            <Button Image="photo.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Command="{Binding PhotoCommand}"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
         </AbsoluteLayout>
     </NavigationPage.TitleView>

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using AppX.DatabaseClasses;
+using SQLite;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +33,20 @@ namespace AppX
 
         public void NotFine(object sender, EventArgs args)
         {
-            SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
+            ObservableCollection<ContactsDB> contactsList;
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                conn.CreateTable<ContactsDB>();
+                var contacts = conn.Table<ContactsDB>().ToList();
+
+                contactsList = new ObservableCollection<ContactsDB>(contacts);
+            }
+
+            foreach (var contact in contactsList)
+            {
+                SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
+            }
+            //SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
         }
     }
 }

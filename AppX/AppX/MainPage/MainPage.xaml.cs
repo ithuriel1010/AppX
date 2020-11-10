@@ -1,6 +1,7 @@
 ﻿using Android.Icu.Text;
 using AppX.DatabaseClasses;
 using AppX.LocalizationFiles;
+using AppX.Settings;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -33,10 +34,17 @@ namespace AppX
         private int _duration = 0;
 
         List<LocalizationsDB> localizationsList;
+        PatientDB patient;
 
         public MainPage()
         {
             InitializeComponent();
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+            {
+                conn.CreateTable<PatientDB>();
+                patient = conn.Table<PatientDB>().FirstOrDefault();
+            }
 
             System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
             timer.AutoReset = true;
@@ -113,7 +121,7 @@ namespace AppX
                 }
 
 
-                if (_duration>=60 && noAnwser)
+                if (_duration>=patient.FallSeconds && noAnwser)
                 {
                     ObservableCollection<ContactsDB> contactsList;
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -239,6 +247,14 @@ namespace AppX
             addNotePage.BindingContext = addNoteVM;
             await Application.Current.MainPage.Navigation.PushAsync(addNotePage);
         }
+        public async void SettingsPage(object sender, EventArgs e)
+        {
+            var settingsVM = new SettingsPageViewModel();
+            var settingsPage = new SettingsPage();
+
+            settingsPage.BindingContext = settingsVM;
+            await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
+        }
 
         async void GetLocationAsync()
         {
@@ -322,7 +338,7 @@ namespace AppX
                     {
                         minutesAway++;
 
-                        if(minutesAway>=10)
+                        if(minutesAway>=patient.LocalizationMinutes)
                         {
                             SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
 

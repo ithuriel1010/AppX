@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppX.Settings.SettingsPage">
+    
+    <ContentPage.Content>
+        <Grid Padding="13,0,0,0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Primary}"
+                                      Offset="0.1"/>
+                    <GradientStop Color="{StaticResource Secondary}"
+                                      Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Ustawienia" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Po ilu minutach z dala od znanych lokalizacji powiadomić opiekuna?" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding LocalizationMinutes}" Grid.Row="2" Grid.ColumnSpan="1" Style="{StaticResource EntryField}" Keyboard="Numeric"/>
+                <Label Text="Po ilu sekundach bez akcji po wykryciu upadku powiadomić opiekuna?" Grid.Row="3" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
+                <Entry Text="{Binding FallSeconds}" Style="{StaticResource EntryField}" Grid.Row="4" Grid.ColumnSpan="1" Keyboard="Numeric"/>
+                <Button Text="Zapisz zmiany" Command="{Binding SaveCommand}" Grid.Row="5" Grid.ColumnSpan="3" Style="{StaticResource SaveButton}"/>
+                <Button Text="Zmień swoje dane" Command="{Binding ChangeDataCommand}" Grid.Row="6" Grid.ColumnSpan="3" Style="{StaticResource ChangeButton}"/>
+                <Button Text="Cofnij" Command="{Binding CancelCommand}" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource CancelButton}"/>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
