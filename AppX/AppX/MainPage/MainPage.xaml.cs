@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Input;
+using System.Xml.Schema;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -32,6 +34,7 @@ namespace AppX
 
         public static bool noAnwser = false;
         private int _duration = 0;
+        public static bool xx { get; set; }
 
         List<LocalizationsDB> localizationsList;
         PatientDB patient;
@@ -71,6 +74,12 @@ namespace AppX
 
         }
 
+        public static async void XXX(bool x)
+        {
+
+            xx = x;
+
+        }
         private void SendNotification(string title, string message, string action)
         {
             DependencyService.Get<INotification>().CreateNotification(title, message, action);
@@ -172,9 +181,21 @@ namespace AppX
             CheckDistanceAndSendAlert();
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+
+            
+
+            if (xx)
+            {
+                var vUpdatedPage = new MainPage();
+                // await Application.Current.MainPage.Navigation.PushAsync(addContPage);
+                Application.Current.MainPage.Navigation.InsertPageBefore(vUpdatedPage, this);
+                await Application.Current.MainPage.Navigation.PopAsync();
+                XXX(false);
+            }
+
             //NotesList.SelectedItem = null;
         }
 

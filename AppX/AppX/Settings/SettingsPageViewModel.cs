@@ -17,6 +17,8 @@ namespace AppX.Settings
         string fallSeconds;
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+        public Command ChangeDataCommand { get; }
+
 
         public SettingsPageViewModel()
         {
@@ -49,6 +51,15 @@ namespace AppX.Settings
             CancelCommand = new Command(async () =>
             {
                 await Application.Current.MainPage.Navigation.PopToRootAsync();
+            });
+
+            ChangeDataCommand = new Command(async () =>
+            {
+                var editPatientPageVM = new EditPatientPageViewModel();
+                var editPatientPage = new EditPatientPage();
+
+                editPatientPage.BindingContext = editPatientPageVM;
+                await Application.Current.MainPage.Navigation.PushAsync(editPatientPage);
             });
 
 

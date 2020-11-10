@@ -23,53 +23,53 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid Padding="13,0,0,0">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="{StaticResource Primary}"
+                <Grid Padding="13,0,0,0">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="{StaticResource Primary}"
                                       Offset="0.1"/>
-                    <GradientStop Color="{StaticResource Secondary}"
+                            <GradientStop Color="{StaticResource Secondary}"
                                       Offset="1.0"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-            <Grid>
-                <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-            <Label Text="To jest twój profil" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
-            <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding imie}" Grid.Row="2" Style="{StaticResource DataField }"/>
-            <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding nazwisko}" Grid.Row="4" Style="{StaticResource DataField }"/>
-            <Label Text="Wiek:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding wiek}" Grid.Row="6" Style="{StaticResource DataField }"/>
-            <Label Text="Hobby:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding hobby}" Grid.Row="8" Style="{StaticResource DataField }"/>
-            <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
+                        <Label Text="To jest twój profil" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
+                        <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+                        <Label Text="{Binding imie}" x:Name="FirstNameField" Grid.Row="2" Style="{StaticResource DataField }"/>
+                        <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+                        <Label Text="{Binding nazwisko}" Grid.Row="4" Style="{StaticResource DataField }"/>
+                        <Label Text="Wiek:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+                        <Label Text="{Binding wiek}" Grid.Row="6" Style="{StaticResource DataField }"/>
+                        <Label Text="Hobby:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
+                        <Label Text="{Binding hobby}" Grid.Row="8" Style="{StaticResource DataField }"/>
+                        <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
                                    Source="{Binding zdjecie}"/>
 
-                <BoxView Grid.Row="9"  Grid.ColumnSpan="3" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="200" Color="#5b5d68"></BoxView>
-                <Label Text="Dzisiaj jest: " Grid.Row="10" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
-                <Label Text="{Binding date}" Grid.Row="11" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
-            </Grid>
-        </Grid>
+                        <BoxView Grid.Row="9"  Grid.ColumnSpan="3" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="200" Color="#5b5d68"></BoxView>
+                        <Label Text="Dzisiaj jest: " Grid.Row="10" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
+                        <Label Text="{Binding date}" Grid.Row="11" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
+                    </Grid>
+                </Grid>
     </ContentPage.Content>
 </ContentPage>
