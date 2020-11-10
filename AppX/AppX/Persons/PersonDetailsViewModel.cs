@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AppX.Persons
@@ -20,17 +21,12 @@ namespace AppX.Persons
         public int wiek { get; set; }
 
         public Command EditCommand { get; }
+        public Command QuickCall { get; }
         private PersonDetails p = new PersonDetails();
 
 
         public PersonDetailsViewModel(PersonsDB person)
-        {
-            EditCommand = new Command(async () =>
-            {
-                p.Edit(person);
-
-            });
-
+        {           
             this.person = person;
             imie = person.Imie;
             nazwisko = person.Nazwisko;
@@ -40,6 +36,18 @@ namespace AppX.Persons
             zwiazek = person.Zwiazek;
             zdjecie = person.Zdjecie;
             wiek = person.Wiek;
+
+            EditCommand = new Command(async () =>
+            {
+                p.Edit(person);
+
+            });
+
+            QuickCall = new Command(() =>
+            {
+                p.PlacePhoneCall(telefon);
+            });
+
         }
     }
 }

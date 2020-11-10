@@ -115,9 +115,21 @@ namespace AppX
 
                 if (_duration>=60 && noAnwser)
                 {
-                    SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
-                    _duration = 0;
+                    ObservableCollection<ContactsDB> contactsList;
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<ContactsDB>();
+                        var contacts = conn.Table<ContactsDB>().ToList();
 
+                        contactsList = new ObservableCollection<ContactsDB>(contacts);
+                    }
+
+                    foreach(var contact in contactsList)
+                    {
+                        SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
+                    }
+
+                    _duration = 0;
                 }
 
             }
@@ -313,6 +325,22 @@ namespace AppX
                         if(minutesAway>=10)
                         {
                             SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
+
+                            ObservableCollection<ContactsDB> contactsList;
+                            using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                            {
+                                conn.CreateTable<ContactsDB>();
+                                var contacts = conn.Table<ContactsDB>().ToList();
+
+                                contactsList = new ObservableCollection<ContactsDB>(contacts);
+                            }
+
+                            foreach (var contact in contactsList)
+                            {
+                                SendTextAndEmail s = new SendTextAndEmail("Twój podopieczny jest daleko od znanych lokalizacji! Sprawdź czy wszystko z nim w porządku!", contact.Telefon, "ithuriel1010@gmail.com");
+                            }
+
+                            _duration = 0;
 
                             /*Device.BeginInvokeOnMainThread(async () => {
                                 await DisplayAlert("UWAGA", "Jesteś daleko poza znanymi lokalizacjami!", "OK");

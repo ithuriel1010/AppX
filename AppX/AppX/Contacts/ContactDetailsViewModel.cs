@@ -21,12 +21,6 @@ namespace AppX
 
         public ContactDetailsViewModel(ContactsDB contact)
         {
-            EditCommand = new Command(async () =>
-            {
-                c.Edit(contact);
-
-            });
-
             this.contact = contact;
             imie = contact.Imie;
             nazwisko = contact.Nazwisko;
@@ -34,6 +28,18 @@ namespace AppX
             telefon = contact.Telefon;
             email = contact.Email;
             zwiazek = contact.Zwiazek;
+
+            EditCommand = new Command(async () =>
+            {
+                c.Edit(contact);
+
+            });
+
+            QuickCall = new Command(() =>
+            {
+                c.PlacePhoneCall(telefon);
+            });
+
         }
     }
 }
