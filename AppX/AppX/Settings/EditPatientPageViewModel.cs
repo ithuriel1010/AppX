@@ -16,7 +16,7 @@ namespace AppX.Settings
         PatientDB patient = new PatientDB();
         //public string photo = "smile";
         private AddPerson p = new AddPerson();
-        private AddPatientInfo ap = new AddPatientInfo();
+        private EditPatientPage ep = new EditPatientPage();
 
         string imie;
         string nazwisko;
@@ -114,8 +114,8 @@ namespace AppX.Settings
                     patient.DataUrodzenia = DataUrodzenia;
                     patient.Hobby = Hobby;
                     patient.Zdjecie = photo;
-                    patient.LocalizationMinutes = 10;
-                    patient.FallSeconds = 60;
+                    //patient.LocalizationMinutes = 10;
+                    //patient.FallSeconds = 60;
 
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                     {
@@ -135,7 +135,7 @@ namespace AppX.Settings
 
             PhotoCommand = new Command(async () =>
             {
-                photo = await ap.UploadPhoto();
+                photo = await ep.UploadPhoto();
             });
 
             CancelCommand = new Command(async () =>

@@ -7,7 +7,7 @@
              x:Class="AppX.LocalizationFiles.AddLocalization">
     
 <ContentPage.Content>
-        <ScrollView>
+        <ScrollView Padding="13,0,0,0">
             <StackLayout Padding="12,0,12,12" Spacing="6">
                 <StackLayout.Background>
                         <LinearGradientBrush EndPoint="0,1">

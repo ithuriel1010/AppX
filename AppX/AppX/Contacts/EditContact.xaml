@@ -11,7 +11,7 @@
     </NavigationPage.TitleView>
 
     <ContentPage.Content>
-        <Grid>
+        <Grid Padding="13,0,0,0">
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0,1">

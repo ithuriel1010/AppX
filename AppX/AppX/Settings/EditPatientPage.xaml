@@ -12,7 +12,7 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <Grid>
+            <Grid Padding="13,0,0,0">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="{StaticResource Primary}"

@@ -14,7 +14,7 @@
     </NavigationPage.TitleView>
     
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="13,0,0,0">
             <StackLayout.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="{StaticResource Primary}"
