@@ -7,7 +7,7 @@
              x:Class="AppX.LocalizationFiles.AddLocalization">
     
 <ContentPage.Content>
-        <ScrollView Padding="13,0,0,0">
+        <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
                 <StackLayout.Background>
                         <LinearGradientBrush EndPoint="0,1">
@@ -28,7 +28,7 @@
                     FontAttributes="Bold"
                     Text="Reverse Geocoding:" />-->
 
-                <Label Text="Dodaj lokalizacje" Style="{StaticResource ScreenTitleLabel}" />
+                <Label Text="Dodaj lokalizację" Style="{StaticResource ScreenTitleLabel}" />
                 
                 <Label Text="Ulica:" Style="{StaticResource FieldTitleLabel}"/>
                 <Entry Text="{Binding Street}" TextColor="{Binding StreetTextColor}" Placeholder="Niepodległości" Style="{StaticResource EntryField}"/>
@@ -53,7 +53,7 @@
                     IsEnabled="{Binding IsNotBusy}"
                     Text="Detect Location" />-->
 
-                <Button Command="{Binding SaveCommand}" IsEnabled="{Binding IsNotBusy}" Text="Zapisz lokalizacje" Style="{StaticResource SaveButton}"/>
+                <Button Command="{Binding SaveCommand}" IsEnabled="{Binding IsNotBusy}" Text="Zapisz lokalizację" Style="{StaticResource SaveButton}"/>
                 <Button Command="{Binding CancelCommand}" Text="Cofnij" Style="{StaticResource CancelButton}"/>
                 <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 

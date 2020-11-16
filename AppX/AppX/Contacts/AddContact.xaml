@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="AppX.AddContact">
     <ContentPage.Content>
+        <ScrollView>
         <Grid>
             <Grid Padding="13,0,0,0">
                 <Grid.Background>
@@ -57,5 +58,6 @@
 
             </Grid>
             </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

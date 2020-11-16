@@ -4,6 +4,7 @@
              x:Class="AppX.Settings.SettingsPage">
     
     <ContentPage.Content>
+        <ScrollView>
         <Grid Padding="13,0,0,0">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0,1">
@@ -46,5 +47,6 @@
 
             </Grid>
         </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

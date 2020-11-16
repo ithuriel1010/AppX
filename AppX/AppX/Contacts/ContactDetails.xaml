@@ -14,6 +14,7 @@
     </NavigationPage.TitleView>
 
     <ContentPage.Content>
+        <ScrollView>
         <Grid Padding="13,0,0,0">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0,1">
@@ -42,5 +43,6 @@
             <Button Text="Zadzwoń" Grid.Row="7" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
 
         </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

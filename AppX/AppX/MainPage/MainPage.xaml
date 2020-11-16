@@ -23,6 +23,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
+        <ScrollView>
                 <Grid Padding="13,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0,1">
@@ -62,7 +63,7 @@
                         <Label Text="Wiek:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
                         <Label Text="{Binding wiek}" Grid.Row="6" Style="{StaticResource DataField }"/>
                         <Label Text="Hobby:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
-                        <Label Text="{Binding hobby}" Grid.Row="8" Style="{StaticResource DataField }"/>
+                        <Label Text="{Binding hobby}" Grid.Row="8" Grid.ColumnSpan="3" Style="{StaticResource DataField }"/>
                         <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
                                    Source="{Binding zdjecie}"/>
 
@@ -71,5 +72,6 @@
                         <Label Text="{Binding date}" Grid.Row="11" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
                     </Grid>
                 </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
