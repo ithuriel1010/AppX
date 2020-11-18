@@ -25,6 +25,14 @@ namespace AppX
         PersonsDB person = new PersonsDB();
         public string photo = "smile";
         private AddPerson p = new AddPerson();
+
+        string firstName;
+        string lastName;
+        string phoneNumber;
+        DateTime birthDate;
+        string relationship;
+
+        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
         private string errorMessage { get; set; }
         private bool correctName { get; set; }
         private bool correctLastName { get; set; }
@@ -94,12 +102,12 @@ namespace AppX
                 if(correctName && correctLastName && correctPhone && correctRelationship)
                 {
                     ErrorMessage = "";
-                    person.Imie = Imie;
-                    person.Nazwisko = Nazwisko;
-                    person.Telefon = Telefon;
-                    person.DataUrodzenia = DataUrodzenia;
-                    person.Zwiazek = Zwiazek;
-                    person.Zdjecie = photo;
+                    person.FirstName = FirstName;
+                    person.LastName = LastName;
+                    person.PhoneNumber = PhoneNumber;
+                    person.BirthDate = BirthDate;
+                    person.Relationship = Relationship;
+                    person.Photo = photo;
 
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                     {
@@ -133,13 +141,7 @@ namespace AppX
             });
         }
 
-        string imie;
-        string nazwisko;
-        string telefon;
-        DateTime dataUrodzenia;
-        string zwiazek;
-
-        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
+        
         //public long MaxDate = (long) (DateTime.Now - new DateTime(1900, 1, 1)).TotalMilliseconds;
 
 
@@ -148,13 +150,13 @@ namespace AppX
         public Command PhotoCommand { get; }
         public Command ShowPhoto { get; }
 
-        public string Imie
+        public string FirstName
         {
-            get => imie;
+            get => firstName;
             set
             {
-                imie = value;
-                var args = new PropertyChangedEventArgs(nameof(Imie));
+                firstName = value;
+                var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
                 //NameTextColor = RegexUtill.MinLength(4).IsMatch(value) ? Color.Black : Color.Red;
@@ -173,13 +175,13 @@ namespace AppX
                 (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
             }
         }
-        public string Nazwisko
+        public string LastName
         {
-            get => nazwisko;
+            get => lastName;
             set
             {
-                nazwisko = value;
-                var args = new PropertyChangedEventArgs(nameof(Nazwisko));
+                lastName = value;
+                var args = new PropertyChangedEventArgs(nameof(LastName));
 
                 PropertyChanged?.Invoke(this, args);
 
@@ -187,13 +189,13 @@ namespace AppX
 
             }
         }
-        public string Telefon
+        public string PhoneNumber
         {
-            get => telefon;
+            get => phoneNumber;
             set
             {
-                telefon = value;
-                var args = new PropertyChangedEventArgs(nameof(Telefon));
+                phoneNumber = value;
+                var args = new PropertyChangedEventArgs(nameof(PhoneNumber));
 
                 PropertyChanged?.Invoke(this, args);
 
@@ -201,24 +203,24 @@ namespace AppX
 
             }
         }
-        public DateTime DataUrodzenia
+        public DateTime BirthDate
         {
-            get => dataUrodzenia;
+            get => birthDate;
             set
             {
-                dataUrodzenia = value;
-                var args = new PropertyChangedEventArgs(nameof(DataUrodzenia));
+                birthDate = value;
+                var args = new PropertyChangedEventArgs(nameof(BirthDate));
 
                 PropertyChanged?.Invoke(this, args);
             }
         }
-        public string Zwiazek
+        public string Relationship
         {
-            get => zwiazek;
+            get => relationship;
             set
             {
-                zwiazek = value;
-                var args = new PropertyChangedEventArgs(nameof(Zwiazek));
+                relationship = value;
+                var args = new PropertyChangedEventArgs(nameof(Relationship));
 
                 PropertyChanged?.Invoke(this, args);
 

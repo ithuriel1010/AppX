@@ -78,23 +78,23 @@ namespace AppX.Persons
         public EditPersonViewModel(PersonsDB personDetails)
         {
             person = personDetails;
-            Imie= person.Imie;
-            Nazwisko = person.Nazwisko;
-            Telefon = person.Telefon;
-            DataUrodzenia = person.DataUrodzenia;
-            Zwiazek = person.Zwiazek;
-            photo = person.Zdjecie;
+            Imie= person.FirstName;
+            Nazwisko = person.LastName;
+            Telefon = person.PhoneNumber;
+            DataUrodzenia = person.BirthDate;
+            Zwiazek = person.Relationship;
+            photo = person.Photo;
 
             SaveCommand = new Command(async () =>
             {
                 if (correctName && correctLastName && correctPhone && correctRelationship)
                 {
-                    person.Imie = Imie;
-                    person.Nazwisko = Nazwisko;
-                    person.Telefon = Telefon;
-                    person.DataUrodzenia = DataUrodzenia;
-                    person.Zwiazek = Zwiazek;
-                    person.Zdjecie = photo;
+                    person.FirstName = Imie;
+                    person.LastName = Nazwisko;
+                    person.PhoneNumber = Telefon;
+                    person.BirthDate = DataUrodzenia;
+                    person.Relationship = Zwiazek;
+                    person.Photo = photo;
 
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                     {

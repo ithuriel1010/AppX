@@ -29,7 +29,7 @@ namespace AppX
 
             foreach (var person in personsList)
             {
-                person.Wiek = DateTime.Now.Year - person.DataUrodzenia.Year;
+                person.Age = DateTime.Now.Year - person.BirthDate.Year;
             }
 
             SelectedPersonChangedCommand = new Command(async () =>

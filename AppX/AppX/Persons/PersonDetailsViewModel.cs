@@ -28,14 +28,14 @@ namespace AppX.Persons
         public PersonDetailsViewModel(PersonsDB person)
         {           
             this.person = person;
-            imie = person.Imie;
-            nazwisko = person.Nazwisko;
+            imie = person.FirstName;
+            nazwisko = person.LastName;
             fullName = imie + " " + nazwisko;
-            telefon = person.Telefon;
-            dataUrodzenia = person.DataUrodzenia;
-            zwiazek = person.Zwiazek;
-            zdjecie = person.Zdjecie;
-            wiek = person.Wiek;
+            telefon = person.PhoneNumber;
+            dataUrodzenia = person.BirthDate;
+            zwiazek = person.Relationship;
+            zdjecie = person.Photo;
+            wiek = person.Age;
 
             EditCommand = new Command(async () =>
             {
