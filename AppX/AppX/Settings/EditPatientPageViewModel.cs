@@ -123,7 +123,7 @@ namespace AppX.Settings
                         conn.Update(patient);
                     }
 
-                    MainPage.XXX(true);
+                    MainPage.ShouldRefreshPage(true);
                     await Application.Current.MainPage.Navigation.PopToRootAsync();
 
                 }

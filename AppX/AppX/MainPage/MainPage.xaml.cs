@@ -28,13 +28,13 @@ namespace AppX
         public string Acc { get; set; }
         SensorSpeed speed = SensorSpeed.UI;
 
-        double longitude;
-        double latitude;
-        int minutesAway = 0;
+        double currentLongitude;
+        double currentLatitude;
+        int minutesAwayFromKnownLocations = 0;
 
-        public static bool noAnwser = false;
-        private int _duration = 0;
-        public static bool xx { get; set; }
+        public static bool noAnwserAfterFall = false;
+        private int ignoreFallNotSeconds = 0;
+        public static bool refreshPage { get; set; }
 
         List<LocalizationsDB> localizationsList;
         PatientDB patient;
@@ -51,7 +51,7 @@ namespace AppX
 
             System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
             timer.AutoReset = true;
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(MyMethod);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(CheckLocation);
             timer.Start();
 
             if (Accelerometer.IsMonitoring)
@@ -74,10 +74,10 @@ namespace AppX
 
         }
 
-        public static async void XXX(bool x)
+        public static async void ShouldRefreshPage(bool refresh)
         {
 
-            xx = x;
+            refreshPage = refresh;
 
         }
         private void SendNotification(string title, string message, string action)
@@ -107,7 +107,7 @@ namespace AppX
             {
                 Accelerometer.Stop();
                 DisplayFallDetection();
-                noAnwser = true;
+                noAnwserAfterFall = true;
                 StartTimer();
             }
 
@@ -115,13 +115,13 @@ namespace AppX
         }
         public async void StartTimer()
         {
-            _duration = 0;
+            ignoreFallNotSeconds = 0;
 
             // tick every second while game is in progress
-            while (noAnwser)
+            while (noAnwserAfterFall)
             {
                 await Task.Delay(1000);
-                _duration++;
+                ignoreFallNotSeconds++;
 
                 if (Accelerometer.IsMonitoring == false)
                 {
@@ -130,7 +130,7 @@ namespace AppX
                 }
 
 
-                if (_duration>=patient.FallSeconds && noAnwser)
+                if (ignoreFallNotSeconds>=patient.FallSeconds && noAnwserAfterFall)
                 {
                     ObservableCollection<ContactsDB> contactsList;
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -146,7 +146,7 @@ namespace AppX
                         SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
                     }
 
-                    _duration = 0;
+                    ignoreFallNotSeconds = 0;
                 }
 
             }
@@ -160,9 +160,9 @@ namespace AppX
             ZG.Text = "Z:" + data.AngularVelocity.Z.ToString();
         }*/
 
-        public async void ClickedNotification()
+        public async void ClickedFallNotification()
         {
-            noAnwser = false;
+            noAnwserAfterFall = false;
 
             //Accelerometer.Start(SensorSpeed.UI);
         }
@@ -175,7 +175,7 @@ namespace AppX
 
         }
 
-        public void MyMethod(object sender, ElapsedEventArgs e)
+        public void CheckLocation(object sender, ElapsedEventArgs e)
         {
             GetLocationAsync();
             CheckDistanceAndSendAlert();
@@ -187,19 +187,19 @@ namespace AppX
 
             
 
-            if (xx)
+            if (refreshPage)
             {
                 var vUpdatedPage = new MainPage();
                 // await Application.Current.MainPage.Navigation.PushAsync(addContPage);
                 Application.Current.MainPage.Navigation.InsertPageBefore(vUpdatedPage, this);
                 await Application.Current.MainPage.Navigation.PopAsync();
-                XXX(false);
+                ShouldRefreshPage(false);
             }
 
             //NotesList.SelectedItem = null;
         }
 
-        public async void ClickAction(object sender, EventArgs e)
+        public async void AddButtonClicked(object sender, EventArgs e)
         {
             var action = await DisplayActionSheet("Dodaj", "Wstecz", null, "Kontakt Awaryjny", "Osobę bliską", "Lokalizację");
 
@@ -230,7 +230,7 @@ namespace AppX
 
         }
 
-        public async void SeeClicked(object sender, EventArgs e)
+        public async void SeeButtonClicked(object sender, EventArgs e)
         {
             var action = await DisplayActionSheet("Przeglądaj", "Wstecz", null, "Kontakty awaryjne", "Osoby bliskie", "Lokalizację");
 
@@ -268,7 +268,7 @@ namespace AppX
             addNotePage.BindingContext = addNoteVM;
             await Application.Current.MainPage.Navigation.PushAsync(addNotePage);
         }
-        public async void SettingsPage(object sender, EventArgs e)
+        public async void SettingsButtonClicked(object sender, EventArgs e)
         {
             var settingsVM = new SettingsPageViewModel();
             var settingsPage = new SettingsPage();
@@ -286,16 +286,16 @@ namespace AppX
 
                 if (location != null)
                 {
-                    latitude = location.Latitude;
-                    longitude = location.Longitude;
+                    currentLatitude = location.Latitude;
+                    currentLongitude = location.Longitude;
 
                     //Lokalizacja = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}";
                     //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
                 }
                 else
                 {
-                    latitude = 0;
-                    longitude = 0;
+                    currentLatitude = 0;
+                    currentLongitude = 0;
                     //Lokalizacja = "Lokalizacja=null";
                 }
             }
@@ -335,7 +335,7 @@ namespace AppX
             foreach (var oneLocalization in localizationsList)
             {
                 Location other = new Location(oneLocalization.Lat, oneLocalization.Lon);
-                Location here = new Location(latitude, longitude);
+                Location here = new Location(currentLatitude, currentLongitude);
                 double kilometers = Location.CalculateDistance(other, here, DistanceUnits.Kilometers);
 
                 if (kilometers <= 0.05)
@@ -351,15 +351,15 @@ namespace AppX
                     //await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
                     break;
                 }
-                else if (kilometers >= 3)
+                else if (kilometers >= 10)
                 {
                     farLocations++;
 
                     if(farLocations==locationCount)
                     {
-                        minutesAway++;
+                        minutesAwayFromKnownLocations++;
 
-                        if(minutesAway>=patient.LocalizationMinutes)
+                        if(minutesAwayFromKnownLocations>=patient.LocalizationMinutes)
                         {
                             SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
 
@@ -377,13 +377,13 @@ namespace AppX
                                 SendTextAndEmail s = new SendTextAndEmail("Twój podopieczny jest daleko od znanych lokalizacji! Sprawdź czy wszystko z nim w porządku!", contact.Telefon, "ithuriel1010@gmail.com");
                             }
 
-                            _duration = 0;
+                            ignoreFallNotSeconds = 0;
 
                             /*Device.BeginInvokeOnMainThread(async () => {
                                 await DisplayAlert("UWAGA", "Jesteś daleko poza znanymi lokalizacjami!", "OK");
                             });*/
 
-                            minutesAway = 0;
+                            minutesAwayFromKnownLocations = 0;
                         }
                     }
                 }

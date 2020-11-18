@@ -22,7 +22,7 @@ namespace AppX
 
         protected override void OnAppearing()
         {
-            MainPage.noAnwser = false;
+            MainPage.noAnwserAfterFall = false;
             //mp.ClickedNotification();
         }
 

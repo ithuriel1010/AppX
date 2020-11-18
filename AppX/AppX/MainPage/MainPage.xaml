@@ -9,11 +9,11 @@
 
     <NavigationPage.TitleView>
         <AbsoluteLayout VerticalOptions="CenterAndExpand">
-            <Button Image="add2.png" Clicked="ClickAction" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0,40,40"
+            <Button Image="add2.png" Clicked="AddButtonClicked" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0,0,40,40"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
-            <Button Image="view.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Clicked="SeeClicked"
+            <Button Image="view.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.95,0,40,40" Clicked="SeeButtonClicked"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
-            <Button Image="settings.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.75,0,40,40" Clicked="SettingsPage"
+            <Button Image="settings.png" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.75,0,40,40" Clicked="SettingsButtonClicked"
                     HorizontalOptions="End" BorderColor="Transparent" BackgroundColor="Transparent" Scale="0.7"/>
         </AbsoluteLayout>        
     </NavigationPage.TitleView>
@@ -57,19 +57,19 @@
 
                         <Label Text="To jest twój profil" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
                         <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-                        <Label Text="{Binding imie}" x:Name="FirstNameField" Grid.Row="2" Style="{StaticResource DataField }"/>
+                    <Label Text="{Binding firstName}" x:Name="FirstNameField" Grid.Row="2" Style="{StaticResource DataField }"/>
                         <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-                        <Label Text="{Binding nazwisko}" Grid.Row="4" Style="{StaticResource DataField }"/>
+                    <Label Text="{Binding lastName}" Grid.Row="4" Style="{StaticResource DataField }"/>
                         <Label Text="Wiek:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
-                        <Label Text="{Binding wiek}" Grid.Row="6" Style="{StaticResource DataField }"/>
+                    <Label Text="{Binding age}" Grid.Row="6" Style="{StaticResource DataField }"/>
                         <Label Text="Hobby:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
                         <Label Text="{Binding hobby}" Grid.Row="8" Grid.ColumnSpan="3" Style="{StaticResource DataField }"/>
                         <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Source="{Binding zdjecie}"/>
+                                   Source="{Binding photo}"/>
 
                         <BoxView Grid.Row="9"  Grid.ColumnSpan="3" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="1" WidthRequest="200" Color="#5b5d68"></BoxView>
                         <Label Text="Dzisiaj jest: " Grid.Row="10" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
-                        <Label Text="{Binding date}" Grid.Row="11" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
+                    <Label Text="{Binding todaysDate}" Grid.Row="11" Grid.ColumnSpan="3" Style="{StaticResource DateInfo }"/>
                     </Grid>
                 </Grid>
         </ScrollView>

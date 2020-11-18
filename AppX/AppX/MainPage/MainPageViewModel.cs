@@ -14,15 +14,15 @@ namespace AppX
         public event PropertyChangedEventHandler PropertyChanged;
 
         private PatientDB patient;
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string fullName { get; set; }
-        public string telefon { get; set; }
-        public DateTime dataUrodzenia { get; set; }
+        public string phoneNumber { get; set; }
+        public DateTime birthDate { get; set; }
         public string hobby { get; set; }
-        public string zdjecie { get; set; }
-        public int wiek { get; set; }
-        public string date { get; set; }
+        public string photo { get; set; }
+        public int age { get; set; }
+        public string todaysDate { get; set; }
         public MainPageViewModel()
         {
             using (SQLiteConnection pat = new SQLiteConnection(App.FilePath))
@@ -31,15 +31,15 @@ namespace AppX
                 patient = pat.Table<PatientDB>().FirstOrDefault();
             }
 
-            imie = patient.Imie;
-            nazwisko = patient.Nazwisko;
-            fullName = imie + " " + nazwisko;
-            telefon = patient.Telefon;
-            dataUrodzenia = patient.DataUrodzenia;
+            firstName = patient.Imie;
+            lastName = patient.Nazwisko;
+            fullName = firstName + " " + lastName;
+            phoneNumber = patient.Telefon;
+            birthDate = patient.DataUrodzenia;
             hobby = patient.Hobby;
-            zdjecie = patient.Zdjecie;
-            wiek = DateTime.Now.Year - patient.DataUrodzenia.Year;
-            date = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
+            photo = patient.Zdjecie;
+            age = DateTime.Now.Year - patient.DataUrodzenia.Year;
+            todaysDate = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
         }
 
     }
