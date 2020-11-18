@@ -18,10 +18,10 @@ namespace AppX
         private AddPerson p = new AddPerson();
         private AddPatientInfo ap = new AddPatientInfo();
 
-        string imie;
-        string nazwisko;
-        string telefon;
-        DateTime dataUrodzenia;
+        string firstName;
+        string lastName;
+        string phoneNumber;
+        DateTime birthDate;
         string hobby;
         App app;
 
@@ -94,12 +94,12 @@ namespace AppX
                 if (correctName && correctLastName && correctPhone && correctHobby)
                 {
                     patient.HaveData = true;
-                    patient.Imie = Imie;
-                    patient.Nazwisko = Nazwisko;
-                    patient.Telefon = Telefon;
-                    patient.DataUrodzenia = DataUrodzenia;
+                    patient.FirstName = FirstName;
+                    patient.LastName = LastName;
+                    patient.PhoneNumber = PhoneNumber;
+                    patient.BirthDate = BirthDate;
                     patient.Hobby = Hobby;
-                    patient.Zdjecie = photo;
+                    patient.Photo = photo;
                     patient.LocalizationMinutes = 30;
                     patient.FallSeconds = 60;
 
@@ -124,52 +124,52 @@ namespace AppX
 
         }
 
-        public string Imie
+        public string FirstName
         {
-            get => imie;
+            get => firstName;
             set
             {
-                imie = value;
-                var args = new PropertyChangedEventArgs(nameof(Imie));
+                firstName = value;
+                var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
                 (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
 
             }
         }
-        public string Nazwisko
+        public string LastName
         {
-            get => nazwisko;
+            get => lastName;
             set
             {
-                nazwisko = value;
-                var args = new PropertyChangedEventArgs(nameof(Nazwisko));
+                lastName = value;
+                var args = new PropertyChangedEventArgs(nameof(LastName));
 
                 PropertyChanged?.Invoke(this, args);
                 (LastNameTextColor, correctLastName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
 
             }
         }
-        public string Telefon
+        public string PhoneNumber
         {
-            get => telefon;
+            get => phoneNumber;
             set
             {
-                telefon = value;
-                var args = new PropertyChangedEventArgs(nameof(Telefon));
+                phoneNumber = value;
+                var args = new PropertyChangedEventArgs(nameof(PhoneNumber));
 
                 PropertyChanged?.Invoke(this, args);
                 (PhoneTextColor, correctPhone) = RegexUtill.Check(RegexUtill.PhoneNumber(), value);
 
             }
         }
-        public DateTime DataUrodzenia
+        public DateTime BirthDate
         {
-            get => dataUrodzenia;
+            get => birthDate;
             set
             {
-                dataUrodzenia = value;
-                var args = new PropertyChangedEventArgs(nameof(DataUrodzenia));
+                birthDate = value;
+                var args = new PropertyChangedEventArgs(nameof(BirthDate));
 
                 PropertyChanged?.Invoke(this, args);
             }

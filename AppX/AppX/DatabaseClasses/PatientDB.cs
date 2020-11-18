@@ -15,15 +15,15 @@ namespace AppX.DatabaseClasses
             set;
         }
         public bool HaveData {get; set;}
-        public string Imie { get; set; }
-        public string Nazwisko { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [MaxLength(9)]
-        public string Telefon { get; set; }
-        public DateTime DataUrodzenia { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime BirthDate { get; set; }
         public string Hobby { get; set; }
-        public string Zdjecie { get; set; }
-        public int Wiek { get; set; }
+        public string Photo { get; set; }
+        public int Age { get; set; }
         public int LocalizationMinutes { get; set; }
         public int FallSeconds { get; set; }
     }

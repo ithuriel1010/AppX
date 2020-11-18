@@ -96,24 +96,24 @@ namespace AppX.Settings
                 patient = conn.Table<PatientDB>().FirstOrDefault();
             }
 
-            Imie = patient.Imie;
-            Nazwisko = patient.Nazwisko;
-            Telefon = patient.Telefon;
-            DataUrodzenia = patient.DataUrodzenia;
+            Imie = patient.FirstName;
+            Nazwisko = patient.LastName;
+            Telefon = patient.PhoneNumber;
+            DataUrodzenia = patient.BirthDate;
             Hobby = patient.Hobby;
-            photo = patient.Zdjecie;
+            photo = patient.Photo;
 
             SaveCommand = new Command(async () =>
             {
                 if (correctName && correctLastName && correctPhone && correctHobby)
                 {
                     patient.HaveData = true;
-                    patient.Imie = Imie;
-                    patient.Nazwisko = Nazwisko;
-                    patient.Telefon = Telefon;
-                    patient.DataUrodzenia = DataUrodzenia;
+                    patient.FirstName = Imie;
+                    patient.LastName = Nazwisko;
+                    patient.PhoneNumber = Telefon;
+                    patient.BirthDate = DataUrodzenia;
                     patient.Hobby = Hobby;
-                    patient.Zdjecie = photo;
+                    patient.Photo = photo;
                     //patient.LocalizationMinutes = 10;
                     //patient.FallSeconds = 60;
 

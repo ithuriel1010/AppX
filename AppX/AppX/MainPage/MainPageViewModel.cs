@@ -31,14 +31,14 @@ namespace AppX
                 patient = pat.Table<PatientDB>().FirstOrDefault();
             }
 
-            firstName = patient.Imie;
-            lastName = patient.Nazwisko;
+            firstName = patient.FirstName;
+            lastName = patient.LastName;
             fullName = firstName + " " + lastName;
-            phoneNumber = patient.Telefon;
-            birthDate = patient.DataUrodzenia;
+            phoneNumber = patient.PhoneNumber;
+            birthDate = patient.BirthDate;
             hobby = patient.Hobby;
-            photo = patient.Zdjecie;
-            age = DateTime.Now.Year - patient.DataUrodzenia.Year;
+            photo = patient.Photo;
+            age = DateTime.Now.Year - patient.BirthDate.Year;
             todaysDate = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
         }
 
