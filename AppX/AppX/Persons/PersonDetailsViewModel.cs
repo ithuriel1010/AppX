@@ -11,14 +11,14 @@ namespace AppX.Persons
     {
         public PersonsDB person;
 
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string fullName { get; set; }
-        public string telefon { get; set; }
-        public DateTime dataUrodzenia { get; set; }
-        public string zwiazek { get; set; }
-        public string zdjecie { get; set; }
-        public int wiek { get; set; }
+        public string phoneNumber { get; set; }
+        public DateTime birthDate { get; set; }
+        public string relationship { get; set; }
+        public string photo { get; set; }
+        public int age { get; set; }
 
         public Command EditCommand { get; }
         public Command QuickCall { get; }
@@ -28,14 +28,14 @@ namespace AppX.Persons
         public PersonDetailsViewModel(PersonsDB person)
         {           
             this.person = person;
-            imie = person.FirstName;
-            nazwisko = person.LastName;
-            fullName = imie + " " + nazwisko;
-            telefon = person.PhoneNumber;
-            dataUrodzenia = person.BirthDate;
-            zwiazek = person.Relationship;
-            zdjecie = person.Photo;
-            wiek = person.Age;
+            firstName = person.FirstName;
+            lastName = person.LastName;
+            fullName = firstName + " " + lastName;
+            phoneNumber = person.PhoneNumber;
+            birthDate = person.BirthDate;
+            relationship = person.Relationship;
+            photo = person.Photo;
+            age = person.Age;
 
             EditCommand = new Command(async () =>
             {
@@ -45,7 +45,7 @@ namespace AppX.Persons
 
             QuickCall = new Command(() =>
             {
-                p.PlacePhoneCall(telefon);
+                p.PlacePhoneCall(phoneNumber);
             });
 
         }

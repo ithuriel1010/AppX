@@ -32,11 +32,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Label Text="{Binding zwiazek, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource ScreenTitleLabel}"/>
+            <Label Text="{Binding relationship, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Style="{StaticResource ScreenTitleLabel}"/>
             <Label Text="Imię i nazwisko:" Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding imieNazwisko}" Grid.Row="2" Style="{StaticResource DataField}"/>
+            <Label Text="{Binding fullName}" Grid.Row="2" Style="{StaticResource DataField}"/>
             <Label Text="Telefon:" Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding telefon}" Grid.Row="4" Style="{StaticResource DataField}"/>
+            <Label Text="{Binding phoneNumber}" Grid.Row="4" Style="{StaticResource DataField}"/>
             <Label Text="Email:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
             <Label Text="{Binding email}" Grid.Row="6" Style="{StaticResource DataField}"/>
 

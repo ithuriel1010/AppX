@@ -9,12 +9,12 @@ namespace AppX
     public class ContactDetailsViewModel
     {
         public ContactsDB contact;
-        string imie;
-        string nazwisko;
-        public string imieNazwisko { get; set; }
-        public string telefon { get; set; }
+        string firstName;
+        string lastName;
+        public string fullName { get; set; }
+        public string phoneNumber { get; set; }
         public string email { get; set; }
-        public string zwiazek { get; set; }
+        public string relationship { get; set; }
         public Command QuickCall  { get; }
         public Command EditCommand { get; }
         private ContactDetails c = new ContactDetails();
@@ -22,12 +22,12 @@ namespace AppX
         public ContactDetailsViewModel(ContactsDB contact)
         {
             this.contact = contact;
-            imie = contact.FirstName;
-            nazwisko = contact.LastName;
-            imieNazwisko = imie + " " + nazwisko;
-            telefon = contact.PhoneNumber;
+            firstName = contact.FirstName;
+            lastName = contact.LastName;
+            fullName = firstName + " " + lastName;
+            phoneNumber = contact.PhoneNumber;
             email = contact.Email;
-            zwiazek = contact.Relationship;
+            relationship = contact.Relationship;
 
             EditCommand = new Command(async () =>
             {
@@ -37,7 +37,7 @@ namespace AppX
 
             QuickCall = new Command(() =>
             {
-                c.PlacePhoneCall(telefon);
+                c.PlacePhoneCall(phoneNumber);
             });
 
         }

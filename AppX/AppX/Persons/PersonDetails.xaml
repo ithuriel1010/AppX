@@ -41,18 +41,16 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding zwiazek, StringFormat='To jest {0:F0}'}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
+            <Label Text="{Binding relationship, StringFormat='To jest {0:F0}'}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
                 <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding imie}" Grid.Row="2" Style="{StaticResource DataField }"/>
+                <Label Text="{Binding firstName}" Grid.Row="2" Style="{StaticResource DataField }"/>
                 <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding nazwisko}" Grid.Row="4" Style="{StaticResource DataField }"/>
+                <Label Text="{Binding lastName}" Grid.Row="4" Style="{StaticResource DataField }"/>
                 <Label Text="Telefon:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding telefon}" Grid.Row="6" Style="{StaticResource DataField}"/>
-            <Label Text="Email:" Grid.Row="7" Style="{StaticResource FieldTitleLabel}"/>
-            <Label Text="{Binding email}" Grid.Row="8" Style="{StaticResource DataField}"/>
+            <Label Text="{Binding phoneNumber}" Grid.Row="6" Style="{StaticResource DataField}"/>
                 
             <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"
-                                   Source="{Binding zdjecie}"/>
+                                   Source="{Binding photo}"/>
 
             <Button Text="Zadzwoń" Grid.Row="9" Grid.Column="1" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
             </Grid>
