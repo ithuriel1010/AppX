@@ -100,7 +100,7 @@ namespace AppX
                     patient.DataUrodzenia = DataUrodzenia;
                     patient.Hobby = Hobby;
                     patient.Zdjecie = photo;
-                    patient.LocalizationMinutes = 10;
+                    patient.LocalizationMinutes = 30;
                     patient.FallSeconds = 60;
 
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))

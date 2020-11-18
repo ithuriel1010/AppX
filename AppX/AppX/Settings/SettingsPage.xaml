@@ -41,11 +41,12 @@
                 <Entry Text="{Binding LocalizationMinutes}" Grid.Row="2" Grid.ColumnSpan="1" Style="{StaticResource EntryField}" Keyboard="Numeric"/>
                 <Label Text="Po ilu sekundach bez akcji po wykryciu upadku powiadomić opiekuna?" Grid.Row="3" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
                 <Entry Text="{Binding FallSeconds}" Style="{StaticResource EntryField}" Grid.Row="4" Grid.ColumnSpan="1" Keyboard="Numeric"/>
-                <Button Text="Zapisz zmiany" Command="{Binding SaveCommand}" Grid.Row="5" Grid.ColumnSpan="3" Style="{StaticResource SaveButton}"/>
-                <Button Text="Zmień swoje dane" Command="{Binding ChangeDataCommand}" Grid.Row="6" Grid.ColumnSpan="3" Style="{StaticResource ChangeButton}"/>
-                <Button Text="Cofnij" Command="{Binding CancelCommand}" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource CancelButton}"/>
+                <Label Text="Uwaga! Aby powyższe zmiany weszły w życie należy wyłączyć i ponownie włączyć aplikacje" Grid.Row="5" Grid.ColumnSpan="3" Style="{StaticResource ErrorMessage}"/>
+                 <Button Text="Zapisz zmiany" Command="{Binding SaveCommand}" Grid.Row="6" Grid.ColumnSpan="3" Style="{StaticResource SaveButton}"/>
+                <Button Text="Zmień swoje dane" Command="{Binding ChangeDataCommand}" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource ChangeButton}"/>
+                <Button Text="Cofnij" Command="{Binding CancelCommand}" Grid.Row="8" Grid.ColumnSpan="3" Style="{StaticResource CancelButton}"/>
 
-            </Grid>
+                </Grid>
         </Grid>
         </ScrollView>
     </ContentPage.Content>

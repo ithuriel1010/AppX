@@ -31,7 +31,7 @@ namespace AppX
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
-        public void NotFine(object sender, EventArgs args)
+        public async void NotFine(object sender, EventArgs args)
         {
             ObservableCollection<ContactsDB> contactsList;
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -46,6 +46,11 @@ namespace AppX
             {
                 SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
             }
+
+            await DisplayAlert("SMS został wysłany!", "Czekaj na kontakt od opiekuna!", "OK");
+
+            await Application.Current.MainPage.Navigation.PopAsync();
+
             //SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
         }
     }
