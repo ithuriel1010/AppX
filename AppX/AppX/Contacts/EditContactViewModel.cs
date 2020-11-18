@@ -99,21 +99,21 @@ namespace AppX
         public EditContactViewModel(ContactsDB contact1)
         {
             contact = contact1;
-            Imie = contact.Imie;
-            Nazwisko = contact.Nazwisko;
-            Telefon = contact.Telefon;
+            Imie = contact.FirstName;
+            Nazwisko = contact.LastName;
+            Telefon = contact.PhoneNumber;
             Email = contact.Email;
-            Zwiazek = contact.Zwiazek;
+            Zwiazek = contact.Relationship;
 
             SaveCommand = new Command(async () =>
             {
                 if (correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
                 {
-                    contact.Imie = Imie;
-                    contact.Nazwisko = Nazwisko;
-                    contact.Telefon = Telefon;
+                    contact.FirstName = Imie;
+                    contact.LastName = Nazwisko;
+                    contact.PhoneNumber = Telefon;
                     contact.Email = Email;
-                    contact.Zwiazek = Zwiazek;
+                    contact.Relationship = Zwiazek;
 
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                     {

@@ -18,11 +18,11 @@ namespace AppX
 
         ContactsDB contact = new ContactsDB();
 
-        string imie;
-        string nazwisko;
-        string telefon;
+        string firstName;
+        string lastName;
+        string phoneNumber;
         string email;
-        string zwiazek;
+        string relationship;
 
         private string errorMessage { get; set; }
         private bool correctName { get; set; }
@@ -101,11 +101,11 @@ namespace AppX
              {
                  if(correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
                  {
-                     contact.Imie = Imie;
-                     contact.Nazwisko = Nazwisko;
-                     contact.Telefon = Telefon;
+                     contact.FirstName = FirstName;
+                     contact.LastName = LastName;
+                     contact.PhoneNumber = PhoneNumber;
                      contact.Email = Email;
-                     contact.Zwiazek = Zwiazek;
+                     contact.Relationship = Relationship;
 
                      using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
                      {
@@ -128,39 +128,39 @@ namespace AppX
             });
         }
         
-        public string Imie
+        public string FirstName
         {
-            get => imie;
+            get => firstName;
             set
             {
-                imie = value;
-                var args = new PropertyChangedEventArgs(nameof(Imie));
+                firstName = value;
+                var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
                 (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
 
             }
         }
-        public string Nazwisko
+        public string LastName
         {
-            get => nazwisko;
+            get => lastName;
             set
             {
-                nazwisko = value;
-                var args = new PropertyChangedEventArgs(nameof(Nazwisko));
+                lastName = value;
+                var args = new PropertyChangedEventArgs(nameof(LastName));
 
                 PropertyChanged?.Invoke(this, args);
                 (LastNameTextColor, correctLastName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
 
             }
         }
-        public string Telefon
+        public string PhoneNumber
         {
-            get => telefon;
+            get => phoneNumber;
             set
             {
-                telefon = value;
-                var args = new PropertyChangedEventArgs(nameof(Telefon));
+                phoneNumber = value;
+                var args = new PropertyChangedEventArgs(nameof(PhoneNumber));
 
                 PropertyChanged?.Invoke(this, args);
                 (PhoneTextColor, correctPhone) = RegexUtill.Check(RegexUtill.PhoneNumber(), value);
@@ -179,13 +179,13 @@ namespace AppX
                 (EmailTextColor, correctEmail) = RegexUtill.Check(RegexUtill.Email(), value);
             }
         }
-        public string Zwiazek
+        public string Relationship
         {
-            get => zwiazek;
+            get => relationship;
             set
             {
-                zwiazek = value;
-                var args = new PropertyChangedEventArgs(nameof(Zwiazek));
+                relationship = value;
+                var args = new PropertyChangedEventArgs(nameof(Relationship));
 
                 PropertyChanged?.Invoke(this, args);
                 (RelationshipTextColor, correctRelationship) = RegexUtill.Check(RegexUtill.MinLength(3), value);

@@ -143,7 +143,7 @@ namespace AppX
 
                     foreach(var contact in contactsList)
                     {
-                        SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
+                        SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber, "ithuriel1010@gmail.com");
                     }
 
                     ignoreFallNotSeconds = 0;
@@ -374,7 +374,7 @@ namespace AppX
 
                             foreach (var contact in contactsList)
                             {
-                                SendTextAndEmail s = new SendTextAndEmail("Twój podopieczny jest daleko od znanych lokalizacji! Sprawdź czy wszystko z nim w porządku!", contact.Telefon, "ithuriel1010@gmail.com");
+                                SendTextAndEmail s = new SendTextAndEmail("Twój podopieczny jest daleko od znanych lokalizacji! Sprawdź czy wszystko z nim w porządku!", contact.PhoneNumber, "ithuriel1010@gmail.com");
                             }
 
                             ignoreFallNotSeconds = 0;

@@ -44,7 +44,7 @@ namespace AppX
 
             foreach (var contact in contactsList)
             {
-                SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.Telefon, "ithuriel1010@gmail.com");
+                SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber, "ithuriel1010@gmail.com");
             }
 
             await DisplayAlert("SMS został wysłany!", "Czekaj na kontakt od opiekuna!", "OK");

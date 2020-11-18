@@ -22,12 +22,12 @@ namespace AppX
         public ContactDetailsViewModel(ContactsDB contact)
         {
             this.contact = contact;
-            imie = contact.Imie;
-            nazwisko = contact.Nazwisko;
+            imie = contact.FirstName;
+            nazwisko = contact.LastName;
             imieNazwisko = imie + " " + nazwisko;
-            telefon = contact.Telefon;
+            telefon = contact.PhoneNumber;
             email = contact.Email;
-            zwiazek = contact.Zwiazek;
+            zwiazek = contact.Relationship;
 
             EditCommand = new Command(async () =>
             {
