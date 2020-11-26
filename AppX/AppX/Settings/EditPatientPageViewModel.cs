@@ -136,6 +136,10 @@ namespace AppX.Settings
             PhotoCommand = new Command(async () =>
             {
                 photo = await ep.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
             });
 
             CancelCommand = new Command(async () =>

@@ -120,6 +120,10 @@ namespace AppX
             PhotoCommand = new Command(async () =>
             {
                 photo = await ap.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
             });
 
         }

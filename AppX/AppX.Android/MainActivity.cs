@@ -15,6 +15,7 @@ using System.IO;
 using Android.Content;
 using Android.Content.Res;
 using System.Linq;
+using Android.Support.Design.Widget;
 
 namespace AppX.Droid
 {
@@ -68,18 +69,22 @@ namespace AppX.Droid
 
         private void RequestForPermissions()
         {
-            var requestedPermissions = new List<string>();
+            var permissionsToRequest = new List<string>();
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.SendSms) != Permission.Granted)
             {
-                requestedPermissions.Add(Manifest.Permission.SendSms);
-                //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.SendSms }, 1);
+                permissionsToRequest.Add(Manifest.Permission.SendSms);
             }
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Permission.Granted)
             {
-                requestedPermissions.Add(Manifest.Permission.AccessFineLocation);
-
-                //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.AccessFineLocation }, 1);
+                permissionsToRequest.Add(Manifest.Permission.AccessFineLocation);
             }
+
+            if (permissionsToRequest.Any())
+                ActivityCompat.RequestPermissions(this, permissionsToRequest.ToArray(), 1);
+        }
+            //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.AccessFineLocation }, 1);
+            //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.SendSms }, 1);
+
 
             //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.SetOrientation) != Permission.Granted)
             //{
@@ -98,9 +103,8 @@ namespace AppX.Droid
             //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.Camera }, 1);
             //}
 
-            if(requestedPermissions.Any())
-                ActivityCompat.RequestPermissions(this, requestedPermissions.ToArray(), 1);
-        }
+
+        //}
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

@@ -116,6 +116,10 @@ namespace AppX.Persons
             PhotoCommand = new Command(async () =>
             {
                 photo = await p.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
             });
 
             ShowPhoto = new Command(() =>

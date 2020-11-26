@@ -32,34 +32,42 @@ namespace AppX
      
         public async Task<string> UploadPhoto()
         {
-            await CrossMedia.Current.Initialize();
-
-            if(!CrossMedia.Current.IsPickPhotoSupported)
+            try
             {
+                await CrossMedia.Current.Initialize();
 
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+
+                }
+
+
+                var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
+                    CompressionQuality = 40
+                });
+
+
+                if (file != null)
+                {
+                    photo = file.Path;
+                    //ikona.Source = photo;
+                }
+                else
+                {
+                    photo = "smile";
+                }
+
+                //var bitmap = new Image { Source = photo };
+
+                //DisplayIcon.Source = bitmap.Source;
+            }
+            catch
+            {
+                App.Current.MainPage.DisplayAlert("Brak zezwoleń!", "Zezwól aplikacji na dostęp do mediów aby przesłać zdjęcie", "Ok");
             }
 
-
-            var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
-            {
-                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
-                CompressionQuality = 40
-            });
-
-
-            if (file!=null)
-            {
-                photo = file.Path;
-                //ikona.Source = photo;
-            }
-            else
-            {
-                photo = "smile";
-            }
-
-            //var bitmap = new Image { Source = photo };
-
-            //DisplayIcon.Source = bitmap.Source;
 
             return photo;
         }
