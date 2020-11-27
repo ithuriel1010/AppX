@@ -342,9 +342,9 @@ namespace AppX
                     {
                         SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
                         minutesCloseToKnownLocation = 0;
+                        break;
                     }
 
-                    break;
                 }
                 else if (kilometers >= 10)
                 {
