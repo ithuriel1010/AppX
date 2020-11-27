@@ -31,6 +31,7 @@ namespace AppX
         double currentLongitude;
         double currentLatitude;
         int minutesAwayFromKnownLocations = 0;
+        int minutesCloseToKnownLocation = 0;
 
         public static bool noAnwserAfterFall = false;
         private int ignoreFallNotSeconds = 0;
@@ -288,24 +289,12 @@ namespace AppX
                 {
                     currentLatitude = location.Latitude;
                     currentLongitude = location.Longitude;
-
-                    //Lokalizacja = $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}";
-                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
                 }
                 else
                 {
                     currentLatitude = 0;
                     currentLongitude = 0;
-                    //Lokalizacja = "Lokalizacja=null";
                 }
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                Lokalizacja = "Handle not supported on device exception";
-            }
-            catch (FeatureNotEnabledException fneEx)
-            {
-                Lokalizacja = "Handle not enabled on device exception";
             }
             catch (PermissionException pEx)
             {
@@ -316,7 +305,14 @@ namespace AppX
                 Lokalizacja = "Unable to get location";
             }
 
-            
+            //catch (FeatureNotSupportedException fnsEx)
+            //{
+            //    Lokalizacja = "Handle not supported on device exception";
+            //}
+            //catch (FeatureNotEnabledException fneEx)
+            //{
+            //    Lokalizacja = "Handle not enabled on device exception";
+            //}
         }
 
         public async void CheckDistanceAndSendAlert()
@@ -340,15 +336,14 @@ namespace AppX
 
                 if (kilometers <= 0.05)
                 {
+                    minutesCloseToKnownLocation++;
 
-                    SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
+                    if (minutesCloseToKnownLocation >= 5)
+                    {
+                        SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
+                        minutesCloseToKnownLocation = 0;
+                    }
 
-                    /*Device.BeginInvokeOnMainThread(async () => {
-                        await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
-                    });*/
-
-
-                    //await DisplayAlert(oneLocalization.Name, oneLocalization.Message, "OK");
                     break;
                 }
                 else if (kilometers >= 10)
@@ -378,11 +373,6 @@ namespace AppX
                             }
 
                             ignoreFallNotSeconds = 0;
-
-                            /*Device.BeginInvokeOnMainThread(async () => {
-                                await DisplayAlert("UWAGA", "Jesteś daleko poza znanymi lokalizacjami!", "OK");
-                            });*/
-
                             minutesAwayFromKnownLocations = 0;
                         }
                     }
