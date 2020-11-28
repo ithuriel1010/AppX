@@ -89,30 +89,24 @@ namespace AppX
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
-            //XA.Text = "X:" + data.Acceleration.X.ToString();
-            //YA.Text = "Y:" + data.Acceleration.Y.ToString();
-            //ZA.Text = "Z:" + data.Acceleration.Z.ToString();
+            double readingX = data.Acceleration.X;
+            double readingY = data.Acceleration.Y;
+            double readingZ = data.Acceleration.Z;
 
-            double loX = data.Acceleration.X;
-            double loY = data.Acceleration.Y;
-            double loZ = data.Acceleration.Z;
-
-            double loAccelerationReader = Math.Sqrt(Math.Pow(loX, 2)
-                    + Math.Pow(loY, 2)
-                    + Math.Pow(loZ, 2));
+            double accelerationMagnitude = Math.Sqrt(Math.Pow(readingX, 2)
+                    + Math.Pow(readingY, 2)
+                    + Math.Pow(readingZ, 2));
 
             DecimalFormat precision = new DecimalFormat("0.00");
-            double ldAccRound = double.Parse(precision.Format(loAccelerationReader));
-            Console.WriteLine(ldAccRound);
-            if (ldAccRound > 0.45d && ldAccRound < 0.5d)
+            double roundedMagnitude = double.Parse(precision.Format(accelerationMagnitude));
+
+            if (roundedMagnitude > 0.3d && roundedMagnitude < 0.4d)
             {
                 Accelerometer.Stop();
                 DisplayFallDetection();
                 noAnwserAfterFall = true;
                 StartTimer();
             }
-
-            // Process Acceleration X, Y, and Z
         }
         public async void StartTimer()
         {

@@ -12,7 +12,6 @@ namespace AppX.Utils
         {
             return new Regex(@"(\s*(\S)\s*){" + length + @",}");
         }
-
         public static Regex PhoneNumber()
         {
             return new Regex(@"^[0-9]\d{8}");

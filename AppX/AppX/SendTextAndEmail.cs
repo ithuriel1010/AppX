@@ -31,13 +31,9 @@ namespace AppX
             {
                 SmsManager.Default.SendTextMessage(number, null, message, null, null);
             }
-            catch (FeatureNotSupportedException ex)
+            catch (PermissionException ex)
             {
-                //Application.Current.MainPage.Navigation.PopAsync();
-
-                //Page p = new Page();
-
-                //p.DisplayAlert("Failed", "Sms is not supported on this device.", "OK");
+                
             }
             catch (Exception ex)
             {
