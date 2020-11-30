@@ -46,7 +46,8 @@ namespace AppX
                     if (!string.IsNullOrEmpty(NoteText))
                     {
                         //Send(NoteText, kontakt.Telefon);
-                        SendTextAndEmail s = new SendTextAndEmail(NoteText, contact.PhoneNumber, contact.Email);
+                        SendTextAndEmail s = new SendTextAndEmail();
+                        s.Send(NoteText, contact.PhoneNumber);
                     }
                 }               
                 

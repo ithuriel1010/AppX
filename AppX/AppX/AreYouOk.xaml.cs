@@ -42,12 +42,27 @@ namespace AppX
                 contactsList = new ObservableCollection<ContactsDB>(contacts);
             }
 
+            bool smsSent=true;
             foreach (var contact in contactsList)
             {
-                SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber, "ithuriel1010@gmail.com");
+                try
+                {
+                    SendTextAndEmail s = new SendTextAndEmail();
+                    smsSent = s.Send("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber);
+                }
+                catch (Exception ex)
+                {
+                }
             }
 
-            await DisplayAlert("SMS został wysłany!", "Czekaj na kontakt od opiekuna!", "OK");
+            if(smsSent)
+            {
+                await DisplayAlert("SMS został wysłany!", "Czekaj na kontakt od opiekuna!", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Brak dostępu do wiadomości!", "Zezwól na dostęp do wiadomości", "OK");
+            }
 
             await Application.Current.MainPage.Navigation.PopAsync();
 

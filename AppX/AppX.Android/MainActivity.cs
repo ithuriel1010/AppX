@@ -19,7 +19,7 @@ using Android.Support.Design.Widget;
 
 namespace AppX.Droid
 {
-    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "AppX", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(LaunchMode = LaunchMode.SingleTop, Label = "Mój asystent", Icon = "@drawable/brain", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnNewIntent(Intent intent)

@@ -30,8 +30,9 @@ namespace AppX
 
         double currentLongitude;
         double currentLatitude;
-        int minutesAwayFromKnownLocations = 0;
-        int minutesCloseToKnownLocation = 0;
+        int farAwayMinutes = 0;
+        int minutesClose = 0;
+        int minutesWithoutLocalization = 0;
 
         public static bool noAnwserAfterFall = false;
         private int ignoreFallNotSeconds = 0;
@@ -52,7 +53,7 @@ namespace AppX
 
             System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
             timer.AutoReset = true;
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(CheckLocation);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler( CheckLocation);
             timer.Start();
 
             if (Accelerometer.IsMonitoring)
@@ -112,7 +113,7 @@ namespace AppX
         {
             ignoreFallNotSeconds = 0;
 
-            // tick every second while game is in progress
+            // tick every second while user ignores the notofication
             while (noAnwserAfterFall)
             {
                 await Task.Delay(1000);
@@ -138,7 +139,8 @@ namespace AppX
 
                     foreach(var contact in contactsList)
                     {
-                        SendTextAndEmail s = new SendTextAndEmail("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber, "ithuriel1010@gmail.com");
+                        SendTextAndEmail s = new SendTextAndEmail();
+                        s.Send("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber);
                     }
 
                     ignoreFallNotSeconds = 0;
@@ -172,8 +174,20 @@ namespace AppX
 
         public void CheckLocation(object sender, ElapsedEventArgs e)
         {
-            GetLocationAsync();
-            CheckDistanceAndSendAlert();
+            try
+            {
+                GetLocationAsync();
+                CheckDistanceAndSendAlert();
+            }
+            catch(Exception ex)
+            {
+                minutesWithoutLocalization++;
+                if(minutesWithoutLocalization>=5)
+                {
+                    SendNotification("Brak dostępu do lokalizacji!", "Zezwól na dostęp do lokalizacji aby aplikacja działała lepiej", "LocalizationAlert");
+                    minutesWithoutLocalization = 0;
+                }
+            }
         }
 
         protected async override void OnAppearing()
@@ -272,12 +286,12 @@ namespace AppX
             await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
         }
 
-        async void GetLocationAsync()
+        void GetLocationAsync()
         {
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-                var location = await Geolocation.GetLocationAsync(request);
+                var location = Geolocation.GetLocationAsync(request).Result;
 
                 if (location != null)
                 {
@@ -289,14 +303,10 @@ namespace AppX
                     currentLatitude = 0;
                     currentLongitude = 0;
                 }
-            }
-            catch (PermissionException pEx)
-            {
-                Lokalizacja = "Handle permission exception";
-            }
+            }            
             catch (Exception ex)
             {
-                Lokalizacja = "Unable to get location";
+                //App.Current.MainPage.DisplayAlert("Brak zezwoleń!", "Zezwól aplikacji na dostęp do lokalizacji", "Ok");
             }
 
             //catch (FeatureNotSupportedException fnsEx)
@@ -330,12 +340,12 @@ namespace AppX
 
                 if (kilometers <= 0.05)
                 {
-                    minutesCloseToKnownLocation++;
+                    minutesClose++;
 
-                    if (minutesCloseToKnownLocation >= 5)
+                    if (minutesClose >= 5)
                     {
                         SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
-                        minutesCloseToKnownLocation = 0;
+                        minutesClose = 0;
                         break;
                     }
 
@@ -346,10 +356,11 @@ namespace AppX
 
                     if(farLocations==locationCount)
                     {
-                        minutesAwayFromKnownLocations++;
+                        farAwayMinutes++;
 
-                        if(minutesAwayFromKnownLocations>=patient.LocalizationMinutes)
+                        if(farAwayMinutes>=patient.LocalizationMinutes)
                         {
+                            bool sent;
                             SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
 
                             ObservableCollection<ContactsDB> contactsList;
@@ -359,15 +370,25 @@ namespace AppX
                                 var contacts = conn.Table<ContactsDB>().ToList();
 
                                 contactsList = new ObservableCollection<ContactsDB>(contacts);
+
+                                //SendNotification("Debug", $"contacts count {contactsList}", "LocalizationAlert");
                             }
 
                             foreach (var contact in contactsList)
                             {
-                                SendTextAndEmail s = new SendTextAndEmail("Twój podopieczny jest daleko od znanych lokalizacji! Sprawdź czy wszystko z nim w porządku!", contact.PhoneNumber, "ithuriel1010@gmail.com");
+                                try
+                                {
+                                    SendTextAndEmail sa = new SendTextAndEmail();
+                                    sa.Send("Twój podopieczny jest daleko od znanych lokalizacji!", contact.PhoneNumber);
+                                    SendTextAndEmail s = new SendTextAndEmail();
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                                
                             }
 
-                            ignoreFallNotSeconds = 0;
-                            minutesAwayFromKnownLocations = 0;
+                            farAwayMinutes = 0;
                         }
                     }
                 }

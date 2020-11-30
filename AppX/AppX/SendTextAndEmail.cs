@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using static Android.Graphics.Pdf.PdfDocument;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -16,36 +17,32 @@ namespace AppX
         public string message;
         public string number;
         public string email;
-        public SendTextAndEmail(String message, String number, String email)
+        public SendTextAndEmail()
         {
-            this.message = message;
-            this.number = number;
-            this.email = email;
-            Send(message, number);
-            //Email(message, email);
+            //this.message = message;
+            //this.number = number;
+            //Send(message, number);
         }
 
-        public void Send(String message, String number)
+        public bool Send(String message, String number)
         {
+            bool sent;
             try
             {
                 SmsManager.Default.SendTextMessage(number, null, message, null, null);
-            }
-            catch (PermissionException ex)
-            {
-                
+                sent = true;
             }
             catch (Exception ex)
             {
-                //Application.Current.MainPage.Navigation.PopAsync();
-
-                //Page p = new Page();
-
-                //p.DisplayAlert("failed", ex.Message, "ok");
+                SendNotification("Brak dostępu do wiadomości!", "Zezwól na wysyłanie wiadomości aby aplikacja działała lepiej", "LocalizationAlert");
+                sent = false;
             }
-
+            return sent;
         }
-
+        private void SendNotification(string title, string message, string action)
+        {
+            DependencyService.Get<INotification>().CreateNotification(title, message, action);
+        }
         public void Email(String message, String email)
         {
             //define mail

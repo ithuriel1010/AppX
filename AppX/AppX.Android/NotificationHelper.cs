@@ -61,7 +61,7 @@ namespace NotificationSample.Droid
                         .SetVibrate(new long[0])
                         .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate)
                         .SetVisibility((int)NotificationVisibility.Public)
-                        .SetSmallIcon(Resource.Drawable.pin)
+                        .SetSmallIcon(Resource.Drawable.brainNotif)
                         .SetContentIntent(pendingIntent);
 
 

@@ -16,9 +16,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Czy wszystko w porządku?" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Czy wszystko w porządku?" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"/>
             <Button Text="Tak" Clicked="EverythingOk" Grid.Column="0" Grid.Row="1" Style="{StaticResource SaveButton}"/>
             <Button Text="Nie" Clicked="NotFine" Grid.Column="1" Grid.Row="1" Style="{StaticResource CancelButton}"/>
 

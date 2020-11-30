@@ -15,7 +15,7 @@
     
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="12,0,12,12" Spacing="6">
+            <StackLayout Padding="13,0,13,0" Spacing="6">
                 <StackLayout.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="{StaticResource Primary}"
@@ -40,19 +40,19 @@
                         HorizontalOptions="CenterAndExpand" />
 
                 <Label Text="Ulica:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding Street}" TextColor="{Binding StreetTextColor}" Placeholder="Niepodległości" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Street}" TextColor="{Binding StreetTextColor}" Placeholder="Niepodległości" Keyboard="Text" Style="{StaticResource EntryField}"/>
                 <Label Text="Numer domu:" Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding HouseNumber}" TextColor="{Binding HouseNumberTextColor}" Placeholder="31" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding HouseNumber}" TextColor="{Binding HouseNumberTextColor}" Placeholder="31" Keyboard="Numeric" Style="{StaticResource EntryField}"/>
                 <Label Text="Miasto:" Style="{StaticResource FieldTitleLabel}" />
-                <Entry Text="{Binding City}" TextColor="{Binding CityTextColor}" Placeholder="Gdańsk" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding City}" TextColor="{Binding CityTextColor}" Placeholder="Gdańsk" Keyboard="Text" Style="{StaticResource EntryField}"/>
                 <Label Text="Województwo:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding County}" TextColor="{Binding CountyTextColor}" Placeholder="Pomorskie" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding County}" TextColor="{Binding CountyTextColor}" Placeholder="Pomorskie" Keyboard="Text" Style="{StaticResource EntryField}"/>
 
                 <Label Text="Nazwa lokalizacji:" Style="{StaticResource FieldTitleLabel}" />
-                <Entry Text="{Binding Name}" TextColor="{Binding NameTextColor}" Placeholder="Dom" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Name}" TextColor="{Binding NameTextColor}" Placeholder="Dom" Keyboard="Text" Style="{StaticResource EntryField}"/>
 
                 <Label Text="Wiadomość:"  Style="{StaticResource FieldTitleLabel}"/>
-                <Entry Text="{Binding Message}" TextColor="{Binding MessageTextColor}" Placeholder="Jesteś w domu" Style="{StaticResource EntryField}"/>
+                <Entry Text="{Binding Message}" TextColor="{Binding MessageTextColor}" Placeholder="Jesteś w domu" Keyboard="Text" Style="{StaticResource EntryField}"/>
 
                 <!--<Label Text="Address:" />
                 <Entry Text="{Binding Address}" />
