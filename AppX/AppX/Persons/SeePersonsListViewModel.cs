@@ -32,7 +32,7 @@ namespace AppX
                 person.Age = DateTime.Now.Year - person.BirthDate.Year;
             }
 
-            SelectedPersonChangedCommand = new Command(async () =>
+            SelectedPersonChangedCommand = new Command(async () =>      //When user clicks on one of the person on the list the page with person details is created and displayed
             {
                 if (SelectedPerson == null) return;
 
@@ -43,12 +43,12 @@ namespace AppX
                 perDetailPage.BindingContext = perDetailVM;
 
                 await Application.Current.MainPage.Navigation.PushAsync(perDetailPage);
-                SelectedPerson = null;
+                SelectedPerson = null;      //Selected person has to be made null, otherwise user cannot choose the same person twice in a row
 
             });
         }
 
-        public PersonsDB SelectedPerson
+        public PersonsDB SelectedPerson     //Selected person is a person from the list that is clicked on
         {
             get => selectedPerson;
             set

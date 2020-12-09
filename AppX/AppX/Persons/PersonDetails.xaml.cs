@@ -26,10 +26,10 @@ namespace AppX.Persons
             var esitPersonPage = new EditPerson();
 
             esitPersonPage.BindingContext = editPersonVM;
-            await Application.Current.MainPage.Navigation.PushAsync(esitPersonPage);
+            await Application.Current.MainPage.Navigation.PushAsync(esitPersonPage);        //Move to newly created editing of contact page
         }
 
-        public void PlacePhoneCall(string number)
+        public void PlacePhoneCall(string number)       //Move to phone dailer in the device with selected contacts' number entered 
         {
             try
             {

@@ -24,6 +24,7 @@
                 <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
 
+            <!--List of persons with name, age and photo is displayed-->
             <Label Text="Osoby"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource ScreenTitleLabel}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />

@@ -22,12 +22,6 @@ namespace AppX
             InitializeComponent();
             BindingContext = this;
             data.MaximumDate = DateTime.Now;
-            //ikona.Source = photo;
-        }
-
-        public void ChangedPhoto(string photo)
-        {
-            //ikona.Source = photo;
         }
      
         public async Task<string> UploadPhoto()
@@ -41,7 +35,6 @@ namespace AppX
 
                 }
 
-
                 var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
                 {
                     PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
@@ -52,29 +45,18 @@ namespace AppX
                 if (file != null)
                 {
                     photo = file.Path;
-                    //ikona.Source = photo;
                 }
                 else
                 {
                     photo = "smile";
                 }
-
-                //var bitmap = new Image { Source = photo };
-
-                //DisplayIcon.Source = bitmap.Source;
             }
             catch
             {
                 App.Current.MainPage.DisplayAlert("Brak zezwoleń!", "Zezwól aplikacji na dostęp do mediów aby przesłać zdjęcie", "Ok");
             }
 
-
             return photo;
-        }
-
-        public void test(string path)
-        {
-            //ikona.Source = path;
         }
 
     }

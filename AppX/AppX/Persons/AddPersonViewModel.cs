@@ -32,7 +32,7 @@ namespace AppX
         DateTime birthDate;
         string relationship;
 
-        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
+        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");        //The max birth date user can set is today
         private string errorMessage { get; set; }
         private bool correctName { get; set; }
         private bool correctLastName { get; set; }
@@ -43,6 +43,9 @@ namespace AppX
         private Color lastNameTextColor = Color.Red;
         private Color phoneTextColor = Color.Red;
         private Color relationshipTextColor = Color.Red;
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        public Command PhotoCommand { get; }
 
         public Color NameTextColor
         {
@@ -50,7 +53,7 @@ namespace AppX
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));     //After each change in entry field the text color is checked and updated
 
                 PropertyChanged?.Invoke(this, args);
             }
@@ -89,71 +92,6 @@ namespace AppX
             }
         }
 
-        public AddPersonViewModel()
-        {
-            //this.ValidationRule(vm => vm.DataUrodzenia,
-            //                    value => value > new DateTime(2020, 1, 1) && value < new DateTime(2020, 1, 31),
-            //                    "Niepoprawna data");
-
-            //var isValid = this.IsValid();
-
-            SaveCommand = new Command(async () =>
-            {
-                if(correctName && correctLastName && correctPhone && correctRelationship)
-                {
-                    ErrorMessage = "";
-                    person.FirstName = FirstName;
-                    person.LastName = LastName;
-                    person.PhoneNumber = PhoneNumber;
-                    person.BirthDate = BirthDate;
-                    person.Relationship = Relationship;
-                    person.Photo = photo;
-
-                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                    {
-                        conn.CreateTable<PersonsDB>();
-                        conn.Insert(person);
-                    }
-
-                    await Application.Current.MainPage.Navigation.PopAsync();
-                }
-                else
-                {
-                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                }   
-
-            });
-
-            PhotoCommand = new Command(async () =>
-            {
-                photo = await p.UploadPhoto();
-                if(photo==null)
-                {
-                    photo = "smile";
-                }
-            });
-
-            ShowPhoto = new Command( () =>
-            {
-                p.test(photo);
-            });
-
-            CancelCommand = new Command(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PopAsync();
-
-            });
-        }
-
-        
-        //public long MaxDate = (long) (DateTime.Now - new DateTime(1900, 1, 1)).TotalMilliseconds;
-
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-        public Command PhotoCommand { get; }
-        public Command ShowPhoto { get; }
-
         public string FirstName
         {
             get => firstName;
@@ -163,20 +101,8 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
-                //NameTextColor = RegexUtill.MinLength(4).IsMatch(value) ? Color.Black : Color.Red;
 
-                //if(RegexUtill.MinLength(3).IsMatch(value))
-                //{
-                //    NameTextColor = Color.Black;
-                //    correctName = true;
-                //}
-                //else
-                //{
-                //    NameTextColor = Color.Red;
-                //    correctName = false;
-                //}
-
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);         //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
             }
         }
         public string LastName
@@ -244,7 +170,50 @@ namespace AppX
             }
         }
 
+        public AddPersonViewModel()
+        {
+            SaveCommand = new Command(async () =>
+            {
+                if(correctName && correctLastName && correctPhone && correctRelationship)       //If all data is correctly filled
+                {
+                    ErrorMessage = "";
+                    person.FirstName = FirstName;
+                    person.LastName = LastName;
+                    person.PhoneNumber = PhoneNumber;
+                    person.BirthDate = BirthDate;
+                    person.Relationship = Relationship;
+                    person.Photo = photo;
 
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<PersonsDB>();
+                        conn.Insert(person);
+                    }
+
+                    await Application.Current.MainPage.Navigation.PopAsync();       //Go back to the main page
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }   
+
+            });
+
+            PhotoCommand = new Command(async () =>
+            {
+                photo = await p.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
+            });
+
+            CancelCommand = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();
+
+            });
+        }           
     }
 }
 

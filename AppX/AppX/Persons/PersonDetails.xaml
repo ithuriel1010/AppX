@@ -42,11 +42,11 @@
                 </Grid.ColumnDefinitions>
 
             <Label Text="{Binding relationship, StringFormat='To jest {0:F0}'}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
-                <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding firstName}" Grid.Row="2" Style="{StaticResource DataField }"/>
-                <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding lastName}" Grid.Row="4" Style="{StaticResource DataField }"/>
-                <Label Text="Telefon:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="Imię " Grid.Row="1" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding firstName}" Grid.Row="2" Style="{StaticResource DataField }"/>
+            <Label Text="Nazwisko " Grid.Row="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding lastName}" Grid.Row="4" Style="{StaticResource DataField }"/>
+            <Label Text="Telefon:" Grid.Row="5" Style="{StaticResource FieldTitleLabel}"/>
             <Label Text="{Binding phoneNumber}" Grid.Row="6" Style="{StaticResource DataField}"/>
                 
             <Image Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2"

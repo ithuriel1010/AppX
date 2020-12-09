@@ -25,7 +25,7 @@ namespace AppX.Persons
         private PersonDetails p = new PersonDetails();
 
 
-        public PersonDetailsViewModel(PersonsDB person)
+        public PersonDetailsViewModel(PersonsDB person)     //Contact in the argument is a contact sent fom method that creates a new page after clicking on a contact on the list of contacts
         {           
             this.person = person;
             firstName = person.FirstName;

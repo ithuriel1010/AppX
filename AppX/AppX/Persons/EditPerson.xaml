@@ -46,7 +46,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
+                
+                <!--Editing Page looks almost the same as the adding page but with delete button on the top-->
                 <Label Text="Edycja osoby bliskiej" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="Title" Style="{StaticResource ScreenTitleLabel}"/>
 
                 <Label Text="Imię:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource  FieldTitleLabel}"/>
@@ -61,7 +62,6 @@
                 <Label Text="Data urodzenia :" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Style="{StaticResource  FieldTitleLabel}"/>
                 <DatePicker x:Name="data" MinimumDate="01/01/1950" Date="{Binding DataUrodzenia}"                             
                         Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8"/>
-                <!--<Entry Placeholder="Wpisz date urodzenia" Text="{Binding DataUrodzenia}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8"/>-->
 
                 <Label Text="Związek:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Style="{StaticResource  FieldTitleLabel}"/>
                 <Entry Placeholder="Wpisz związek z kontaktem" Keyboard="Text" Text="{Binding Zwiazek}" TextColor="{Binding RelationshipTextColor}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10"/>
@@ -69,9 +69,6 @@
                 <Button Text="Zapisz kontakt" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Command="{Binding SaveCommand}" Style="{StaticResource SaveButton}" IsEnabled="false"/>
                 <Button Text="Cofnij" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Command="{Binding CancelCommand}" Style="{StaticResource CancelButton}"/>
                 <Label Text="{Binding ErrorMessage}" Grid.Row="13" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
-
-                <!--<Image x:Name="DisplayIcon" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Grid.RowSpan="3"/>-->
-                <!--<Image x:Name="ikona" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Grid.RowSpan="3" />-->
 
             </Grid>
         </ScrollView>

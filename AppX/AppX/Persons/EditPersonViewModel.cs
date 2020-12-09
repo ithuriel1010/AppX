@@ -14,12 +14,27 @@ namespace AppX.Persons
 {
     public class EditPersonViewModel : INotifyPropertyChanged
     {
+        //Works almost exactly like the adding page, but the data of the person is already in the entry fields
         public event PropertyChangedEventHandler PropertyChanged;
         PersonsDB person;
         public string photo = "smile";
         private AddPerson p = new AddPerson();
         private EditPerson e = new EditPerson();
 
+        string imie;
+        string nazwisko;
+        string telefon;
+        DateTime dataUrodzenia;
+        string zwiazek;
+
+        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
+
+
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        public Command PhotoCommand { get; }
+        public Command ShowPhoto { get; }
+        public Command DeleteCommand { get; }
         private string errorMessage { get; set; }
         private bool correctName { get; set; }
         private bool correctLastName { get; set; }
@@ -37,7 +52,7 @@ namespace AppX.Persons
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));     // After each change in entry field the text color is checked and updated
 
                 PropertyChanged?.Invoke(this, args);
             }
@@ -75,93 +90,6 @@ namespace AppX.Persons
                 PropertyChanged?.Invoke(this, args);
             }
         }
-        public EditPersonViewModel(PersonsDB personDetails)
-        {
-            person = personDetails;
-            Imie= person.FirstName;
-            Nazwisko = person.LastName;
-            Telefon = person.PhoneNumber;
-            DataUrodzenia = person.BirthDate;
-            Zwiazek = person.Relationship;
-            photo = person.Photo;
-
-            SaveCommand = new Command(async () =>
-            {
-                if (correctName && correctLastName && correctPhone && correctRelationship)
-                {
-                    person.FirstName = Imie;
-                    person.LastName = Nazwisko;
-                    person.PhoneNumber = Telefon;
-                    person.BirthDate = DataUrodzenia;
-                    person.Relationship = Zwiazek;
-                    person.Photo = photo;
-
-                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                    {
-                        conn.CreateTable<PersonsDB>();
-                        conn.Update(person);
-                    }
-
-                    //e.OnRootPageButtonClicked();
-                    await Application.Current.MainPage.Navigation.PopToRootAsync();
-                    //await Application.Current.MainPage.Navigation.PopAsync();
-
-                }
-                else
-                {
-                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                }                
-            });
-
-            PhotoCommand = new Command(async () =>
-            {
-                photo = await p.UploadPhoto();
-                if(photo==null)
-                {
-                    photo = "smile";
-                }
-            });
-
-            ShowPhoto = new Command(() =>
-            {
-                p.test(photo);
-            });
-
-            CancelCommand = new Command(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PopAsync();
-
-            });
-
-            DeleteCommand = new Command(async () =>
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                {
-                    conn.CreateTable<PersonsDB>();
-                    conn.Delete(person);
-                }
-                await Application.Current.MainPage.Navigation.PopToRootAsync();
-
-            });
-        }
-
-        string imie;
-        string nazwisko;
-        string telefon;
-        DateTime dataUrodzenia;
-        string zwiazek;
-
-        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
-        //public long MaxDate = (long) (DateTime.Now - new DateTime(1900, 1, 1)).TotalMilliseconds;
-
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-        public Command PhotoCommand { get; }
-        public Command ShowPhoto { get; }
-        public Command DeleteCommand { get; }
-
-
 
         public string Imie
         {
@@ -172,7 +100,7 @@ namespace AppX.Persons
                 var args = new PropertyChangedEventArgs(nameof(Imie));
 
                 PropertyChanged?.Invoke(this, args);
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);         //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
 
             }
 
@@ -238,6 +166,68 @@ namespace AppX.Persons
                 PropertyChanged?.Invoke(this, args);
             }
         }
+        public EditPersonViewModel(PersonsDB personDetails)
+        {
+            person = personDetails;
+            Imie= person.FirstName;
+            Nazwisko = person.LastName;
+            Telefon = person.PhoneNumber;
+            DataUrodzenia = person.BirthDate;
+            Zwiazek = person.Relationship;
+            photo = person.Photo;
+
+            SaveCommand = new Command(async () =>
+            {
+                if (correctName && correctLastName && correctPhone && correctRelationship)
+                {
+                    person.FirstName = Imie;
+                    person.LastName = Nazwisko;
+                    person.PhoneNumber = Telefon;
+                    person.BirthDate = DataUrodzenia;
+                    person.Relationship = Zwiazek;
+                    person.Photo = photo;
+
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<PersonsDB>();
+                        conn.Update(person);
+                    }
+
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }                
+            });
+
+            PhotoCommand = new Command(async () =>
+            {
+                photo = await p.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
+            });
+
+            CancelCommand = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();
+
+            });
+
+            DeleteCommand = new Command(async () =>
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<PersonsDB>();
+                    conn.Delete(person);
+                }
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+
+            });
+        }
+
     }
 
 }
