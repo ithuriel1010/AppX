@@ -8,7 +8,10 @@ namespace AppX
 {
     public class ContactDetailsViewModel
     {
+        private ContactDetails contactDetailsPage = new ContactDetails();
+
         public ContactsDB contact;
+
         string firstName;
         string lastName;
         public string fullName { get; set; }
@@ -17,9 +20,7 @@ namespace AppX
         public string relationship { get; set; }
         public Command QuickCall  { get; }
         public Command EditCommand { get; }
-        private ContactDetails c = new ContactDetails();
-
-        public ContactDetailsViewModel(ContactsDB contact)
+        public ContactDetailsViewModel(ContactsDB contact)      //Contact in the argument is a contact sent fom method that creates a new page after clicking on a contact on the list of contacts
         {
             this.contact = contact;
             firstName = contact.FirstName;
@@ -31,13 +32,13 @@ namespace AppX
 
             EditCommand = new Command(async () =>
             {
-                c.Edit(contact);
+                contactDetailsPage.Edit(contact);
 
             });
 
             QuickCall = new Command(() =>
             {
-                c.PlacePhoneCall(phoneNumber);
+                contactDetailsPage.PlacePhoneCall(phoneNumber);
             });
 
         }

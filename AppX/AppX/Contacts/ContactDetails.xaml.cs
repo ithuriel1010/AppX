@@ -26,13 +26,13 @@ namespace AppX
             var esitContactPage = new EditContact();
 
             esitContactPage.BindingContext = editContactVM;
-            await Application.Current.MainPage.Navigation.PushAsync(esitContactPage);
+            await Application.Current.MainPage.Navigation.PushAsync(esitContactPage);       //Move to newly created editing of contact page
         }
         public void PlacePhoneCall(string number)
         {
             try
             {
-                PhoneDialer.Open(number);
+                PhoneDialer.Open(number);               //Move to phone dailer in the device with selected contacts' number entered 
             }
             catch (ArgumentNullException anEx)
             {

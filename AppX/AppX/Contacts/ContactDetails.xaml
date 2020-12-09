@@ -38,14 +38,14 @@
                 </Grid.ColumnDefinitions>
 
             <Label Text="{Binding relationship, StringFormat='To jest twój {0:F0}'}" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource ScreenTitleLabel}"/>
-                <Label Text="Imię i nazwisko:" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding fullName}" Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource DataField}"/>
-                <Label Text="Telefon:" Grid.Row="3" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding phoneNumber}" Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource DataField}"/>
-                <Label Text="Email:" Grid.Row="5" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
-                <Label Text="{Binding email}" Grid.Row="6" Grid.ColumnSpan="3" Style="{StaticResource DataField}"/>
+            <Label Text="Imię i nazwisko:" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding fullName}" Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource DataField}"/>
+            <Label Text="Telefon:" Grid.Row="3" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding phoneNumber}" Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource DataField}"/>
+            <Label Text="Email:" Grid.Row="5" Grid.ColumnSpan="3" Style="{StaticResource FieldTitleLabel}"/>
+            <Label Text="{Binding email}" Grid.Row="6" Grid.ColumnSpan="3" Style="{StaticResource DataField}"/>
 
-                <Button Text="Zadzwoń" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
+            <Button Text="Zadzwoń" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="1" Command="{Binding QuickCall}" Style="{StaticResource CallButton}"/>
 
         </Grid>
         </ScrollView>

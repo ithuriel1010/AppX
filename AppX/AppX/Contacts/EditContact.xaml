@@ -40,6 +40,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!--Editing Page looks almost the same as the adding page but with delete button on the top-->
                 <Label Text="Edycja kontaktu awaryjnego" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="Title" Style="{StaticResource ScreenTitleLabel}"/>
 
                 <Label Text="Imię:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="Medium" Style="{StaticResource FieldTitleLabel}"/>

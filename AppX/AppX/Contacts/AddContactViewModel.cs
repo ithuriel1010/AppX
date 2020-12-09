@@ -17,6 +17,8 @@ namespace AppX
         public event PropertyChangedEventHandler PropertyChanged;
 
         ContactsDB contact = new ContactsDB();
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
 
         string firstName;
         string lastName;
@@ -43,7 +45,7 @@ namespace AppX
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));         //After each change in entry field the text color is checked and updated
 
                 PropertyChanged?.Invoke(this, args);
             }
@@ -92,41 +94,6 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
             }
         }
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-        public AddContactViewModel()
-        {
-            SaveCommand = new Command(async () =>
-             {
-                 if(correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
-                 {
-                     contact.FirstName = FirstName;
-                     contact.LastName = LastName;
-                     contact.PhoneNumber = PhoneNumber;
-                     contact.Email = Email;
-                     contact.Relationship = Relationship;
-
-                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                     {
-                         conn.CreateTable<ContactsDB>();
-                         conn.Insert(contact);
-                     }
-
-                     await Application.Current.MainPage.Navigation.PopAsync();
-                 }
-                 else
-                 {
-                     ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                 }
-             });
-
-            CancelCommand = new Command(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PopAsync();
-
-            });
-        }
         
         public string FirstName
         {
@@ -137,7 +104,7 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);    //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
 
             }
         }
@@ -203,5 +170,39 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
             }
         }
+
+        public AddContactViewModel()
+        {
+            SaveCommand = new Command(async () =>
+             {
+                 if(correctName && correctLastName && correctPhone && correctEmail && correctRelationship)  //If all data is correctly filled
+                 {
+                     contact.FirstName = FirstName;
+                     contact.LastName = LastName;
+                     contact.PhoneNumber = PhoneNumber;
+                     contact.Email = Email;
+                     contact.Relationship = Relationship;
+
+                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                     {
+                         conn.CreateTable<ContactsDB>();
+                         conn.Insert(contact);
+                     }
+
+                     await Application.Current.MainPage.Navigation.PopAsync();
+                 }
+                 else
+                 {
+                     ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                 }
+             });
+
+            CancelCommand = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();       //Go back to the main page
+
+            });
+        }
+        
     }
 }

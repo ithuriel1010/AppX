@@ -28,6 +28,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 
+            <!--Contacts are displayed in a list form with first and last name visible, as well as the phone number-->
             <CollectionView ItemsSource="{Binding contactsList}"  EmptyView="No items to display"
                             Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
                             SelectionMode="Single"

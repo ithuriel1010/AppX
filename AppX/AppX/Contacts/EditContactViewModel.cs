@@ -14,9 +14,13 @@ namespace AppX
 {
     public class EditContactViewModel : INotifyPropertyChanged
     {
+        //Works almost exactly like the adding page, but the data of the contact is already in the entry fields
         public event PropertyChangedEventHandler PropertyChanged;
 
         ContactsDB contact;
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        public Command DeleteCommand { get; }
 
         string imie;
         string nazwisko;
@@ -43,9 +47,9 @@ namespace AppX
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));         // After each change in entry field the text color is checked and updated
 
-                PropertyChanged?.Invoke(this, args);
+                 PropertyChanged?.Invoke(this, args);
             }
         }
         public Color LastNameTextColor
@@ -92,63 +96,6 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
             }
         }
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-        public Command DeleteCommand { get; }
-        public EditContactViewModel(ContactsDB contact1)
-        {
-            contact = contact1;
-            Imie = contact.FirstName;
-            Nazwisko = contact.LastName;
-            Telefon = contact.PhoneNumber;
-            Email = contact.Email;
-            Zwiazek = contact.Relationship;
-
-            SaveCommand = new Command(async () =>
-            {
-                if (correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
-                {
-                    contact.FirstName = Imie;
-                    contact.LastName = Nazwisko;
-                    contact.PhoneNumber = Telefon;
-                    contact.Email = Email;
-                    contact.Relationship = Zwiazek;
-
-                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                    {
-                        conn.CreateTable<ContactsDB>();
-                        conn.Update(contact);
-                    }
-
-                    await Application.Current.MainPage.Navigation.PopToRootAsync();
-                }
-                else
-                {
-                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                }
-            });
-
-            CancelCommand = new Command(async () =>
-            {
-                await Application.Current.MainPage.Navigation.PopAsync();
-
-            });
-
-            DeleteCommand = new Command(async () =>
-            {
-                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                {
-                    conn.CreateTable<ContactsDB>();
-                    conn.Delete(contact);
-                }
-
-                await Application.Current.MainPage.Navigation.PopToRootAsync();
-
-            });
-
-        }
-
         public string Imie
         {
             get => imie;
@@ -158,7 +105,7 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(Imie));
 
                 PropertyChanged?.Invoke(this, args);
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);        //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
 
             }
         }
@@ -224,5 +171,57 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
             }
         }
+
+        public EditContactViewModel(ContactsDB contact1)
+        {
+            contact = contact1;
+            Imie = contact.FirstName;
+            Nazwisko = contact.LastName;
+            Telefon = contact.PhoneNumber;
+            Email = contact.Email;
+            Zwiazek = contact.Relationship;
+
+            SaveCommand = new Command(async () =>
+            {
+                if (correctName && correctLastName && correctPhone && correctEmail && correctRelationship)
+                {
+                    contact.FirstName = Imie;
+                    contact.LastName = Nazwisko;
+                    contact.PhoneNumber = Telefon;
+                    contact.Email = Email;
+                    contact.Relationship = Zwiazek;
+
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<ContactsDB>();
+                        conn.Update(contact);                   //Updating and not adding to the database
+                    }
+
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                }
+                else
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }
+            });
+
+            CancelCommand = new Command(async () =>
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();
+
+            });
+
+            DeleteCommand = new Command(async () =>
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                {
+                    conn.CreateTable<ContactsDB>();
+                    conn.Delete(contact);               //Deleting contact from database
+                }
+
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+
+            });
+        }        
     }
 }

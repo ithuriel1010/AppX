@@ -28,7 +28,7 @@ namespace AppX
                 contactsList = new ObservableCollection<ContactsDB>(contacts);
             }
 
-            SelectedContactChangedCommand = new Command(async () =>
+            SelectedContactChangedCommand = new Command(async () =>     //When user clicks on one of the contacts on the list the page with contact details is created and displayed
             {
                 if (SelectedContact == null) return;
 
@@ -39,12 +39,12 @@ namespace AppX
                 contDetailPage.BindingContext = contDetailVM;
 
                 await Application.Current.MainPage.Navigation.PushAsync(contDetailPage);
-                SelectedContact = null;
+                SelectedContact = null;         //Selected contact has to be made null, otherwise user cannot choose the same contact twice in a row
 
             });
         }
 
-        public ContactsDB SelectedContact
+        public ContactsDB SelectedContact       //Selected contact is a contact from the list that is clicked on
         {
             get => selectedContact;
             set
