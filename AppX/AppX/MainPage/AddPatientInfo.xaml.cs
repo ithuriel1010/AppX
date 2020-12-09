@@ -32,19 +32,6 @@ namespace AppX
             this.app = app;
         }
 
-        public void Save()
-        {
-            //app.patientInfo = true;
-
-            //app.SetHomePage();
-
-            //await Application.Current.MainPage.Navigation.PopAsync();
-        }
-
-        public async void ClickAction(object sender, EventArgs e)
-        {
-            
-        }
         public async Task<string> UploadPhoto()
         {
             try
@@ -67,16 +54,11 @@ namespace AppX
                 if (file != null)
                 {
                     photo = file.Path;
-                    //ikona.Source = photo;
                 }
                 else
                 {
                     photo = "smile";
                 }
-
-                //var bitmap = new Image { Source = photo };
-
-                //DisplayIcon.Source = bitmap.Source;
 
             }
             catch(Exception ex) 

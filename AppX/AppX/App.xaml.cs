@@ -51,7 +51,7 @@ namespace AppX
             var Color1 = Application.Current.Resources["Primary"];
             Color PrimaryColor = (Color)Color1;
 
-            if (!patientInfo)
+            if (!patientInfo)       //If there is no patient info saved display the Add Patient Info page
                 MainPage = new NavigationPage(addPatPage)
                 {
                     BarBackgroundColor = PrimaryColor,
@@ -59,12 +59,9 @@ namespace AppX
                 };
             else
                 SetHomePage();
-
-           
-            //MainPage = new NavigationPage(new MainPage());
         }
 
-        public void SetHomePage()
+        public void SetHomePage()       //Sets the user profile as the main page
         {
             var Color1 = Application.Current.Resources["Primary"];
             Color PrimaryColor = (Color)Color1;
@@ -76,7 +73,7 @@ namespace AppX
             };
         }
 
-        public static async void SetPage()
+        public static async void SetPage()      //Displays "Are You Ok?" page
         {
             await Application.Current.MainPage.Navigation.PushAsync(new AreYouOk());
         }

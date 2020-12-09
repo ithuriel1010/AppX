@@ -19,9 +19,6 @@ namespace AppX
         public string email;
         public SendTextAndEmail()
         {
-            //this.message = message;
-            //this.number = number;
-            //Send(message, number);
         }
 
         public bool Send(String message, String number)
@@ -34,7 +31,7 @@ namespace AppX
             }
             catch (Exception ex)
             {
-                SendNotification("Brak dostępu do wiadomości!", "Zezwól na wysyłanie wiadomości aby aplikacja działała lepiej", "LocalizationAlert");
+                SendNotification("Brak dostępu do wiadomości!", "Zezwól na wysyłanie wiadomości aby aplikacja działała lepiej", "LocalizationAlert");       //If app can't send text it displays an error notification
                 sent = false;
             }
             return sent;
@@ -43,26 +40,17 @@ namespace AppX
         {
             DependencyService.Get<INotification>().CreateNotification(title, message, action);
         }
-        public void Email(String message, String email)
+        public void Email(String message, String email)     //Is not used in the end but it did work
         {
-            //define mail
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            mail.From = new MailAddress("olineczkaw@gmail.com");
+            mail.From = new MailAddress("test@gmail.com");
             mail.To.Add(email);
             mail.Subject = "your mail subject";
             mail.Body = message;
 
-            //if you want to send an attachment just define filename
-
-            //System.Net.Mail.Attachment attachment;
-            //attachment = new System.Net.Mail.Attachment(filename);
-            //mail.Attachments.Add(attachment);
-
-            //end email attachment part
-
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("olineczkaw@gmail.com", "Ale10Xandretta");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("test@gmail.com", "xxxxx");
             SmtpServer.EnableSsl = true;
             ServicePointManager.ServerCertificateValidationCallback = delegate (object sender, X509Certificate certificate, X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors) {
                 return true;

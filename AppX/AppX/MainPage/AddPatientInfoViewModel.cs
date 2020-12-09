@@ -25,6 +25,11 @@ namespace AppX
         string hobby;
         App app;
 
+        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        public Command PhotoCommand { get; }
+
         private string errorMessage { get; set; }
         private bool correctName { get; set; }
         private bool correctLastName { get; set; }
@@ -42,7 +47,7 @@ namespace AppX
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));     //After each change in entry field the text color is checked and updated
 
                 PropertyChanged?.Invoke(this, args);
             }
@@ -81,53 +86,6 @@ namespace AppX
             }
         }
 
-        public string MaxDate = DateTime.Now.ToString("MM/dd/yyyy");
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-        public Command PhotoCommand { get; }
-
-        public AddPatientInfoViewModel(App app)
-        {
-            this.app = app;
-            SaveCommand = new Command(async () =>
-            {
-                if (correctName && correctLastName && correctPhone && correctHobby)
-                {
-                    patient.HaveData = true;
-                    patient.FirstName = FirstName;
-                    patient.LastName = LastName;
-                    patient.PhoneNumber = PhoneNumber;
-                    patient.BirthDate = BirthDate;
-                    patient.Hobby = Hobby;
-                    patient.Photo = photo;
-                    patient.LocalizationMinutes = 30;
-                    patient.FallSeconds = 60;
-
-                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
-                    {
-                        conn.CreateTable<PatientDB>();
-                        conn.Insert(patient);
-                    }
-
-                    app.SetHomePage();
-                }
-                else 
-                {
-                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
-                }     
-            });
-
-            PhotoCommand = new Command(async () =>
-            {
-                photo = await ap.UploadPhoto();
-                if(photo==null)
-                {
-                    photo = "smile";
-                }
-            });
-
-        }
-
         public string FirstName
         {
             get => firstName;
@@ -137,7 +95,7 @@ namespace AppX
                 var args = new PropertyChangedEventArgs(nameof(FirstName));
 
                 PropertyChanged?.Invoke(this, args);
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);        //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
 
             }
         }
@@ -202,5 +160,49 @@ namespace AppX
                 PropertyChanged?.Invoke(this, args);
             }
         }
+
+        public AddPatientInfoViewModel(App app)
+        {
+            this.app = app;
+            SaveCommand = new Command(async () =>
+            {
+                if (correctName && correctLastName && correctPhone && correctHobby)
+                {
+                    patient.HaveData = true;
+                    patient.FirstName = FirstName;
+                    patient.LastName = LastName;
+                    patient.PhoneNumber = PhoneNumber;
+                    patient.BirthDate = BirthDate;
+                    patient.Hobby = Hobby;
+                    patient.Photo = photo;
+                    patient.LocalizationMinutes = 30;
+                    patient.FallSeconds = 60;
+
+                    using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
+                    {
+                        conn.CreateTable<PatientDB>();
+                        conn.Insert(patient);
+                    }
+
+                    app.SetHomePage();
+                }
+                else 
+                {
+                    ErrorMessage = "Co najmniej jedno z pól jest nieprawidłowo wypełnione";
+                }     
+            });
+
+            PhotoCommand = new Command(async () =>
+            {
+                photo = await ap.UploadPhoto();
+                if(photo==null)
+                {
+                    photo = "smile";
+                }
+            });
+
+        }
+
+        
     }
 }

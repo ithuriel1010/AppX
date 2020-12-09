@@ -19,8 +19,6 @@ using Xamarin.Forms;
 
 namespace AppX
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
@@ -35,7 +33,7 @@ namespace AppX
         int minutesWithoutLocalization = 0;
 
         public static bool noAnwserAfterFall = false;
-        private int ignoreFallNotSeconds = 0;
+        private int ignoreFallNotificationSeconds = 0;
         public static bool refreshPage { get; set; }
 
         List<LocalizationsDB> localizationsList;
@@ -53,35 +51,16 @@ namespace AppX
 
             System.Timers.Timer timer = new System.Timers.Timer(TimeSpan.FromMinutes(1).TotalMilliseconds);
             timer.AutoReset = true;
-            timer.Elapsed += new System.Timers.ElapsedEventHandler( CheckLocation);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler( CheckLocation);         //Location is checked every minute
             timer.Start();
 
-            if (Accelerometer.IsMonitoring)
+            if (Accelerometer.IsMonitoring)     
                 return;
 
-            Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
-            Accelerometer.Start(SensorSpeed.UI);
-            
-
-            /*if (Gyroscope.IsMonitoring)
-                return;
-
-            Gyroscope.ReadingChanged += Gyroscope_ReadingChanged;
-            Gyroscope.Start(SensorSpeed.UI);*/
-
-            //GetLocationAsync();
-            //AccelerometerTest at = new AccelerometerTest(Acc);
-            //at.ToggleAccelerometer();
-            //var lok = new Label { Text = Lokalizacja, TextDecorations = TextDecorations.Underline};
-
+            Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;       //Reacts to any accelerometer changes
+            Accelerometer.Start(SensorSpeed.UI);          
         }
 
-        public static async void ShouldRefreshPage(bool refresh)
-        {
-
-            refreshPage = refresh;
-
-        }
         private void SendNotification(string title, string message, string action)
         {
             DependencyService.Get<INotification>().CreateNotification(title, message, action);
@@ -103,30 +82,27 @@ namespace AppX
 
             if (roundedMagnitude > 0.3d && roundedMagnitude < 0.4d)
             {
-                Accelerometer.Stop();
+                Accelerometer.Stop();       //Accelerometer is stopped after fall detection so that the fall is only detected once. Without that one fall would be counted as multiple falls
                 DisplayFallDetection();
-                noAnwserAfterFall = true;
+                noAnwserAfterFall = true;   //Is true untill user clicks in the notification about the fall
                 StartTimer();
             }
         }
-        public async void StartTimer()
+        public async void StartTimer()      //Counts how many seconds user ignores the notification about fall
         {
-            ignoreFallNotSeconds = 0;
+            ignoreFallNotificationSeconds = 0;
 
-            // tick every second while user ignores the notofication
             while (noAnwserAfterFall)
             {
                 await Task.Delay(1000);
-                ignoreFallNotSeconds++;
+                ignoreFallNotificationSeconds++;
 
                 if (Accelerometer.IsMonitoring == false)
                 {
                     Accelerometer.Start(speed);
-
                 }
 
-
-                if (ignoreFallNotSeconds>=patient.FallSeconds && noAnwserAfterFall)
+                if (ignoreFallNotificationSeconds>=patient.FallSeconds && noAnwserAfterFall)    //When user doesn't click on the notification for the time in settings
                 {
                     ObservableCollection<ContactsDB> contactsList;
                     using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -140,42 +116,27 @@ namespace AppX
                     foreach(var contact in contactsList)
                     {
                         SendTextAndEmail s = new SendTextAndEmail();
-                        s.Send("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber);
+                        s.Send("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber); 
                     }
 
-                    ignoreFallNotSeconds = 0;
+                    ignoreFallNotificationSeconds = 0;
                 }
 
             }
         }
 
-        /*void Gyroscope_ReadingChanged(object sender, GyroscopeChangedEventArgs e)
-        {
-            var data = e.Reading;
-            XG.Text = "X:" + data.AngularVelocity.X.ToString();
-            YG.Text = "Y:" + data.AngularVelocity.Y.ToString();
-            ZG.Text = "Z:" + data.AngularVelocity.Z.ToString();
-        }*/
-
         public async void ClickedFallNotification()
         {
             noAnwserAfterFall = false;
-
-            //Accelerometer.Start(SensorSpeed.UI);
         }
-
         public void DisplayFallDetection()
         {
             SendNotification("Uwaga! Wykryto Upadek!", "Wszystko w porządku?", "FallAlert");
-
-            //Accelerometer.Start(SensorSpeed.UI);
-
         }
-
-        public void CheckLocation(object sender, ElapsedEventArgs e)
+        public void CheckLocation(object sender, ElapsedEventArgs e)        //Method that is called every minute
         {
             try
-            {
+            {                                                   //Try-catch is necessary if user doesn't allow to check localization
                 GetLocationAsync();
                 CheckDistanceAndSendAlert();
             }
@@ -189,23 +150,23 @@ namespace AppX
                 }
             }
         }
+        public static async void ShouldRefreshPage(bool refresh)
+        {
 
+            refreshPage = refresh;
+
+        }
         protected async override void OnAppearing()
         {
-            base.OnAppearing();
-
-            
+            base.OnAppearing();            
 
             if (refreshPage)
             {
                 var vUpdatedPage = new MainPage();
-                // await Application.Current.MainPage.Navigation.PushAsync(addContPage);
                 Application.Current.MainPage.Navigation.InsertPageBefore(vUpdatedPage, this);
                 await Application.Current.MainPage.Navigation.PopAsync();
                 ShouldRefreshPage(false);
             }
-
-            //NotesList.SelectedItem = null;
         }
 
         public async void AddButtonClicked(object sender, EventArgs e)
@@ -269,14 +230,6 @@ namespace AppX
             }
         }
 
-        public async void AddNote(object sender, EventArgs e)
-        {
-            var addNoteVM = new AddNoteViewModel();
-            var addNotePage = new AddNote();
-
-            addNotePage.BindingContext = addNoteVM;
-            await Application.Current.MainPage.Navigation.PushAsync(addNotePage);
-        }
         public async void SettingsButtonClicked(object sender, EventArgs e)
         {
             var settingsVM = new SettingsPageViewModel();
@@ -306,17 +259,7 @@ namespace AppX
             }            
             catch (Exception ex)
             {
-                //App.Current.MainPage.DisplayAlert("Brak zezwoleń!", "Zezwól aplikacji na dostęp do lokalizacji", "Ok");
             }
-
-            //catch (FeatureNotSupportedException fnsEx)
-            //{
-            //    Lokalizacja = "Handle not supported on device exception";
-            //}
-            //catch (FeatureNotEnabledException fneEx)
-            //{
-            //    Lokalizacja = "Handle not enabled on device exception";
-            //}
         }
 
         public async void CheckDistanceAndSendAlert()
@@ -342,7 +285,7 @@ namespace AppX
                 {
                     minutesClose++;
 
-                    if (minutesClose >= 5)
+                    if (minutesClose >= 5)      //If user is in a known location for 5 minutes send a notification
                     {
                         SendNotification(oneLocalization.Name, oneLocalization.Message, "LocalizationAlert");
                         minutesClose = 0;
@@ -354,11 +297,11 @@ namespace AppX
                 {
                     farLocations++;
 
-                    if(farLocations==locationCount)
+                    if(farLocations==locationCount)     //If user is far away from ALL saved locations
                     {
                         farAwayMinutes++;
 
-                        if(farAwayMinutes>=patient.LocalizationMinutes)
+                        if(farAwayMinutes>=patient.LocalizationMinutes)     //If user is far away from all known locations for a time set in settings sendnotification and text to contacts
                         {
                             bool sent;
                             SendNotification("Uwaga", "Jesteś daleko od znanych lokalizacji. Wiadomość została wysłana do twojego opiekuna", "LocalizationAlert");
@@ -371,7 +314,6 @@ namespace AppX
 
                                 contactsList = new ObservableCollection<ContactsDB>(contacts);
 
-                                //SendNotification("Debug", $"contacts count {contactsList}", "LocalizationAlert");
                             }
 
                             foreach (var contact in contactsList)
@@ -395,45 +337,4 @@ namespace AppX
             }
         }
     }
-
-    //public class AccelerometerTest
-    //{
-    //    // Set speed delay for monitoring changes.
-    //    SensorSpeed speed = SensorSpeed.UI;
-    //    public string Acc { get; set; }
-
-    //    public AccelerometerTest(string Acc)
-    //    {
-    //        // Register for reading changes, be sure to unsubscribe when finished
-    //        Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
-    //        this.Acc = Acc;
-    //    }
-
-    //    void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
-    //    {
-    //        var data = e.Reading;
-    //        Acc = $"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}";
-    //        // Process Acceleration X, Y, and Z
-    //    }
-
-    //    public void ToggleAccelerometer()
-    //    {
-    //        try
-    //        {
-    //            if (Accelerometer.IsMonitoring)
-    //                Accelerometer.Stop();
-    //            else
-    //                Accelerometer.Start(speed);
-    //        }
-    //        catch (FeatureNotSupportedException fnsEx)
-    //        {
-    //            // Feature not supported on device
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            // Other error has occurred.
-    //        }
-    //    }
-    //}
-
 }

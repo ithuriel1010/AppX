@@ -31,17 +31,9 @@ namespace AppX.Droid
         {
             if (intent.Action == "TestMessage") //&& intent.HasExtra("MessageFromSushiHangover"))
             {
-                /// Do something now that you know the user clicked on the notification...
-
-                //var notificationMessage = intent.Extras.GetString("message");
-                //var winnerToast = Toast.MakeText(this, $"{notificationMessage}.\n\n🍣 Please send 2 BitCoins to SushiHangover to process your winning ticket! 🍣", ToastLength.Long);
-                //winnerToast.SetGravity(Android.Views.GravityFlags.Center, 0, 0);
-                //winnerToast.Show();
             }
-            else if (intent.Action == "FallAlert") //&& intent.HasExtra("MessageFromSushiHangover"))
+            else if (intent.Action == "FallAlert") //If it was the fall detection notification
             {
-                //MainPage mp = new MainPage();
-                //mp.ClickedNotification();
                 App.SetPage();
             }
         }
@@ -79,32 +71,10 @@ namespace AppX.Droid
                 permissionsToRequest.Add(Manifest.Permission.AccessFineLocation);
             }
 
-            if (permissionsToRequest.Any())
+            if (permissionsToRequest.Any())         //Ask for nrcessary permisions all at once
                 ActivityCompat.RequestPermissions(this, permissionsToRequest.ToArray(), 1);
         }
-            //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.AccessFineLocation }, 1);
-            //ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.SendSms }, 1);
-
-
-            //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.SetOrientation) != Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.SetOrientation }, 1);
-            //}
-            //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadExternalStorage }, 1);
-            //}
-            //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
-            //}
-            //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != Permission.Granted)
-            //{
-            //    ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.Camera }, 1);
-            //}
-
-
-        //}
+            
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

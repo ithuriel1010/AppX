@@ -23,15 +23,14 @@ namespace AppX
         protected override void OnAppearing()
         {
             MainPage.noAnwserAfterFall = false;
-            //mp.ClickedNotification();
         }
 
         public async void EverythingOk(object sender, EventArgs args)
         {
-            await Application.Current.MainPage.Navigation.PopAsync();
+            await Application.Current.MainPage.Navigation.PopAsync();   //If everything is ok then goes back to main page
         }
 
-        public async void NotFine(object sender, EventArgs args)
+        public async void NotFine(object sender, EventArgs args)        //If user clicks NO then the text is sent to emergency contacts
         {
             ObservableCollection<ContactsDB> contactsList;
             using (SQLiteConnection conn = new SQLiteConnection(App.FilePath))
@@ -46,7 +45,7 @@ namespace AppX
             foreach (var contact in contactsList)
             {
                 try
-                {
+                {                                                                                                                //Try-catch in case the user won't allow acces to Text messages
                     SendTextAndEmail s = new SendTextAndEmail();
                     smsSent = s.Send("Upadek! Sprawdź czy wszystko w porządku z twoim podopiecznym!", contact.PhoneNumber);
                 }
@@ -65,8 +64,6 @@ namespace AppX
             }
 
             await Application.Current.MainPage.Navigation.PopAsync();
-
-            //SendTextAndEmail s = new SendTextAndEmail("Upadek", "+48604051870", "ithuriel1010@gmail.com");
         }
     }
 }

@@ -30,7 +30,7 @@ namespace AppX.Utils
             Xamarin.Forms.Color color;
             bool correct;
 
-            if (rule.IsMatch(value))
+            if (rule.IsMatch(value))        //If validation is correct
             {
                 color = Xamarin.Forms.Color.Black;
                 correct = true;
