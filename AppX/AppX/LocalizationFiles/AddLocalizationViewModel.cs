@@ -17,9 +17,9 @@ namespace AppX.LocalizationFiles
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        LocalizationsDB localization = new LocalizationsDB();
+
         bool IsBusy;
-        //string address = "Microsoft Building 25 Redmond WA USA";
-        //string geocodePosition;
         string street;
         string houseNumber;
         string city;
@@ -27,7 +27,13 @@ namespace AppX.LocalizationFiles
         string fullAddress;
         string name;
         string message;
+        double lat;
+        double lon;
 
+        public ICommand GetPositionCommand { get; }
+        public ICommand CancelCommand { get; }
+        public Command SaveCommand { get; }
+        public Command DeleteCommand { get; }
         private string errorMessage { get; set; }
         private bool correctStreet { get; set; }
         private bool correctHouseNumber { get; set; }
@@ -49,7 +55,7 @@ namespace AppX.LocalizationFiles
             set
             {
                 nameTextColor = value;
-                var args = new PropertyChangedEventArgs(nameof(NameTextColor));
+                var args = new PropertyChangedEventArgs(nameof(NameTextColor));     //After each change in entry field the text color is checked and updated
 
                 PropertyChanged?.Invoke(this, args);
             }
@@ -110,15 +116,95 @@ namespace AppX.LocalizationFiles
             }
         }
 
-        double lat;
-        double lon;
-        public ICommand GetPositionCommand { get; }
-        public ICommand CancelCommand { get; }
-        public Command SaveCommand { get; }
-        public Command DeleteCommand { get; }
+        public string Street
+        {
+            get => street;
+            set
+            {
+                street = value;
+                var args = new PropertyChangedEventArgs(nameof(Street));
 
-        LocalizationsDB localization = new LocalizationsDB();
+                PropertyChanged?.Invoke(this, args);
+                (StreetTextColor, correctStreet) = RegexUtill.Check(RegexUtill.MinLength(3), value);    //After each change in data field the validation is checked so the text color can be changed (here validation is at least 3 characters)
 
+            }
+        }
+
+        public string HouseNumber
+        {
+            get => houseNumber;
+            set
+            {
+                houseNumber = value;
+                var args = new PropertyChangedEventArgs(nameof(HouseNumber));
+
+                PropertyChanged?.Invoke(this, args);
+                (HouseNumberTextColor, correctHouseNumber) = RegexUtill.Check(RegexUtill.MinLengthNumbers(1), value);
+
+            }
+        }
+        public string City
+        {
+            get => city;
+            set
+            {
+                city = value;
+                var args = new PropertyChangedEventArgs(nameof(City));
+
+                PropertyChanged?.Invoke(this, args);
+                (CityTextColor, correctCity) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
+            }
+        }
+        public string County
+        {
+            get => county;
+            set
+            {
+                county = value;
+                var args = new PropertyChangedEventArgs(nameof(County));
+
+                PropertyChanged?.Invoke(this, args);
+                (CountyTextColor, correctCounty) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
+            }
+        }
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                var args = new PropertyChangedEventArgs(nameof(Name));
+
+                PropertyChanged?.Invoke(this, args);
+                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+            }
+        }
+        public string Message
+        {
+            get => message;
+            set
+            {
+                message = value;
+                var args = new PropertyChangedEventArgs(nameof(Message));
+
+                PropertyChanged?.Invoke(this, args);
+                (MessageTextColor, correctMessage) = RegexUtill.Check(RegexUtill.MinLength(3), value);
+
+            }
+        }
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                var args = new PropertyChangedEventArgs(nameof(ErrorMessage));
+
+                PropertyChanged?.Invoke(this, args);
+            }
+        }
 
         public AddLocalizationViewModel()
         {
@@ -126,7 +212,7 @@ namespace AppX.LocalizationFiles
             {
                 if(correctName && correctMessage && correctStreet && correctHouseNumber && correctCity && correctCounty)
                 {
-                    fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";
+                    fullAddress = Street + " " + HouseNumber + " " + City + " " + County + " Polska";   //Combining address to one string
                     await OnGetPosition(fullAddress);
 
                     localization.Address = fullAddress;
@@ -166,114 +252,6 @@ namespace AppX.LocalizationFiles
 
             });
         }
-
-        /*public string Address
-        {
-            get => address;
-            set
-            {
-                address = value;
-                var args = new PropertyChangedEventArgs(nameof(Address));
-
-                PropertyChanged?.Invoke(this, args);
-            }
-        }*/
-
-        public string Street
-        {
-            get => street;
-            set
-            {
-                street = value;
-                var args = new PropertyChangedEventArgs(nameof(Street));
-
-                PropertyChanged?.Invoke(this, args);
-                (StreetTextColor, correctStreet) = RegexUtill.Check(RegexUtill.MinLength(3), value);
-
-            }
-        }
-
-        public string HouseNumber
-        {
-            get => houseNumber;
-            set
-            {
-                houseNumber = value;
-                var args = new PropertyChangedEventArgs(nameof(HouseNumber));
-
-                PropertyChanged?.Invoke(this, args);
-                (HouseNumberTextColor, correctHouseNumber) = RegexUtill.Check(RegexUtill.MinLengthNumbers(1), value);
-
-            }
-        }
-
-        public string City
-        {
-            get => city;
-            set
-            {
-                city = value;
-                var args = new PropertyChangedEventArgs(nameof(City));
-
-                PropertyChanged?.Invoke(this, args);
-                (CityTextColor, correctCity) = RegexUtill.Check(RegexUtill.MinLength(3), value);
-
-            }
-        }
-
-        public string County
-        {
-            get => county;
-            set
-            {
-                county = value;
-                var args = new PropertyChangedEventArgs(nameof(County));
-
-                PropertyChanged?.Invoke(this, args);
-                (CountyTextColor, correctCounty) = RegexUtill.Check(RegexUtill.MinLength(3), value);
-
-            }
-        }
-
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                var args = new PropertyChangedEventArgs(nameof(Name));
-
-                PropertyChanged?.Invoke(this, args);
-                (NameTextColor, correctName) = RegexUtill.Check(RegexUtill.MinLength(3), value);
-            }
-        }
-
-        public string Message
-        {
-            get => message;
-            set
-            {
-                message = value;
-                var args = new PropertyChangedEventArgs(nameof(Message));
-
-                PropertyChanged?.Invoke(this, args);
-                (MessageTextColor, correctMessage) = RegexUtill.Check(RegexUtill.MinLength(3), value);
-
-            }
-        }
-
-        /*public string GeocodePosition
-        {
-            get => geocodePosition;
-            set
-            {
-                geocodePosition = value;
-                var args = new PropertyChangedEventArgs(nameof(GeocodePosition));
-
-                PropertyChanged?.Invoke(this, args);
-            }
-        }*/
-
         async Task OnGetPosition(string fullAddress)
         {
             if (IsBusy)
@@ -283,42 +261,22 @@ namespace AppX.LocalizationFiles
             try
             {
 
-                var locations = await Geocoding.GetLocationsAsync(fullAddress);
-                Location location = locations.FirstOrDefault();
-                if (location == null)
-                {
-                    //GeocodePosition = "Unable to detect locations";
-                }
-                else
+                var locations = await Geocoding.GetLocationsAsync(fullAddress);     //Getting the coordinates
+                Location location = locations.FirstOrDefault();     
+
+                if (location != null)
                 {
                     lat = location.Latitude;
                     lon = location.Longitude;
-
-                    /*GeocodePosition =
-                        $"{nameof(location.Latitude)}: {location.Latitude}\n" +
-                        $"{nameof(location.Longitude)}: {location.Longitude}\n";*/
                 }
             }
             catch (Exception ex)
             {
-                //GeocodePosition = $"Unable to detect locations: {ex.Message}";
             }
             finally
             {
                 IsBusy = false;
             }
-        }
-
-        public string ErrorMessage
-        {
-            get => errorMessage;
-            set
-            {
-                errorMessage = value;
-                var args = new PropertyChangedEventArgs(nameof(ErrorMessage));
-
-                PropertyChanged?.Invoke(this, args);
-            }
-        }
+        }        
     }
 }

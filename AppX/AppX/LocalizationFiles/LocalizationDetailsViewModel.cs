@@ -16,15 +16,15 @@ namespace AppX.LocalizationFiles
         public string message { get; set; }
 
         public Command EditCommand { get; }
-        private LocalizationDetails l = new LocalizationDetails();
+        private LocalizationDetails localizationDetailsPage = new LocalizationDetails();
 
-        public LocalizationDetailsViewModel(LocalizationsDB localization)
+        public LocalizationDetailsViewModel(LocalizationsDB localization)       //Localization in the argument is a localization sent fom method that creates a new page after clicking on a localization on the list of all localizations
         {
             this.localization = localization;
 
             EditCommand = new Command(async () =>
             {
-                l.Edit(localization);
+                localizationDetailsPage.Edit(localization);
 
             });
 

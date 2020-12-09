@@ -28,6 +28,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 
+            <!--Localizations with name and message are displayed in a list view-->
             <CollectionView ItemsSource="{Binding localizationsList}"  EmptyView="No items to display"
                             Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
                             SelectionMode="Single"

@@ -25,16 +25,7 @@
                     </LinearGradientBrush>
                 </StackLayout.Background>
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-
-                <!--<Label
-                    Margin="0,6,0,0"
-                    FontAttributes="Bold"
-                    Text="Geocoding:" />               
-                <Label
-                    Margin="0,6,0,0"
-                    FontAttributes="Bold"
-                    Text="Reverse Geocoding:" />-->
-
+                
                 <Label Text="Edytuj lokalizację" Style="{StaticResource ScreenTitleLabel}"
                         VerticalOptions="CenterAndExpand" 
                         HorizontalOptions="CenterAndExpand" />
@@ -54,20 +45,11 @@
                 <Label Text="Wiadomość:"  Style="{StaticResource FieldTitleLabel}"/>
                 <Entry Text="{Binding Message}" TextColor="{Binding MessageTextColor}" Placeholder="Jesteś w domu" Keyboard="Text" Style="{StaticResource EntryField}"/>
 
-                <!--<Label Text="Address:" />
-                <Entry Text="{Binding Address}" />
-
-                <Button
-                    Command="{Binding GetPositionCommand}"
-                    IsEnabled="{Binding IsNotBusy}"
-                    Text="Detect Location" />-->
-
                 <Button Command="{Binding SaveCommand}" IsEnabled="{Binding IsNotBusy}" Text="Zapisz lokalizację" Style="{StaticResource SaveButton}"/>
                 <Button Command="{Binding CancelCommand}" Text="Cofnij" Style="{StaticResource CancelButton}"/>
 
                 <Label Text="{Binding ErrorMessage}" Grid.Row="12" Grid.ColumnSpan="2" Style="{StaticResource ErrorMessage}"/>
 
-                <!--<Label Text="{Binding GeocodePosition}" />-->
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

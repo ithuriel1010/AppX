@@ -26,7 +26,7 @@ namespace AppX.LocalizationFiles
                 localizationsList = new ObservableCollection<LocalizationsDB>(localizations);
             }
 
-            SelectedLocalizationChangedCommand = new Command(async () =>
+            SelectedLocalizationChangedCommand = new Command(async () =>        //When user clicks on one of the localization on the list the page with localization details is created and displayed
             {
                 if (SelectedLocalization == null) return;
 
@@ -37,13 +37,13 @@ namespace AppX.LocalizationFiles
                 localDetailPage.BindingContext = localDetailVM;
 
                 await Application.Current.MainPage.Navigation.PushAsync(localDetailPage);
-                SelectedLocalization = null;
+                SelectedLocalization = null;        //Selected localization has to be made null, otherwise user cannot choose the same localization twice in a row
 
             });
         }
 
 
-        public LocalizationsDB SelectedLocalization
+        public LocalizationsDB SelectedLocalization     //Selected localization is a localization from the list that is clicked on
         {
             get => selectedLocalization;
             set
